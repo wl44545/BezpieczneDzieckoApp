@@ -1,0 +1,60 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_margin="10dp"
+    android:padding="10dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/parent_login_header1"
+        android:textSize="30sp"
+        android:layout_marginTop="30sp"
+        android:textAlignment="center"
+        android:elegantTextHeight="true"
+        android:textColor="@color/design_default_color_primary"
+        android:gravity="center_horizontal"/>
+
+    <EditText
+        android:id="@+id/edt_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30sp"
+        android:textSize="30sp"
+        android:hint="@string/parent_login_hint_login"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/edt_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15sp"
+        android:textSize="30sp"
+        android:hint="@string/parent_login_hint_password"
+        android:inputType="textWebPassword" />
+
+    <Button
+        android:id="@+id/btn_login"
+        android:layout_width="300sp"
+        android:layout_height="60sp"
+        android:textSize="20sp"
+        android:layout_marginLeft="40sp"
+        android:layout_marginTop="25sp"
+        android:text="@string/parent_login_btn_login" />
+
+    <Button
+        android:id="@+id/btn_back"
+        android:layout_width="300sp"
+        android:layout_height="60sp"
+        android:textSize="20sp"
+        android:layout_marginLeft="40sp"
+        android:layout_marginTop="5sp"
+        android:text="@string/parent_login_btn_back" />
+
+
+
+
+</LinearLayout>
+
+

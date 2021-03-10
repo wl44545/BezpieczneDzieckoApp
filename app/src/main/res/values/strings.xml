@@ -1,3 +1,43 @@
 <resources>
-    <string name="app_name">BezpieczneDziecko</string>
+    <string name="app_name">BEZPIECZNE DZIECKO</string>
+
+    <string name="welcome_btn_parent">ZALOGUJ RODZICA</string>
+    <string name="welcome_btn_child">ZALOGUJ DZIECKO</string>
+    <string name="welcome_btn_register">UTWÓRZ KONTO</string>
+
+    <string name="parent_login_header1">LOGOWANIE RODZICA</string>
+    <string name="parent_login_hint_login">Nazwa użytkownika</string>
+    <string name="parent_login_hint_password">Hasło użytkownika</string>
+    <string name="parent_login_btn_login">ZALOGUJ</string>
+    <string name="parent_login_btn_back">COFNIJ</string>
+
+    <string name="child_login_header1">LOGOWANIE DZIECKA</string>
+    <string name="child_login_hint_login">Nazwa użytkownika</string>
+    <string name="child_login_hint_password">Hasło użytkownika</string>
+    <string name="child_login_btn_login">ZALOGUJ</string>
+    <string name="child_login_btn_back">COFNIJ</string>
+
+    <string name="parent_register_header1">REJESTRACJA RODZICA</string>
+    <string name="parent_register_hint_login">Nazwa użytkownika</string>
+    <string name="parent_register_hint_password">Hasło</string>
+    <string name="parent_register_hint_first_name">Imię</string>
+    <string name="parent_register_hint_last_name">Nazwisko</string>
+    <string name="parent_register_hint_email">EMail</string>
+    <string name="parent_register_hint_phone_number">Numer telefonu</string>
+    <string name="parent_register_hint_pesel">Numer PESEL</string>
+
+    <string name="parent_register_hint_gender_male">Mężczyzna</string>
+    <string name="parent_register_hint_gender_female">Kobieta</string>
+    <string name="parent_register_hint_gender_no">Nie podam</string>
+    <string name="parent_register_hint_gender">Płeć:</string>
+
+    <string name="parent_register_hint_adress">Adres zamieszkania</string>
+    <string name="parent_register_hint_postal_code">Kod pocztowy</string>
+    <string name="parent_register_hint_city">Miasto</string>
+    <string name="parent_register_hint_country">Kraj</string>
+
+    <string name="parent_register_btn_register">ZAREJESTRUJ</string>
+    <string name="parent_register_btn_back">COFNIJ</string>
+
+
 </resources>

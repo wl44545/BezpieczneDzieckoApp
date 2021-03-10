@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="parent_login_header1">LOGOWANIE RODZICA</string>
+    <string name="parent_logi_hint1">Nazwa użytkownika</string>
+</resources>
