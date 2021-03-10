@@ -41,7 +41,7 @@ public class parentSchedulesList extends AppCompatActivity implements OnNoteList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.parent_parents_list);
+        setContentView(R.layout.parent_schedules_list);
 
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -91,5 +91,9 @@ public class parentSchedulesList extends AppCompatActivity implements OnNoteList
         Intent intent = new Intent(this, welcome.class);
         intent.putExtra("index", position);
         startActivity(intent);
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 }

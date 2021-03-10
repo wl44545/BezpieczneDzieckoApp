@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.bezpiecznedziecko.R;
+import com.example.bezpiecznedziecko.parent.main.parentMain;
 import com.example.bezpiecznedziecko.parent.schedules.Schedules;
 import com.example.bezpiecznedziecko.welcome;
 
@@ -54,7 +55,9 @@ public class parentLogin extends AppCompatActivity {
             Toast.makeText(this, "Wprowadź hasło", Toast.LENGTH_SHORT).show();
             return;
         }
-        Toast.makeText(this, "TU: FUNKCJA LOGOWANIA", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "TU: FUNKCJA LOGOWANIA", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(parentLogin.this, parentMain.class);
+        startActivity(intent);
     }
     @Override
     protected void onDestroy() {

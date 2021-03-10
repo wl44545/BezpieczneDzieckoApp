@@ -39,5 +39,18 @@
     <string name="parent_register_btn_register">ZAREJESTRUJ</string>
     <string name="parent_register_btn_back">COFNIJ</string>
 
+    <string name="parent_main_btn_maps">MAPA</string>
+    <string name="parent_main_btn_children">DZIECI</string>
+    <string name="parent_main_btn_schedules">HARMONOGRAMY</string>
+    <string name="parent_main_btn_logout">WYLOGUJ</string>
+
+    <string name="child_main_btn_maps">MAPA</string>
+    <string name="child_main_btn_children">DZIECI</string>
+    <string name="child_main_btn_schedules">HARMONOGRAMY</string>
+    <string name="child_main_btn_logout">WYLOGUJ</string>
+
+    <string name="child_map_btn_back">COFNIJ</string>
+
+    <string name="parent_map_btn_back">COFNIJ</string>
 
 </resources>

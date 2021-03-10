@@ -89,4 +89,8 @@ public class parentChildrenList extends AppCompatActivity implements OnNoteListe
         intent.putExtra("index", position);
         startActivity(intent);
     }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
 }

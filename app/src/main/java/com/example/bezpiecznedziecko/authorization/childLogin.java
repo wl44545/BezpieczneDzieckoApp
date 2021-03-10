@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import com.example.bezpiecznedziecko.R;
+import com.example.bezpiecznedziecko.child.main.childMain;
+import com.example.bezpiecznedziecko.parent.main.parentMain;
 import com.example.bezpiecznedziecko.welcome;
 
 public class childLogin extends AppCompatActivity {
@@ -52,6 +54,8 @@ public class childLogin extends AppCompatActivity {
             return;
         }
         Toast.makeText(this, "TU: FUNKCJA LOGOWANIA", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(childLogin.this, childMain.class);
+        startActivity(intent);
     }
     @Override
     protected void onDestroy() {

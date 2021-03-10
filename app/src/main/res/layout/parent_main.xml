@@ -1,0 +1,61 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_margin="10dp"
+    android:padding="10dp">
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left|center"
+            android:text="Jan Kowalski"
+            android:layout_marginTop="30dp"
+            android:textSize="25sp"
+            android:elegantTextHeight="true"
+            android:textColor="@color/design_default_color_primary"
+            android:textStyle="italic"/>
+    <TextView
+        android:id="@+id/txt_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="50dp"
+        android:elegantTextHeight="true"
+        android:gravity="left|center"
+        android:text="jkowal2020"
+        android:textColor="@color/design_default_color_primary"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+    <Button
+        android:id="@+id/btn_maps"
+        android:layout_width="300sp"
+        android:layout_height="60sp"
+        android:layout_gravity="center"
+        android:textSize="20sp"
+        android:text="@string/parent_main_btn_maps" />
+    <Button
+        android:id="@+id/btn_children"
+        android:layout_width="300sp"
+        android:layout_height="60sp"
+        android:textSize="20sp"
+        android:layout_gravity="center"
+        android:text="@string/parent_main_btn_children" />
+    <Button
+        android:id="@+id/btn_schedules"
+        android:layout_width="300sp"
+        android:layout_height="60sp"
+        android:textSize="20sp"
+        android:layout_gravity="center"
+        android:text="@string/parent_main_btn_schedules" />
+    <Button
+        android:id="@+id/btn_logout"
+        android:layout_width="300sp"
+        android:layout_height="60sp"
+        android:textSize="20sp"
+        android:layout_gravity="center"
+        android:text="@string/parent_main_btn_logout" />
+
+</LinearLayout>
+
+

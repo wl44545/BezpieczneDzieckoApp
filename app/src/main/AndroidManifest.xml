@@ -13,11 +13,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BezpieczneDziecko"
         android:usesCleartextTraffic="true">
-
+        <activity android:name=".parent.maps.parentMap"></activity>
+        <activity android:name=".child.maps.childMap" />
+        <activity android:name=".child.main.childMain" />
+        <activity android:name=".parent.main.parentMain" />
         <activity android:name=".authorization.parentLogin" />
         <activity android:name=".authorization.childLogin" />
         <activity android:name=".authorization.parentRegister" />
-
+        <activity android:name=".parent.children.parentChildrenList" />
+        <activity android:name=".parent.schedules.parentSchedulesList" />
         <activity android:name=".welcome">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,7 +29,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
     </application>
+
 </manifest>
