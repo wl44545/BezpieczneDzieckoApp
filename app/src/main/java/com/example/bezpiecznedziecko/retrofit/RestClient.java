@@ -4,7 +4,10 @@ import com.example.bezpiecznedziecko.parent.children.Children;
 import com.example.bezpiecznedziecko.parent.parents.Parents;
 import com.example.bezpiecznedziecko.parent.schedules.Schedules;
 import io.reactivex.Observable;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 
 public interface RestClient {
     String BASE_URL = "http://10.0.2.2:8080/";
@@ -18,4 +21,8 @@ public interface RestClient {
     @GET("schedules")
     Observable<Schedules> getSchedules();
 
+    @FormUrlEncoded
+    @POST("parents/login")
+    void loginParent(@Field("login") String login,
+                              @Field("password") String password);
 }
