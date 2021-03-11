@@ -126,10 +126,15 @@ public class parentLogin extends AppCompatActivity {
             return;
         }
 
+        String salt = "salt";
+        String token = "3rcc4zyKsMBESXQGtKbVrv1Za8l3CwB5ndIRdG25S3aarrhkCSGtO8SoGERIATen";
+
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-        URL url = new URL("http://10.0.2.2:8080/parents?token=3rcc4zyKsMBESXQGtKbVrv1Za8l3CwB5ndIRdG25S3aarrhkCSGtO8SoGERIATen&login=nn");
+        String x = "http://10.0.2.2:8080/parents?token="+token+"&login="+login;
+
+        URL url = new URL(x);
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
         con.setRequestMethod("GET");
 
@@ -142,70 +147,22 @@ public class parentLogin extends AppCompatActivity {
         }
         in.close();
         con.disconnect();
-        System.out.println("Response status: " + status);
-        System.out.println(content.toString());
 
-        String a = content.toString().replace('[',' ').replace(']', ' ');
-        System.out.println(a);
+        String res_password = (String) new JSONObject(content.toString().replace('[',' ').replace(']', ' ')).get("password");
+        String res_first_name = (String) new JSONObject(content.toString().replace('[',' ').replace(']', ' ')).get("first_name");
+        String res_last_name = (String) new JSONObject(content.toString().replace('[',' ').replace(']', ' ')).get("last_name");
 
-        JSONObject b = new JSONObject(a);
-        System.out.println(b);
-
-        System.out.println(b.get("login"));
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-        String salt = "salt";
-        String token = "3rcc4zyKsMBESXQGtKbVrv1Za8l3CwB5ndIRdG25S3aarrhkCSGtO8SoGERIATen";
-
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
-
-        URL url = new URL("http://10.0.2.2:8080/parent");
-        HttpURLConnection con = (HttpURLConnection) url.openConnection();
-        con.setRequestMethod("GET");
-        con.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-
-        con.setDoOutput(true);
-        DataOutputStream out = new DataOutputStream(con.getOutputStream());
-        out.writeBytes("token="+token+"&login="+login);
-        out.flush();
-        out.close();
-
-        int status = con.getResponseCode();
-        BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-        String inputLine;
-        StringBuffer content = new StringBuffer();
-        while((inputLine = in.readLine()) != null) {
-            content.append(inputLine);
+        if(password.equals(res_password)){
+            Toast.makeText(this, "Zalogowano", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(parentLogin.this, parentMain.class);
+            intent.putExtra("login", login);
+            intent.putExtra("first_name", res_first_name);
+            intent.putExtra("last_name", res_last_name);
+            startActivity(intent);
+        }else{
+            Toast.makeText(this, "Złe hasło", Toast.LENGTH_SHORT).show();
         }
-        in.close();
-        con.disconnect();
-
-        JSONObject jsonObj = new JSONObject(content.toString());
-        System.out.println("Response status: " + status);
-        System.out.println(jsonObj);
-        System.out.println(jsonObj.get("data"));
-*/
-
-
-        //Toast.makeText(this, "TU: FUNKCJA LOGOWANIA", Toast.LENGTH_SHORT).show();
-        //Intent intent = new Intent(parentLogin.this, parentMain.class);
-        //startActivity(intent);
     }
-
-
 
     @Override
     protected void onDestroy() {

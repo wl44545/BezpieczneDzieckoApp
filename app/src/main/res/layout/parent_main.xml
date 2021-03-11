@@ -6,15 +6,16 @@
     android:padding="10dp">
 
     <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="left|center"
-            android:text="Jan Kowalski"
-            android:layout_marginTop="30dp"
-            android:textSize="25sp"
-            android:elegantTextHeight="true"
-            android:textColor="@color/design_default_color_primary"
-            android:textStyle="italic"/>
+        android:id="@+id/txt_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="left|center"
+        android:text="Jan Kowalski"
+        android:layout_marginTop="30dp"
+        android:textSize="25sp"
+        android:elegantTextHeight="true"
+        android:textColor="@color/design_default_color_primary"
+        android:textStyle="italic"/>
     <TextView
         android:id="@+id/txt_login"
         android:layout_width="match_parent"
