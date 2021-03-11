@@ -3,6 +3,7 @@ package com.example.bezpiecznedziecko.authorization;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -12,16 +13,53 @@ import com.example.bezpiecznedziecko.R;
 import com.example.bezpiecznedziecko.child.main.childMain;
 import com.example.bezpiecznedziecko.parent.main.parentMain;
 import com.example.bezpiecznedziecko.welcome;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
+import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
+
+import static com.example.bezpiecznedziecko.retrofit.RestClient.BASE_URL;
 
 public class childLogin extends AppCompatActivity {
 
     EditText edt_login, edt_password;
     Button btn_login, btn_back;
+    Retrofit retrofit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.child_login);
+
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
+
+        Gson gson = new GsonBuilder()
+                .setLenient()
+                .create();
+
+        retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .client(client)
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .build();
+
 
         edt_login = (EditText)findViewById(R.id.edt_login);
         edt_password = (EditText)findViewById(R.id.edt_password);
@@ -30,8 +68,12 @@ public class childLogin extends AppCompatActivity {
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                loginChild(edt_login.getText().toString(),
-                        edt_password.getText().toString());
+                try {
+                    loginChild(edt_login.getText().toString(),
+                            edt_password.getText().toString());
+                } catch (IOException | JSONException e) {
+                    e.printStackTrace();
+                }
             }
         });
         btn_back = (Button)findViewById(R.id.btn_back);
@@ -44,7 +86,8 @@ public class childLogin extends AppCompatActivity {
             }
         });
     }
-    private void loginChild(String login, String password){
+
+    private void loginChild(String login, String password) throws IOException, JSONException {
         if(TextUtils.isEmpty(login)){
             Toast.makeText(this, "Wprowadź login", Toast.LENGTH_SHORT).show();
             return;
@@ -53,10 +96,44 @@ public class childLogin extends AppCompatActivity {
             Toast.makeText(this, "Wprowadź hasło", Toast.LENGTH_SHORT).show();
             return;
         }
-        Toast.makeText(this, "TU: FUNKCJA LOGOWANIA", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(childLogin.this, childMain.class);
-        startActivity(intent);
+        String salt = "salt";
+        String token = "GgV6r7hErAKK8ln7muz71FtM2sdI4yGaf2H6zpbrplBY6pvTjvqKAkW3cAbGyhhe";
+
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
+        String x = "http://10.0.2.2:8080/children?token="+token+"&login="+login;
+
+        URL url = new URL(x);
+        HttpURLConnection con = (HttpURLConnection) url.openConnection();
+        con.setRequestMethod("GET");
+
+        int status = con.getResponseCode();
+        BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+        String inputLine;
+        StringBuilder content = new StringBuilder();
+        while((inputLine = in.readLine()) != null) {
+            content.append(inputLine);
+        }
+        in.close();
+        con.disconnect();
+
+        String res_password = (String) new JSONObject(content.toString().replace('[',' ').replace(']', ' ')).get("password");
+        String res_first_name = (String) new JSONObject(content.toString().replace('[',' ').replace(']', ' ')).get("first_name");
+        String res_last_name = (String) new JSONObject(content.toString().replace('[',' ').replace(']', ' ')).get("last_name");
+
+        if(password.equals(res_password)){
+            Toast.makeText(this, "Zalogowano", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(childLogin.this, childMain.class);
+            intent.putExtra("login", login);
+            intent.putExtra("first_name", res_first_name);
+            intent.putExtra("last_name", res_last_name);
+            startActivity(intent);
+        }else{
+            Toast.makeText(this, "Złe hasło", Toast.LENGTH_SHORT).show();
+        }
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.bezpiecznedziecko.R;
 import com.example.bezpiecznedziecko.authorization.childLogin;
@@ -20,11 +21,22 @@ import com.example.bezpiecznedziecko.welcome;
 public class childMain extends AppCompatActivity {
 
     Button btn_maps, btn_schedules, btn_logout;
+    TextView txt_name, txt_login;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.child_main);
+
+        String login = getIntent().getStringExtra("login");
+        String first_name = getIntent().getStringExtra("first_name");
+        String last_name = getIntent().getStringExtra("last_name");
+        String name = first_name + " " + last_name;
+
+        txt_name = (TextView) findViewById(R.id.txt_name);
+        txt_login = (TextView) findViewById(R.id.txt_login);
+        txt_name.setText(name);
+        txt_login.setText(login);
 
         btn_maps = (Button)findViewById(R.id.btn_maps);
         btn_maps.setOnClickListener(new View.OnClickListener(){
