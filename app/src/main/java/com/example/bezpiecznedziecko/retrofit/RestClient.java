@@ -2,6 +2,9 @@ package com.example.bezpiecznedziecko.retrofit;
 
 import com.example.bezpiecznedziecko.parent.children.Children;
 import com.example.bezpiecznedziecko.parent.parents.Parents;
+
+import org.json.JSONObject;
+
 import io.reactivex.Observable;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -24,7 +27,7 @@ public interface RestClient {
     Observable<com.example.bezpiecznedziecko.child.schedules.Schedules> getChildrenSchedules();
 
     @FormUrlEncoded
-    @POST("parents/login")
-    void loginParent(@Field("login") String login,
-                              @Field("password") String password);
+    @POST("parent/login")
+    Observable<String> loginParent(@Field("login") String login,
+                                       @Field("password") String password);
 }

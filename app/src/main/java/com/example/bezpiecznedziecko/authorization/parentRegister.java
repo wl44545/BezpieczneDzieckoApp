@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -14,6 +15,13 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 import com.example.bezpiecznedziecko.R;
 import com.example.bezpiecznedziecko.welcome;
+
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 public class parentRegister extends AppCompatActivity {
 
@@ -74,10 +82,14 @@ public class parentRegister extends AppCompatActivity {
         btn_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                registerParent(edt_login.getText().toString(), edt_password.getText().toString(), edt_first_name.getText().toString(),
-                        edt_last_name.getText().toString(), edt_email.getText().toString(), edt_phone_number.getText().toString(),
-                        edt_pesel.getText().toString(), txt_gender, edt_adress.getText().toString(), edt_postal_code.getText().toString(),
-                        edt_city.getText().toString(), edt_country.getText().toString(), txt_account_type);
+                try {
+                    registerParent(edt_login.getText().toString(), edt_password.getText().toString(), edt_first_name.getText().toString(),
+                            edt_last_name.getText().toString(), edt_email.getText().toString(), edt_phone_number.getText().toString(),
+                            edt_pesel.getText().toString(), txt_gender, edt_adress.getText().toString(), edt_postal_code.getText().toString(),
+                            edt_city.getText().toString(), edt_country.getText().toString(), txt_account_type);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
         btn_back = (Button)findViewById(R.id.btn_back);
@@ -92,56 +104,40 @@ public class parentRegister extends AppCompatActivity {
     }
     private void registerParent(String login, String password, String first_name, String last_name,
                                 String email, String phone_number, String pesel, String gender,
-                                String adress, String postal_code, String city, String country, String account_type){
-        if(TextUtils.isEmpty(login)){
-            Toast.makeText(this, "Wprowadź login", Toast.LENGTH_SHORT).show();
-            return;
+                                String adress, String postal_code, String city, String country, String account_type) throws IOException {
+
+
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
+        URL url = new URL("http://10.0.2.2:8080/parents");
+        HttpURLConnection con = (HttpURLConnection) url.openConnection();
+        con.setRequestMethod("POST");
+        con.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+        //con.setRequestProperty("content-length", "512");
+
+        /* Payload support */
+        con.setDoOutput(true);
+        DataOutputStream out = new DataOutputStream(con.getOutputStream());
+        out.writeBytes("token=3rcc4zyKsMBESXQGtKbVrv1Za8l3CwB5ndIRdG25S3aarrhkCSGtO8SoGERIATen&login=anowak&password=anowak&salt=anowak&first_name=Jan&last_name=Kowalski&email=jkowalski@bd.pl&phone_number=123456789&pesel=98765432109&gender=Mężczyzna&address=Wyszyńskiego 1A&postal_code=71-100&city=Szczecin&country=Polska&account_type=Free");
+        out.flush();
+        out.close();
+
+        int status = con.getResponseCode();
+        BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+        String inputLine;
+        StringBuffer content = new StringBuffer();
+        while((inputLine = in.readLine()) != null) {
+            content.append(inputLine);
         }
-        if(TextUtils.isEmpty(password)){
-            Toast.makeText(this, "Wprowadź hasło", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        if(TextUtils.isEmpty(first_name)){
-            Toast.makeText(this, "Wprowadź imie", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        if(TextUtils.isEmpty(last_name)){
-            Toast.makeText(this, "Wprowadź nazwisko", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        if(TextUtils.isEmpty(email)){
-            Toast.makeText(this, "Wprowadź email", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        if(TextUtils.isEmpty(phone_number)){
-            Toast.makeText(this, "Wprowadź numer telefonu", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        if(TextUtils.isEmpty(pesel)){
-            Toast.makeText(this, "Wprowadź numer pesel", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        if(TextUtils.isEmpty(gender)){
-            Toast.makeText(this, "Wprowadź płeć", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        if(TextUtils.isEmpty(adress)){
-            Toast.makeText(this, "Wprowadź adres", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        if(TextUtils.isEmpty(postal_code)){
-            Toast.makeText(this, "Wprowadź kod pocztowy", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        if(TextUtils.isEmpty(city)){
-            Toast.makeText(this, "Wprowadź miejscowość", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        if(TextUtils.isEmpty(country)){
-            Toast.makeText(this, "Wprowadź kraj", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        Toast.makeText(this, "TU: FUNKCJA REJESTRACJI", Toast.LENGTH_SHORT).show();
+        in.close();
+        con.disconnect();
+        System.out.println("Response status: " + status);
+        System.out.println(content.toString());
+
+
+
+
     }
     @Override
     protected void onDestroy() {
