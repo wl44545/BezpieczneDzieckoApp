@@ -20,6 +20,7 @@
         <activity android:name=".authorization.parentLogin" />
         <activity android:name=".authorization.childLogin" />
         <activity android:name=".authorization.parentRegister" />
+        <activity android:name=".child.schedules.childSchedulesList" />
         <activity android:name=".parent.children.parentChildrenList" />
         <activity android:name=".parent.schedules.parentSchedulesList" />
         <activity android:name=".welcome">

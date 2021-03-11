@@ -11,9 +11,11 @@ import com.example.bezpiecznedziecko.R;
 import com.example.bezpiecznedziecko.authorization.childLogin;
 import com.example.bezpiecznedziecko.authorization.parentLogin;
 import com.example.bezpiecznedziecko.child.maps.childMap;
+import com.example.bezpiecznedziecko.child.schedules.childSchedulesList;
 import com.example.bezpiecznedziecko.parent.children.parentChildrenList;
 import com.example.bezpiecznedziecko.parent.main.parentMain;
 import com.example.bezpiecznedziecko.parent.schedules.parentSchedulesList;
+import com.example.bezpiecznedziecko.welcome;
 
 public class childMain extends AppCompatActivity {
 
@@ -38,7 +40,7 @@ public class childMain extends AppCompatActivity {
             @Override
             public void onClick(View view)
             {
-                Intent intent = new Intent(childMain.this, childMain.class);
+                Intent intent = new Intent(childMain.this, childSchedulesList.class);
                 startActivity(intent);
             }
         });
@@ -47,7 +49,7 @@ public class childMain extends AppCompatActivity {
             @Override
             public void onClick(View view)
             {
-                Intent intent = new Intent(childMain.this, childLogin.class);
+                Intent intent = new Intent(childMain.this, welcome.class);
                 startActivity(intent);
             }
         });

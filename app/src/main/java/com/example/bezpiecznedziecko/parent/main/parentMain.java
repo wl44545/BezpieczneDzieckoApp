@@ -56,7 +56,7 @@ public class parentMain extends AppCompatActivity {
             @Override
             public void onClick(View view)
             {
-                Intent intent = new Intent(parentMain.this, parentLogin.class);
+                Intent intent = new Intent(parentMain.this, welcome.class);
                 startActivity(intent);
             }
         });
