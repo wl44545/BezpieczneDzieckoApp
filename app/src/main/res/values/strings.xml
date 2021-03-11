@@ -39,6 +39,23 @@
     <string name="parent_register_btn_register">ZAREJESTRUJ</string>
     <string name="parent_register_btn_back">COFNIJ</string>
 
+    <string name="child_register_header1">REJESTRACJA DZIECKA</string>
+    <string name="child_register_hint_login">Nazwa użytkownika</string>
+    <string name="child_register_hint_password">Hasło</string>
+    <string name="child_register_hint_first_name">Imię</string>
+    <string name="child_register_hint_last_name">Nazwisko</string>
+    <string name="child_register_hint_email">EMail</string>
+    <string name="child_register_hint_phone_number">Numer telefonu</string>
+    <string name="child_register_hint_pesel">Numer PESEL</string>
+
+    <string name="child_register_hint_gender_male">Mężczyzna</string>
+    <string name="child_register_hint_gender_female">Kobieta</string>
+    <string name="child_register_hint_gender_no">Nie podam</string>
+    <string name="child_register_hint_gender">Płeć:</string>
+
+    <string name="child_register_btn_register">ZAREJESTRUJ</string>
+    <string name="child_register_btn_back">COFNIJ</string>
+
     <string name="parent_main_btn_maps">MAPA</string>
     <string name="parent_main_btn_children">DZIECI</string>
     <string name="parent_main_btn_schedules">HARMONOGRAMY</string>

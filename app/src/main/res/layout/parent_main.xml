@@ -57,6 +57,17 @@
         android:layout_gravity="center"
         android:text="@string/parent_main_btn_logout" />
 
+
+
+    <Button
+        android:id="@+id/btn_add_child"
+        android:layout_width="300sp"
+        android:layout_height="60sp"
+        android:textSize="20sp"
+        android:layout_marginTop="50dp"
+        android:layout_gravity="center"
+        android:text="tmp_add_child" />
+
 </LinearLayout>
 
 

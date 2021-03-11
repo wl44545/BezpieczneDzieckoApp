@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.bezpiecznedziecko.R;
+import com.example.bezpiecznedziecko.authorization.childRegister;
 import com.example.bezpiecznedziecko.authorization.parentLogin;
 import com.example.bezpiecznedziecko.parent.children.parentChildrenList;
 import com.example.bezpiecznedziecko.parent.maps.parentMap;
@@ -18,7 +19,7 @@ import com.example.bezpiecznedziecko.welcome;
 
 public class parentMain extends AppCompatActivity {
 
-    Button btn_maps, btn_children, btn_schedules, btn_logout;
+    Button btn_maps, btn_children, btn_schedules, btn_logout, btn_add_child;
     TextView txt_name, txt_login;
 
     @Override
@@ -72,6 +73,18 @@ public class parentMain extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        btn_add_child = (Button)findViewById(R.id.btn_add_child);
+        btn_add_child.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view)
+            {
+                Intent intent = new Intent(parentMain.this, childRegister.class);
+                startActivity(intent);
+            }
+        });
+
+
     }
     @Override
     protected void onDestroy() {
