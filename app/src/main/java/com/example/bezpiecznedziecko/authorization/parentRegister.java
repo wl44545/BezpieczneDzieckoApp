@@ -16,6 +16,9 @@ import android.widget.Toast;
 import com.example.bezpiecznedziecko.R;
 import com.example.bezpiecznedziecko.welcome;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -44,7 +47,7 @@ public class parentRegister extends AppCompatActivity {
             public void onClick(View view) {
                 radio_female.setChecked(false);
                 radio_no.setChecked(false);
-                txt_gender = "Mężczyzna";
+                txt_gender = "Mezczyzna";
             }
         });
         radio_female = (RadioButton)findViewById(R.id.radio_female);
@@ -87,7 +90,7 @@ public class parentRegister extends AppCompatActivity {
                             edt_last_name.getText().toString(), edt_email.getText().toString(), edt_phone_number.getText().toString(),
                             edt_pesel.getText().toString(), txt_gender, edt_adress.getText().toString(), edt_postal_code.getText().toString(),
                             edt_city.getText().toString(), edt_country.getText().toString(), txt_account_type);
-                } catch (IOException e) {
+                } catch (IOException | JSONException e) {
                     e.printStackTrace();
                 }
             }
@@ -104,8 +107,10 @@ public class parentRegister extends AppCompatActivity {
     }
     private void registerParent(String login, String password, String first_name, String last_name,
                                 String email, String phone_number, String pesel, String gender,
-                                String adress, String postal_code, String city, String country, String account_type) throws IOException {
+                                String adress, String postal_code, String city, String country, String account_type) throws IOException, JSONException {
 
+        String salt = "salt";
+        String token = "3rcc4zyKsMBESXQGtKbVrv1Za8l3CwB5ndIRdG25S3aarrhkCSGtO8SoGERIATen";
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
@@ -119,7 +124,7 @@ public class parentRegister extends AppCompatActivity {
         /* Payload support */
         con.setDoOutput(true);
         DataOutputStream out = new DataOutputStream(con.getOutputStream());
-        out.writeBytes("token=3rcc4zyKsMBESXQGtKbVrv1Za8l3CwB5ndIRdG25S3aarrhkCSGtO8SoGERIATen&login=anowak&password=anowak&salt=anowak&first_name=Jan&last_name=Kowalski&email=jkowalski@bd.pl&phone_number=123456789&pesel=98765432109&gender=Mężczyzna&address=Wyszyńskiego 1A&postal_code=71-100&city=Szczecin&country=Polska&account_type=Free");
+        out.writeBytes("token="+token+"&login="+login+"&password="+password+"&salt="+salt+"&first_name="+first_name+"&last_name="+last_name+"&email="+email+"&phone_number="+phone_number+"&pesel="+pesel+"&gender="+gender+"&address="+adress+"&postal_code="+postal_code+"&city="+city+"&country="+country+"&account_type="+account_type);
         out.flush();
         out.close();
 
@@ -132,8 +137,11 @@ public class parentRegister extends AppCompatActivity {
         }
         in.close();
         con.disconnect();
+
+
+        JSONObject jsonObj = new JSONObject(content.toString());
         System.out.println("Response status: " + status);
-        System.out.println(content.toString());
+        System.out.println(jsonObj.get("status"));
 
 
 
