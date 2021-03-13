@@ -1,0 +1,7 @@
+{
+    "port"		:	"3000",
+	"user"		:	"admin",
+	"password"	:	"OtzQbrG4okTZaQmv",
+	"protocol"	:	"mongodb+srv",
+	"server"	:	"bezpiecznedziecko.r4mfn.mongodb.net"	
+}
