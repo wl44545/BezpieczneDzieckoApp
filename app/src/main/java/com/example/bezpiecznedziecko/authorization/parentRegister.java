@@ -14,6 +14,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 import com.example.bezpiecznedziecko.R;
+import com.example.bezpiecznedziecko.child.main.childMain;
 import com.example.bezpiecznedziecko.welcome;
 
 import org.json.JSONException;
@@ -138,15 +139,24 @@ public class parentRegister extends AppCompatActivity {
         in.close();
         con.disconnect();
 
-
         JSONObject jsonObj = new JSONObject(content.toString());
-        System.out.println("Response status: " + status);
-        System.out.println(jsonObj.get("status"));
+        String response = (String) jsonObj.get("code");
+        System.out.println(response);
 
+        if(response.equals("-1")){
+            Toast.makeText(this, "Błąd", Toast.LENGTH_SHORT).show();
+        }
+        else if(response.equals("0")){
+            Toast.makeText(this, "Zarejestrowano", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(parentRegister.this, welcome.class);
+            startActivity(intent);
 
-
-
+        }
+        else if(response.equals("1")){
+            Toast.makeText(this, "Konto już istnieje", Toast.LENGTH_SHORT).show();
+        }
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
