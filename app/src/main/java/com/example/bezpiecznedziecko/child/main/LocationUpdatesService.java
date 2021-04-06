@@ -20,6 +20,8 @@ import android.os.Looper;
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+
+import android.os.StrictMode;
 import android.util.Log;
 
 import com.example.bezpiecznedziecko.R;
@@ -30,6 +32,16 @@ import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 /**
  * A bound and started service that is promoted to a foreground service when location updates have
@@ -308,6 +320,11 @@ public class LocationUpdatesService extends Service {
 
         mLocation = location;
 
+        try {
+            sendLocation("login", String.valueOf(location.getLongitude()), String.valueOf(location.getLatitude()), "0","0");
+        } catch (IOException | JSONException e) {
+            e.printStackTrace();
+        }
 
         // Notify anyone listening for broadcasts about the new location.
         Intent intent = new Intent(ACTION_BROADCAST);
@@ -319,6 +336,41 @@ public class LocationUpdatesService extends Service {
             mNotificationManager.notify(NOTIFICATION_ID, getNotification());
         }
     }
+
+    private void sendLocation(String child, String longitude, String latitude, String status, String alarm) throws IOException, JSONException {
+
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
+        URL url = new URL("http://10.0.2.2:8080/locations");
+        HttpURLConnection con = (HttpURLConnection) url.openConnection();
+        con.setRequestMethod("POST");
+        con.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+
+        con.setDoOutput(true);
+        DataOutputStream out = new DataOutputStream(con.getOutputStream());
+        out.writeBytes("token="+getString(R.string.location_token)+"&child="+child+"&longitude="+longitude+"&latitude="+latitude+"&status="+status+"&alarm="+alarm);
+        out.flush();
+        out.close();
+
+        int res_status = con.getResponseCode();
+        BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+        String inputLine;
+        StringBuffer content = new StringBuffer();
+        while((inputLine = in.readLine()) != null) {
+            content.append(inputLine);
+        }
+        in.close();
+        con.disconnect();
+
+        JSONObject jsonObj = new JSONObject(content.toString());
+        String response = (String) jsonObj.get("code");
+        System.out.println(response);
+
+    }
+
+
+
 
     /**
      * Sets the location request parameters.
