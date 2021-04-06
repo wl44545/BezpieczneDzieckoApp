@@ -308,6 +308,7 @@ public class LocationUpdatesService extends Service {
 
         mLocation = location;
 
+
         // Notify anyone listening for broadcasts about the new location.
         Intent intent = new Intent(ACTION_BROADCAST);
         intent.putExtra(EXTRA_LOCATION, location);

@@ -16,6 +16,7 @@ import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.location.Location;
 import android.os.IBinder;
+import android.os.StrictMode;
 import android.preference.PreferenceManager;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
@@ -27,6 +28,7 @@ import android.net.Uri;
 import android.provider.Settings;
 import androidx.annotation.NonNull;
 
+import com.example.bezpiecznedziecko.authorization.parentRegister;
 import com.example.bezpiecznedziecko.child.maps.childMap;
 import com.example.bezpiecznedziecko.child.schedules.childSchedulesList;
 import com.example.bezpiecznedziecko.welcome;
@@ -38,12 +40,23 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
 public class childMain extends AppCompatActivity implements
         SharedPreferences.OnSharedPreferenceChangeListener {
 
     Button btn_maps, btn_schedules, btn_logout;
     TextView txt_name, txt_login;
     Boolean is_child_logged = false;
+    String login;
 
     private static final String TAG = childMain.class.getSimpleName();
 
@@ -88,7 +101,7 @@ public class childMain extends AppCompatActivity implements
 
 
         is_child_logged = getIntent().getBooleanExtra("is_child_logged", false);
-        String login = getIntent().getStringExtra("login");
+        login = getIntent().getStringExtra("login");
         String first_name = getIntent().getStringExtra("first_name");
         String last_name = getIntent().getStringExtra("last_name");
         String name = first_name + " " + last_name;
@@ -137,6 +150,8 @@ public class childMain extends AppCompatActivity implements
                 requestPermissions();
             }
         }
+
+
     }
 
     @Override
@@ -144,6 +159,7 @@ public class childMain extends AppCompatActivity implements
         super.onStart();
         PreferenceManager.getDefaultSharedPreferences(this)
                 .registerOnSharedPreferenceChangeListener(this);
+
 
 
         mRequestLocationUpdatesButton = (Button) findViewById(R.id.request_location_updates_button);
@@ -167,7 +183,7 @@ public class childMain extends AppCompatActivity implements
         mRemoveLocationUpdatesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //mService.removeLocationUpdates();
+                mService.removeLocationUpdates();
             }
         });
 
@@ -302,9 +318,55 @@ public class childMain extends AppCompatActivity implements
             if (location != null) {
                 Toast.makeText(childMain.this, Utils.getLocationText(location),
                         Toast.LENGTH_SHORT).show();
+
+
+                try {
+                    sendLocation(login, String.valueOf(location.getLongitude()), String.valueOf(location.getLatitude()), "0","0");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
             }
         }
     }
+
+    private void sendLocation(String child, String longitude, String latitude, String status, String alarm) throws IOException, JSONException {
+
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
+        URL url = new URL("http://10.0.2.2:8080/locations");
+        HttpURLConnection con = (HttpURLConnection) url.openConnection();
+        con.setRequestMethod("POST");
+        con.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+
+        con.setDoOutput(true);
+        DataOutputStream out = new DataOutputStream(con.getOutputStream());
+        out.writeBytes("token="+getString(R.string.location_token)+"&child="+child+"&longitude="+longitude+"&latitude="+latitude+"&status="+status+"&alarm="+alarm);
+        out.flush();
+        out.close();
+
+        int res_status = con.getResponseCode();
+        BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+        String inputLine;
+        StringBuffer content = new StringBuffer();
+        while((inputLine = in.readLine()) != null) {
+            content.append(inputLine);
+        }
+        in.close();
+        con.disconnect();
+
+        JSONObject jsonObj = new JSONObject(content.toString());
+        String response = (String) jsonObj.get("code");
+        System.out.println(response);
+
+    }
+
+
+
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {

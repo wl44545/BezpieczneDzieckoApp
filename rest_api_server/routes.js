@@ -5,7 +5,6 @@ router.get('/', function (req, res) {
         message: 'Welcome to Bezpieczne Dziecko REST-API',
     });
 });
-
 	
 var parentController = require('./parentController');
 router.route('/parents')
@@ -30,6 +29,11 @@ router.route('/schedules')
     .patch(scheduleController.update)
     .put(scheduleController.update)
     .delete(scheduleController.delete);
+	
+var locationController = require('./locationController');	
+router.route('/locations')
+    .get(locationController.index)
+    .post(locationController.new);
 	
 var emailController = require('./emailController');	
 router.route('/email')
