@@ -7,10 +7,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.bezpiecznedziecko.R;
+import com.example.bezpiecznedziecko.parent.main.parentMain;
 import com.example.bezpiecznedziecko.welcome;
 
 import org.json.JSONException;
@@ -134,11 +136,21 @@ public class childRegister extends AppCompatActivity {
 
 
         JSONObject jsonObj = new JSONObject(content.toString());
-        System.out.println("Response status: " + status);
-        System.out.println(jsonObj.get("status"));
+        String response = (String) jsonObj.get("code");
+        System.out.println(response);
 
+        if(response.equals("-1")){
+            Toast.makeText(this, "Błąd", Toast.LENGTH_SHORT).show();
+        }
+        else if(response.equals("0")){
+            Toast.makeText(this, "Zarejestrowano", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(childRegister.this, parentMain.class);
+            startActivity(intent);
 
-
+        }
+        else if(response.equals("1")){
+            Toast.makeText(this, "Konto już istnieje", Toast.LENGTH_SHORT).show();
+        }
 
     }
     @Override

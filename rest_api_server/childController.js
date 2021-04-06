@@ -58,6 +58,7 @@ exports.new = function (req, res) {
 	Child.countDocuments({'login' : req.body.login}).exec((err, count) => {
 		if (err) {
 			res.json({
+				code: "-1",
 				status: "error",
 				message: err,
 			});
@@ -65,6 +66,7 @@ exports.new = function (req, res) {
 		};
 		if (count != 0){
 			res.json({
+				code: "1",
 				status: "error",
 				message: "Child already exists"
 			});
@@ -84,11 +86,13 @@ exports.new = function (req, res) {
 		child.save(function (err) {
 			if (err)
 				res.json({
+					code: "-1",
 					status: "error",
 					message: err
 				});
 			else
 				res.json({
+					code: "0",
 					status: "success",
 					message: "Child registered successfully"
 				});
