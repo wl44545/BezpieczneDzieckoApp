@@ -35,5 +35,14 @@
         android:layout_height="150sp"
         android:textSize="35sp" />
 
+    <Button
+        android:id="@+id/btn_tmp_gps"
+        android:text="btn_tmp_gps"
+        android:layout_width="300sp"
+        android:layout_marginTop="20sp"
+        android:layout_height="50sp"
+        android:textSize="20sp" />
+
+
 
 </LinearLayout>
