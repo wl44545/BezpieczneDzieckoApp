@@ -1,25 +1,21 @@
-package com.example.bezpiecznedziecko.gps;
+package com.example.bezpiecznedziecko.child.main;
 
 import android.annotation.SuppressLint;
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
-import androidx.annotation.Nullable;
 import android.app.ActivityManager;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.app.Service;
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.location.Location;
 import android.os.Binder;
 import android.os.Build;
 import android.os.Handler;
 import android.os.HandlerThread;
-import android.os.IBinder;
 import android.os.Looper;
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
@@ -175,7 +171,7 @@ public class LocationUpdatesService extends Service {
 
     @Override
     public IBinder onBind(Intent intent) {
-        // Called when a client (MainActivity in case of this sample) comes to the foreground
+        // Called when a client (childMain in case of this sample) comes to the foreground
         // and binds with this service. The service should cease to be a foreground service
         // when that happens.
         Log.i(TAG, "in onBind()");
@@ -186,7 +182,7 @@ public class LocationUpdatesService extends Service {
 
     @Override
     public void onRebind(Intent intent) {
-        // Called when a client (MainActivity in case of this sample) returns to the foreground
+        // Called when a client (childMain in case of this sample) returns to the foreground
         // and binds once again with this service. The service should cease to be a foreground
         // service when that happens.
         Log.i(TAG, "in onRebind()");
@@ -199,8 +195,8 @@ public class LocationUpdatesService extends Service {
     public boolean onUnbind(Intent intent) {
         Log.i(TAG, "Last client unbound from service");
 
-        // Called when the last client (MainActivity in case of this sample) unbinds from this
-        // service. If this method is called due to a configuration change in MainActivity, we
+        // Called when the last client (childMain in case of this sample) unbinds from this
+        // service. If this method is called due to a configuration change in childMain, we
         // do nothing. Otherwise, we make this service a foreground service.
         if (!mChangingConfiguration && Utils.requestingLocationUpdates(this)) {
             Log.i(TAG, "Starting foreground service");
@@ -265,11 +261,12 @@ public class LocationUpdatesService extends Service {
 
         // The PendingIntent to launch activity.
         PendingIntent activityPendingIntent = PendingIntent.getActivity(this, 0,
-                new Intent(this, MainActivity.class), 0);
+                new Intent(this, childMain.class), 0);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
                 .addAction(R.drawable.ic_launch, getString(R.string.launch_activity),
                         activityPendingIntent)
+  //anulowanie w powiadomieniach
                 .addAction(R.drawable.ic_cancel, getString(R.string.remove_location_updates),
                         servicePendingIntent)
                 .setContentText(text)

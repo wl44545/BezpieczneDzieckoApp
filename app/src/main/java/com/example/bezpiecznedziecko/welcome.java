@@ -8,7 +8,7 @@ import android.widget.Button;
 import com.example.bezpiecznedziecko.authorization.parentLogin;
 import com.example.bezpiecznedziecko.authorization.childLogin;
 import com.example.bezpiecznedziecko.authorization.parentRegister;
-import com.example.bezpiecznedziecko.gps.MainActivity;
+import com.example.bezpiecznedziecko.child.main.childMain;
 
 public class welcome extends AppCompatActivity {
 
@@ -25,7 +25,7 @@ public class welcome extends AppCompatActivity {
             @Override
             public void onClick(View view)
             {
-                Intent intent = new Intent(welcome.this, MainActivity.class);
+                Intent intent = new Intent(welcome.this, childMain.class);
                 startActivity(intent);
             }
         });

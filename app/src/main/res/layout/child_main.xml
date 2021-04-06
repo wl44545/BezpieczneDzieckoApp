@@ -1,4 +1,5 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/child_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -49,6 +50,19 @@
         android:textSize="20sp"
         android:layout_gravity="center"
         android:text="@string/child_main_btn_logout" />
+
+    <Button
+        android:id="@+id/request_location_updates_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/request_location_updates"/>
+
+    <Button
+        android:id="@+id/remove_location_updates_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/remove_location_updates"/>
+
 
 </LinearLayout>
 

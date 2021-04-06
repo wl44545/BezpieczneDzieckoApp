@@ -15,10 +15,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BezpieczneDziecko"
         android:usesCleartextTraffic="true">
-        <activity android:name=".gps.MainActivity"></activity>
+        <activity android:name=".child.main.childMain"></activity>
         <activity android:name=".parent.maps.parentMap" />
         <activity android:name=".child.maps.childMap" />
-        <activity android:name=".child.main.childMain" />
         <activity android:name=".parent.main.parentMain" />
         <activity android:name=".authorization.parentLogin" />
         <activity android:name=".authorization.childLogin" />
@@ -34,7 +33,7 @@
             </intent-filter>
         </activity>
         <service
-            android:name=".gps.LocationUpdatesService"
+            android:name=".child.main.LocationUpdatesService"
             android:enabled="true"
             android:exported="true"
             android:foregroundServiceType="location" />

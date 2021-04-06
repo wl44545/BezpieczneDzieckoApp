@@ -1,4 +1,4 @@
-package com.example.bezpiecznedziecko.gps;
+package com.example.bezpiecznedziecko.child.main;
 
 import android.content.Context;
 import android.location.Location;
