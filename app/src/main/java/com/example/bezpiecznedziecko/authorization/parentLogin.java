@@ -38,6 +38,8 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -115,18 +117,33 @@ public class parentLogin extends AppCompatActivity {
         });
     }
 
+    private String get_SHA_512_SecurePassword(String passwordToHash, String salt){
+        String generatedPassword = null;
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-512");
+            md.update(salt.getBytes(StandardCharsets.UTF_8));
+            byte[] bytes = md.digest(passwordToHash.getBytes(StandardCharsets.UTF_8));
+            StringBuilder sb = new StringBuilder();
+            for (byte aByte : bytes) {
+                sb.append(Integer.toString((aByte & 0xff) + 0x100, 16).substring(1));
+            }
+            generatedPassword = sb.toString();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        return generatedPassword;
+    }
 
-    private void loginParent(String login, String password) throws IOException, JSONException {
+    private void loginParent(String login, String plain_password) throws IOException, JSONException {
         if(TextUtils.isEmpty(login)){
             Toast.makeText(this, "Wprowadź login", Toast.LENGTH_SHORT).show();
             return;
         }
-        if(TextUtils.isEmpty(password)){
+        if(TextUtils.isEmpty(plain_password)){
             Toast.makeText(this, "Wprowadź hasło", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        String salt = "salt";
         String token = "3rcc4zyKsMBESXQGtKbVrv1Za8l3CwB5ndIRdG25S3aarrhkCSGtO8SoGERIATen";
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -148,9 +165,12 @@ public class parentLogin extends AppCompatActivity {
         in.close();
         con.disconnect();
 
+        String res_salt = (String) new JSONObject(content.toString().replace('[',' ').replace(']', ' ')).get("salt");
         String res_password = (String) new JSONObject(content.toString().replace('[',' ').replace(']', ' ')).get("password");
         String res_first_name = (String) new JSONObject(content.toString().replace('[',' ').replace(']', ' ')).get("first_name");
         String res_last_name = (String) new JSONObject(content.toString().replace('[',' ').replace(']', ' ')).get("last_name");
+
+        String password = get_SHA_512_SecurePassword(plain_password, res_salt);
 
         if(password.equals(res_password)){
             Toast.makeText(this, "Zalogowano", Toast.LENGTH_SHORT).show();
