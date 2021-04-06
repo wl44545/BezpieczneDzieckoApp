@@ -1,14 +1,11 @@
 package com.example.bezpiecznedziecko.child.maps;
 
-import android.os.Bundle;
-import com.example.bezpiecznedziecko.R;
 import androidx.fragment.app.FragmentActivity;
-import android.content.Intent;
-import android.graphics.Color;
-import android.view.View;
-import android.widget.Button;
 
-import com.example.bezpiecznedziecko.child.main.childMain;
+import android.graphics.Color;
+import android.os.Bundle;
+
+import com.example.bezpiecznedziecko.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -21,29 +18,15 @@ import com.google.android.gms.maps.model.MarkerOptions;
 public class childMap extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
-    Button btn_back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.child_map);
-
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-
-        btn_back = (Button)findViewById(R.id.btn_back);
-        btn_back.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view)
-            {
-                Intent intent = new Intent(childMap.this, childMain.class);
-                startActivity(intent);
-            }
-        });
-
-
     }
 
     /**
