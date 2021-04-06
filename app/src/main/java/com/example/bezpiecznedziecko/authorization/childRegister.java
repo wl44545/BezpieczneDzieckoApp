@@ -136,8 +136,6 @@ public class childRegister extends AppCompatActivity {
                                 String email, String phone_number, String pesel, String gender,
                                 String txt_parent, String account_type) throws IOException, JSONException {
 
-        String token = "GgV6r7hErAKK8ln7muz71FtM2sdI4yGaf2H6zpbrplBY6pvTjvqKAkW3cAbGyhhe";
-
         String salt = randomString(64);
         String password = get_SHA_512_SecurePassword(plain_password, salt);
 
@@ -153,7 +151,7 @@ public class childRegister extends AppCompatActivity {
         /* Payload support */
         con.setDoOutput(true);
         DataOutputStream out = new DataOutputStream(con.getOutputStream());
-        out.writeBytes("token="+token+"&login="+login+"&password="+password+"&salt="+salt+"&first_name="+first_name+"&last_name="+last_name+"&email="+email+"&phone_number="+phone_number+"&pesel="+pesel+"&gender="+gender+"&parent="+txt_parent+"&account_type="+account_type);
+        out.writeBytes("token="+getString(R.string.child_token)+"&login="+login+"&password="+password+"&salt="+salt+"&first_name="+first_name+"&last_name="+last_name+"&email="+email+"&phone_number="+phone_number+"&pesel="+pesel+"&gender="+gender+"&parent="+txt_parent+"&account_type="+account_type);
         out.flush();
         out.close();
 

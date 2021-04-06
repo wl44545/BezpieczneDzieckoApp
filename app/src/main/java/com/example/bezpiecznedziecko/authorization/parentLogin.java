@@ -116,12 +116,10 @@ public class parentLogin extends AppCompatActivity {
             return;
         }
 
-        String token = "3rcc4zyKsMBESXQGtKbVrv1Za8l3CwB5ndIRdG25S3aarrhkCSGtO8SoGERIATen";
-
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-        String x = "http://10.0.2.2:8080/parents?token="+token+"&login="+login;
+        String x = "http://10.0.2.2:8080/parents?token="+ getString(R.string.parent_token)+"&login="+login;
 
         URL url = new URL(x);
         HttpURLConnection con = (HttpURLConnection) url.openConnection();

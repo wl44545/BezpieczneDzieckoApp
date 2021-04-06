@@ -115,12 +115,10 @@ public class childLogin extends AppCompatActivity {
             return;
         }
 
-        String token = "GgV6r7hErAKK8ln7muz71FtM2sdI4yGaf2H6zpbrplBY6pvTjvqKAkW3cAbGyhhe";
-
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-        String x = "http://10.0.2.2:8080/children?token="+token+"&login="+login;
+        String x = "http://10.0.2.2:8080/children?token="+getString(R.string.child_token)+"&login="+login;
 
         URL url = new URL(x);
         HttpURLConnection con = (HttpURLConnection) url.openConnection();

@@ -3,4 +3,6 @@
     <string name="parent_login_header1">LOGOWANIE RODZICA</string>
     <string name="parent_logi_hint1">Nazwa użytkownika</string>
     <string name="child_map_btn_back">Wstecz</string>
+    <string name="parent_token">3rcc4zyKsMBESXQGtKbVrv1Za8l3CwB5ndIRdG25S3aarrhkCSGtO8SoGERIATen</string>
+    <string name="child_token">GgV6r7hErAKK8ln7muz71FtM2sdI4yGaf2H6zpbrplBY6pvTjvqKAkW3cAbGyhhe</string>
 </resources>

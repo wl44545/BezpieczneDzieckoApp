@@ -137,8 +137,6 @@ public class parentRegister extends AppCompatActivity {
                                 String email, String phone_number, String pesel, String gender,
                                 String adress, String postal_code, String city, String country, String account_type) throws IOException, JSONException {
 
-        String token = "3rcc4zyKsMBESXQGtKbVrv1Za8l3CwB5ndIRdG25S3aarrhkCSGtO8SoGERIATen";
-
         String salt = randomString(64);
         String password = get_SHA_512_SecurePassword(plain_password, salt);
 
@@ -154,7 +152,7 @@ public class parentRegister extends AppCompatActivity {
         /* Payload support */
         con.setDoOutput(true);
         DataOutputStream out = new DataOutputStream(con.getOutputStream());
-        out.writeBytes("token="+token+"&login="+login+"&password="+password+"&salt="+salt+"&first_name="+first_name+"&last_name="+last_name+"&email="+email+"&phone_number="+phone_number+"&pesel="+pesel+"&gender="+gender+"&address="+adress+"&postal_code="+postal_code+"&city="+city+"&country="+country+"&account_type="+account_type);
+        out.writeBytes("token="+ getString(R.string.parent_token)+"&login="+login+"&password="+password+"&salt="+salt+"&first_name="+first_name+"&last_name="+last_name+"&email="+email+"&phone_number="+phone_number+"&pesel="+pesel+"&gender="+gender+"&address="+adress+"&postal_code="+postal_code+"&city="+city+"&country="+country+"&account_type="+account_type);
         out.flush();
         out.close();
 
