@@ -148,6 +148,7 @@ public class childLogin extends AppCompatActivity {
         if(password.equals(res_password)){
             Toast.makeText(this, "Zalogowano", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(childLogin.this, childMain.class);
+            intent.putExtra("is_child_logged", true);
             intent.putExtra("login", login);
             intent.putExtra("first_name", res_first_name);
             intent.putExtra("last_name", res_last_name);

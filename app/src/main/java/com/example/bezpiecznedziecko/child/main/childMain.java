@@ -22,12 +22,14 @@ public class childMain extends AppCompatActivity {
 
     Button btn_maps, btn_schedules, btn_logout;
     TextView txt_name, txt_login;
+    Boolean is_child_logged = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.child_main);
 
+        is_child_logged = getIntent().getBooleanExtra("is_child_logged", false);
         String login = getIntent().getStringExtra("login");
         String first_name = getIntent().getStringExtra("first_name");
         String last_name = getIntent().getStringExtra("last_name");
