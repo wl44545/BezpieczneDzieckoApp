@@ -89,6 +89,7 @@
     <string name="location_token">N5Ol1anRFPtJLbS1GEZGPYfG7s7E1DHe9VZBvMSB1MLdn3Ft84Ansgu0824z5cdE</string>
     <string name="parent_token">3rcc4zyKsMBESXQGtKbVrv1Za8l3CwB5ndIRdG25S3aarrhkCSGtO8SoGERIATen</string>
     <string name="child_token">GgV6r7hErAKK8ln7muz71FtM2sdI4yGaf2H6zpbrplBY6pvTjvqKAkW3cAbGyhhe</string>
+    <string name="alarm">ALARM</string>
 
 
 </resources>

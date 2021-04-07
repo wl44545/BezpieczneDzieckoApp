@@ -53,7 +53,7 @@ import java.net.URL;
 public class childMain extends AppCompatActivity implements
         SharedPreferences.OnSharedPreferenceChangeListener {
 
-    Button btn_maps, btn_schedules, btn_logout;
+    Button btn_maps, btn_schedules, btn_logout, btn_panic;
     TextView txt_name, txt_login;
     Boolean is_child_logged = false;
     String login;
@@ -139,7 +139,14 @@ public class childMain extends AppCompatActivity implements
                 startActivity(intent);
             }
         });
+        btn_panic = (Button)findViewById(R.id.btn_panic);
+        btn_panic.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view)
+            {
 
+            }
+        });
 
 
 

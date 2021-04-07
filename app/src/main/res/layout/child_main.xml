@@ -52,6 +52,14 @@
         android:text="@string/child_main_btn_logout" />
 
     <Button
+        android:id="@+id/btn_panic"
+        android:layout_width="300sp"
+        android:layout_height="150sp"
+        android:textSize="20sp"
+        android:layout_gravity="center"
+        android:text="@string/alarm" />
+
+    <Button
         android:id="@+id/request_location_updates_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
