@@ -2,6 +2,8 @@ package com.example.bezpiecznedziecko.child.maps;
 
 import androidx.fragment.app.FragmentActivity;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 
@@ -42,18 +44,23 @@ public class childMap extends FragmentActivity implements OnMapReadyCallback {
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        LatLng szczecin = new LatLng(53.4481, 14.5372);
 
-        mMap.addMarker(new MarkerOptions().position(szczecin).title("szczecin"));
+        SharedPreferences sharedPref = this.getSharedPreferences(getString(R.string.shared_preferences), Context.MODE_PRIVATE);
+        Float longitude = sharedPref.getFloat(getString(R.string.shared_preferences_longitude), (float) 0.0);
+        Float latitude = sharedPref.getFloat(getString(R.string.shared_preferences_latitude), (float) 0.0);
 
-        mMap.addCircle(new CircleOptions()
-                .center(szczecin)
+        LatLng latlng = new LatLng(latitude, longitude);
+
+        mMap.addMarker(new MarkerOptions().position(latlng).title("Ja"));
+
+        /*mMap.addCircle(new CircleOptions()
+                .center(latlng)
                 .radius(100)
                 .strokeColor(Color.RED)
-                .fillColor(Color.BLUE));
+                .fillColor(Color.BLUE));*/
 
         CameraPosition cameraPosition = new CameraPosition.Builder()
-                .target(szczecin)      // Sets the center of the map to Mountain View
+                .target(latlng)      // Sets the center of the map to Mountain View
                 .zoom(17)                   // Sets the zoom
                 .bearing(90)                // Sets the orientation of the camera to east
                 .tilt(30)                   // Sets the tilt of the camera to 30 degrees

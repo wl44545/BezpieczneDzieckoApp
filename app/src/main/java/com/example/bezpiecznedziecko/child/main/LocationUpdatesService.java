@@ -3,6 +3,7 @@ package com.example.bezpiecznedziecko.child.main;
 import android.annotation.SuppressLint;
 import android.app.Service;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.IBinder;
 import android.app.ActivityManager;
 import android.app.Notification;
@@ -325,6 +326,12 @@ public class LocationUpdatesService extends Service {
         } catch (IOException | JSONException e) {
             e.printStackTrace();
         }
+
+        SharedPreferences sharedPref = this.getSharedPreferences(getString(R.string.shared_preferences),Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putFloat(getString(R.string.shared_preferences_longitude), (float) location.getLongitude());
+        editor.putFloat(getString(R.string.shared_preferences_latitude), (float) location.getLatitude());
+        editor.apply();
 
         // Notify anyone listening for broadcasts about the new location.
         Intent intent = new Intent(ACTION_BROADCAST);

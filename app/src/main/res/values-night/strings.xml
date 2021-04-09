@@ -6,4 +6,11 @@
     <string name="parent_token">3rcc4zyKsMBESXQGtKbVrv1Za8l3CwB5ndIRdG25S3aarrhkCSGtO8SoGERIATen</string>
     <string name="child_token">GgV6r7hErAKK8ln7muz71FtM2sdI4yGaf2H6zpbrplBY6pvTjvqKAkW3cAbGyhhe</string>
     <string name="alarm">ALARM</string>
+    <string name="shared_preferences_logged">logged</string>
+    <string name="shared_preferences_login">login</string>
+    <string name="shared_preferences_first_name">first_name</string>
+    <string name="shared_preferences_last_name">last_name</string>
+    <string name="shared_preferences_logged_child">child</string>
+    <string name="shared_preferences_longitude">longitude</string>
+    <string name="shared_preferences_latitude">latitude</string>
 </resources>
