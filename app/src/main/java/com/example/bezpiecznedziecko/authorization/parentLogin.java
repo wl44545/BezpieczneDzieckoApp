@@ -2,7 +2,9 @@ package com.example.bezpiecznedziecko.authorization;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.text.TextUtils;
@@ -145,9 +147,13 @@ public class parentLogin extends AppCompatActivity {
         if(password.equals(res_password)){
             Toast.makeText(this, "Zalogowano", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(parentLogin.this, parentMain.class);
-            intent.putExtra("login", login);
-            intent.putExtra("first_name", res_first_name);
-            intent.putExtra("last_name", res_last_name);
+            SharedPreferences sharedPref = this.getSharedPreferences(getString(R.string.shared_preferences), Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putString(getString(R.string.shared_preferences_logged), getString(R.string.shared_preferences_logged_parent));
+            editor.putString(getString(R.string.shared_preferences_login), login);
+            editor.putString(getString(R.string.shared_preferences_first_name), res_first_name);
+            editor.putString(getString(R.string.shared_preferences_last_name), res_last_name);
+            editor.apply();
             startActivity(intent);
         }else{
             Toast.makeText(this, "Złe hasło", Toast.LENGTH_SHORT).show();

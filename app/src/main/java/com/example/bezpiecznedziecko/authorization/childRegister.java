@@ -1,6 +1,8 @@
 package com.example.bezpiecznedziecko.authorization;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.View;
@@ -43,8 +45,9 @@ public class childRegister extends AppCompatActivity {
         setContentView(R.layout.child_register);
 
         txt_account_type = "Free";
-        txt_parent = "tmp";
 
+        SharedPreferences sharedPref = this.getSharedPreferences(getString(R.string.shared_preferences), Context.MODE_PRIVATE);
+        txt_parent = sharedPref.getString(getString(R.string.shared_preferences_login), "login");
 
         radio_male = (RadioButton)findViewById(R.id.radio_male);
         radio_male.setOnClickListener(new View.OnClickListener() {

@@ -2,7 +2,9 @@ package com.example.bezpiecznedziecko.parent.main;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -21,16 +23,19 @@ public class parentMain extends AppCompatActivity {
 
     Button btn_maps, btn_children, btn_schedules, btn_logout, btn_add_child;
     TextView txt_name, txt_login;
+    String login,first_name,last_name,name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.parent_main);
 
-        String login = getIntent().getStringExtra("login");
-        String first_name = getIntent().getStringExtra("first_name");
-        String last_name = getIntent().getStringExtra("last_name");
-        String name = first_name + " " + last_name;
+        SharedPreferences sharedPref = this.getSharedPreferences(getString(R.string.shared_preferences), Context.MODE_PRIVATE);
+        login = sharedPref.getString(getString(R.string.shared_preferences_login), "login");
+        first_name = sharedPref.getString(getString(R.string.shared_preferences_first_name), "first_name");
+        last_name = sharedPref.getString(getString(R.string.shared_preferences_last_name), "last_name");
+
+        name = first_name + " " + last_name;
 
         txt_name = (TextView) findViewById(R.id.txt_name);
         txt_login = (TextView) findViewById(R.id.txt_login);

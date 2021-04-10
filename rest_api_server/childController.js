@@ -26,7 +26,7 @@ exports.index = function (req, res) {
 		});		
 	}
 	else{
-		Child.find({'login' : req.query.login}, function (err, child) {
+		Child.find({'parent' : req.query.login}, function (err, child) {
 			if (err) {
 				res.json({
 					status: "error",
@@ -34,14 +34,14 @@ exports.index = function (req, res) {
 				});
 				return;
 			}
-			res.json(child);
-			/*
+			//res.json(child);
+			
 			res.json({
 				status: "success",
 				message: "Child retrieved successfully",
 				data: child
 			});
-			*/
+			
 		});
 		return;	
 	}

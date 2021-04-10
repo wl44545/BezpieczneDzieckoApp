@@ -1,7 +1,9 @@
 package com.example.bezpiecznedziecko.parent.children;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -64,8 +66,12 @@ public class parentChildrenList extends AppCompatActivity implements OnNoteListe
 
     @SuppressLint("CheckResult")
     private void callEndpoints() {
+
+        SharedPreferences sharedPref = this.getSharedPreferences(getString(R.string.shared_preferences), Context.MODE_PRIVATE);
+        String login = sharedPref.getString(getString(R.string.shared_preferences_login), "login");
+
         RestClient retrofitService = retrofit.create(RestClient.class);
-        Observable<Children> childrenObservable = retrofitService.getChildrenProfiles();
+        Observable<Children> childrenObservable = retrofitService.getChildrenProfiles(login);
         childrenObservable.subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread()).map(result -> result.data).subscribe(this::handleResults, this::handleError);
     }
 

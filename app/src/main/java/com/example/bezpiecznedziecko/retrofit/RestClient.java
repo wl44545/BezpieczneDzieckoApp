@@ -1,5 +1,9 @@
 package com.example.bezpiecznedziecko.retrofit;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
+import com.example.bezpiecznedziecko.R;
 import com.example.bezpiecznedziecko.parent.children.Children;
 import com.example.bezpiecznedziecko.parent.parents.Parents;
 
@@ -10,13 +14,14 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface RestClient {
     String BASE_URL = "http://10.0.2.2:8080/";
-    //String BASE_URL = "http://10.0.2.2:8080/children?token=GgV6r7hErAKK8ln7muz71FtM2sdI4yGaf2H6zpbrplBY6pvTjvqKAkW3cAbGyhhe&login=0/";
 
-    @GET("/children?token=GgV6r7hErAKK8ln7muz71FtM2sdI4yGaf2H6zpbrplBY6pvTjvqKAkW3cAbGyhhe&login=0")
-    Observable<Children> getChildrenProfiles();
+    @GET("/children?token=GgV6r7hErAKK8ln7muz71FtM2sdI4yGaf2H6zpbrplBY6pvTjvqKAkW3cAbGyhhe")
+    Observable<Children> getChildrenProfiles(@Query("login") String login);
 
     @GET("parents")
     Observable<Parents> getParentsProfiles();
