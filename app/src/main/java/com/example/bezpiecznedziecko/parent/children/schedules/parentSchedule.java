@@ -1,4 +1,4 @@
-package com.example.bezpiecznedziecko.parent.schedules;
+package com.example.bezpiecznedziecko.parent.children.schedules;
 
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;

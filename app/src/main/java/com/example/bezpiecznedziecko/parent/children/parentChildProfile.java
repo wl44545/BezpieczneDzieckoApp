@@ -2,12 +2,15 @@ package com.example.bezpiecznedziecko.parent.children;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import com.example.bezpiecznedziecko.R;
+import com.example.bezpiecznedziecko.parent.children.schedules.parentSchedulesList;
+import com.example.bezpiecznedziecko.parent.main.parentMain;
 
 public class parentChildProfile extends AppCompatActivity {
 
@@ -31,6 +34,17 @@ public class parentChildProfile extends AppCompatActivity {
         txt_login = (TextView) findViewById(R.id.txt_login);
         txt_name.setText(name);
         txt_login.setText(login);
+
+
+        btn_schedules = (Button)findViewById(R.id.btn_schedules);
+        btn_schedules.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view)
+            {
+                Intent intent = new Intent(parentChildProfile.this, parentSchedulesList.class);
+                startActivity(intent);
+            }
+        });
 
     }
 }

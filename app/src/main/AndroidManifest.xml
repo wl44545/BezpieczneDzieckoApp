@@ -41,7 +41,7 @@
         <activity android:name=".authorization.parentRegister" />
         <activity android:name=".child.schedules.childSchedulesList" />
         <activity android:name=".parent.children.parentChildrenList" />
-        <activity android:name=".parent.schedules.parentSchedulesList" />
+        <activity android:name=".parent.children.schedules.parentSchedulesList" />
         <activity android:name=".parent.children.parentChildProfile"   />
         <activity android:name=".welcome">
             <intent-filter>

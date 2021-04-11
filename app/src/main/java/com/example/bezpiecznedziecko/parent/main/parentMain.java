@@ -13,16 +13,14 @@ import android.widget.TextView;
 
 import com.example.bezpiecznedziecko.R;
 import com.example.bezpiecznedziecko.authorization.childRegister;
-import com.example.bezpiecznedziecko.authorization.parentLogin;
 import com.example.bezpiecznedziecko.parent.children.parentChildrenList;
 import com.example.bezpiecznedziecko.parent.maps.parentMap;
-import com.example.bezpiecznedziecko.parent.schedules.parentSchedulesList;
-import com.example.bezpiecznedziecko.parent.schedules.parentSchedulesListView;
+import com.example.bezpiecznedziecko.parent.children.schedules.parentSchedulesList;
 import com.example.bezpiecznedziecko.welcome;
 
 public class parentMain extends AppCompatActivity {
 
-    Button btn_maps, btn_children, btn_schedules, btn_logout, btn_add_child;
+    Button btn_maps, btn_children, btn_logout;
     TextView txt_name, txt_login;
     String login,first_name,last_name,name;
 
@@ -61,15 +59,6 @@ public class parentMain extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        btn_schedules = (Button)findViewById(R.id.btn_schedules);
-        btn_schedules.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view)
-            {
-                Intent intent = new Intent(parentMain.this, parentSchedulesList.class);
-                startActivity(intent);
-            }
-        });
         btn_logout = (Button)findViewById(R.id.btn_logout);
         btn_logout.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -86,15 +75,7 @@ public class parentMain extends AppCompatActivity {
             }
         });
 
-        btn_add_child = (Button)findViewById(R.id.btn_add_child);
-        btn_add_child.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view)
-            {
-                Intent intent = new Intent(parentMain.this, childRegister.class);
-                startActivity(intent);
-            }
-        });
+
 
 
     }

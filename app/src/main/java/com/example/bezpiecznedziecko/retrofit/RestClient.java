@@ -1,20 +1,10 @@
 package com.example.bezpiecznedziecko.retrofit;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-
-import com.example.bezpiecznedziecko.R;
 import com.example.bezpiecznedziecko.parent.children.Children;
 import com.example.bezpiecznedziecko.parent.parents.Parents;
 
-import org.json.JSONObject;
-
 import io.reactivex.Observable;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
-import retrofit2.http.POST;
-import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface RestClient {
@@ -27,7 +17,7 @@ public interface RestClient {
     Observable<Parents> getParentsProfiles();
 
     @GET("schedules")
-    Observable<com.example.bezpiecznedziecko.parent.schedules.Schedules> getParentsSchedules();
+    Observable<com.example.bezpiecznedziecko.parent.children.schedules.Schedules> getParentsSchedules();
 
     @GET("schedules")
     Observable<com.example.bezpiecznedziecko.child.schedules.Schedules> getChildrenSchedules();

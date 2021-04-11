@@ -10,8 +10,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.cardview.widget.CardView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
+
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.bezpiecznedziecko.authorization.childRegister;
+import com.example.bezpiecznedziecko.parent.main.parentMain;
 import com.example.bezpiecznedziecko.welcome;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -38,12 +43,24 @@ public class parentChildrenList extends AppCompatActivity implements OnNoteListe
     parentChildrenListView parentChildrenListView;
     List<Children.Child> childrenList;
 
+    Button btn_add_child;
+
     private OnNoteListener onNoteListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.parent_children_list);
+
+        btn_add_child = (Button)findViewById(R.id.btn_add_child);
+        btn_add_child.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view)
+            {
+                Intent intent = new Intent(parentChildrenList.this, childRegister.class);
+                startActivity(intent);
+            }
+        });
 
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

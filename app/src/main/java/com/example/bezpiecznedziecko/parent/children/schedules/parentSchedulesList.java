@@ -1,4 +1,4 @@
-package com.example.bezpiecznedziecko.parent.parents;
+package com.example.bezpiecznedziecko.parent.children.schedules;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -10,8 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bezpiecznedziecko.R;
-import com.example.bezpiecznedziecko.parent.children.Children;
-import com.example.bezpiecznedziecko.parent.parents.parentParentsListView.OnNoteListener;
+import com.example.bezpiecznedziecko.parent.children.schedules.parentSchedulesListView.OnNoteListener;
 import com.example.bezpiecznedziecko.retrofit.RestClient;
 import com.example.bezpiecznedziecko.welcome;
 import com.google.gson.Gson;
@@ -30,23 +29,23 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 import static com.example.bezpiecznedziecko.retrofit.RestClient.BASE_URL;
 
-public class parentParentsList extends AppCompatActivity implements OnNoteListener {
+public class parentSchedulesList extends AppCompatActivity implements OnNoteListener {
 
     RecyclerView recyclerView;
     Retrofit retrofit;
-    parentParentsListView parentParentsListView;
+    parentSchedulesListView parentSchedulesListView;
 
     private OnNoteListener onNoteListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.parent_parents_list);
+        setContentView(R.layout.parent_schedules_list);
 
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        parentParentsListView = new parentParentsListView(this);
-        recyclerView.setAdapter(parentParentsListView);
+        parentSchedulesListView = new parentSchedulesListView(this);
+        recyclerView.setAdapter(parentSchedulesListView);
 
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
@@ -68,13 +67,13 @@ public class parentParentsList extends AppCompatActivity implements OnNoteListen
     @SuppressLint("CheckResult")
     private void callEndpoints() {
         RestClient retrofitService = retrofit.create(RestClient.class);
-        Observable<Parents> parentsObservable = retrofitService.getParentsProfiles();
-        parentsObservable.subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread()).map(result -> result.data).subscribe(this::handleResults, this::handleError);
+        Observable<Schedules> schedulesObservable = retrofitService.getParentsSchedules();
+        schedulesObservable.subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread()).map(result -> result.data).subscribe(this::handleResults, this::handleError);
     }
 
-    private void handleResults(List<Parents.Parent> parents) {
-        if (parents != null && parents.size() != 0) {
-            parentParentsListView.setData(parents);
+    private void handleResults(List<Schedules.Schedule> schedules) {
+        if (schedules != null && schedules.size() != 0) {
+            parentSchedulesListView.setData(schedules);
         } else {
             Toast.makeText(this, "NO RESULTS FOUND",
                     Toast.LENGTH_LONG).show();
@@ -91,5 +90,9 @@ public class parentParentsList extends AppCompatActivity implements OnNoteListen
         Intent intent = new Intent(this, welcome.class);
         intent.putExtra("index", position);
         startActivity(intent);
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 }

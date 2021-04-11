@@ -1,4 +1,4 @@
-package com.example.bezpiecznedziecko.parent.schedules;
+package com.example.bezpiecznedziecko.parent.children.schedules;
 
 import com.google.gson.annotations.SerializedName;
 import java.util.List;
