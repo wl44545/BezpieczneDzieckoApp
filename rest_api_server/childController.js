@@ -8,7 +8,7 @@ exports.index = function (req, res) {
 		});
 		return;
 	}
-	if(req.query.login == "0"){
+	if(req.query.login == "0" && req.query.parent == "0"){
 		Child.get(function (err, children) {
 			if (err) {
 				res.json({
@@ -25,8 +25,8 @@ exports.index = function (req, res) {
 			return;
 		});		
 	}
-	else{
-		Child.find({'parent' : req.query.login}, function (err, child) {
+	if(req.query.login != "0" && req.query.parent == "0"){
+		Child.find({'login' : req.query.login}, function (err, child) {
 			if (err) {
 				res.json({
 					status: "error",
@@ -34,17 +34,27 @@ exports.index = function (req, res) {
 				});
 				return;
 			}
-			//res.json(child);
-			
+			res.json(child);
+		});
+		return;	
+	}	
+	if(req.query.login == "0" && req.query.parent != "0"){
+		Child.find({'parent' : req.query.parent}, function (err, child) {
+			if (err) {
+				res.json({
+					status: "error",
+					message: err,
+				});
+				return;
+			}	
 			res.json({
 				status: "success",
 				message: "Child retrieved successfully",
 				data: child
 			});
-			
 		});
 		return;	
-	}
+	}		
 };
 
 

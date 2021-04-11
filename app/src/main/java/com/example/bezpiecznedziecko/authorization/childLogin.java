@@ -49,22 +49,6 @@ public class childLogin extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.child_login);
 
-        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
-
-        Gson gson = new GsonBuilder()
-                .setLenient()
-                .create();
-
-        retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .client(client)
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .build();
-
-
         edt_login = (EditText)findViewById(R.id.edt_login);
         edt_password = (EditText)findViewById(R.id.edt_password);
 
@@ -121,7 +105,7 @@ public class childLogin extends AppCompatActivity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-        String x = "http://10.0.2.2:8080/children?token="+getString(R.string.child_token)+"&login="+login;
+        String x = "http://10.0.2.2:8080/children?token="+getString(R.string.child_token)+"&login="+login+"&parent=0";
 
         URL url = new URL(x);
         HttpURLConnection con = (HttpURLConnection) url.openConnection();

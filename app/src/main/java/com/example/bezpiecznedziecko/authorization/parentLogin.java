@@ -50,21 +50,6 @@ public class parentLogin extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.parent_login);
 
-       /* HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
-
-        Gson gson = new GsonBuilder()
-                .setLenient()
-                .create();
-
-        retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .client(client)
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .build();*/
-
         edt_login = (EditText)findViewById(R.id.edt_login);
         edt_password = (EditText)findViewById(R.id.edt_password);
 

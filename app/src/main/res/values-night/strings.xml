@@ -14,4 +14,5 @@
     <string name="shared_preferences_longitude">longitude</string>
     <string name="shared_preferences_latitude">latitude</string>
     <string name="shared_preferences_logged_parent">parent</string>
+    <string name="shared_preferences_logged_nobody">nobody</string>
 </resources>

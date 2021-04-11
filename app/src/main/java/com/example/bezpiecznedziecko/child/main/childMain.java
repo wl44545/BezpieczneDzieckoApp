@@ -2,6 +2,7 @@ package com.example.bezpiecznedziecko.child.main;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import com.example.bezpiecznedziecko.BuildConfig;
@@ -55,7 +56,6 @@ public class childMain extends AppCompatActivity implements
 
     Button btn_maps, btn_schedules, btn_logout, btn_panic;
     TextView txt_name, txt_login;
-    Boolean is_child_logged = false;
     String login,first_name,last_name,name;
 
     private static final String TAG = childMain.class.getSimpleName();
@@ -100,9 +100,9 @@ public class childMain extends AppCompatActivity implements
         setContentView(R.layout.child_main);
 
         SharedPreferences sharedPref = this.getSharedPreferences(getString(R.string.shared_preferences), Context.MODE_PRIVATE);
-        login = sharedPref.getString(getString(R.string.shared_preferences_login), "login");
-        first_name = sharedPref.getString(getString(R.string.shared_preferences_first_name), "first_name");
-        last_name = sharedPref.getString(getString(R.string.shared_preferences_last_name), "last_name");
+        login = sharedPref.getString(getString(R.string.shared_preferences_login), getString(R.string.shared_preferences_login));
+        first_name = sharedPref.getString(getString(R.string.shared_preferences_first_name),getString(R.string.shared_preferences_first_name));
+        last_name = sharedPref.getString(getString(R.string.shared_preferences_last_name), getString(R.string.shared_preferences_last_name));
 
         name = first_name + " " + last_name;
 
@@ -135,6 +135,12 @@ public class childMain extends AppCompatActivity implements
             public void onClick(View view)
             {
                 mService.removeLocationUpdates();
+                @SuppressLint("CommitPrefEdits") SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putString(getString(R.string.shared_preferences_logged), getString(R.string.shared_preferences_logged_nobody));
+                editor.putString(getString(R.string.shared_preferences_login), getString(R.string.shared_preferences_logged_nobody));
+                editor.putString(getString(R.string.shared_preferences_first_name), getString(R.string.shared_preferences_logged_nobody));
+                editor.putString(getString(R.string.shared_preferences_last_name), getString(R.string.shared_preferences_logged_nobody));
+                editor.apply();
                 Intent intent = new Intent(childMain.this, welcome.class);
                 startActivity(intent);
             }
