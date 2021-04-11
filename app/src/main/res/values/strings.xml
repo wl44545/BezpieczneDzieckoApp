@@ -17,6 +17,9 @@
     <string name="child_login_btn_login">ZALOGUJ</string>
     <string name="child_login_btn_back">COFNIJ</string>
 
+    <string name="child_logout_hint_password">Hasło rodzica</string>
+
+
     <string name="parent_register_header1">REJESTRACJA RODZICA</string>
     <string name="parent_register_hint_login">Nazwa użytkownika</string>
     <string name="parent_register_hint_password">Hasło</string>
@@ -83,7 +86,6 @@
     <string name="remove_location_updates">Remove location updates</string>
     <string name="location_updated">Location Updated: %1$s</string>
     <string name="title_activity_maps">Map</string>
-
 
 
     <string name="location_token">N5Ol1anRFPtJLbS1GEZGPYfG7s7E1DHe9VZBvMSB1MLdn3Ft84Ansgu0824z5cdE</string>

@@ -28,6 +28,7 @@ import android.net.Uri;
 import android.provider.Settings;
 import androidx.annotation.NonNull;
 
+import com.example.bezpiecznedziecko.authorization.childLogout;
 import com.example.bezpiecznedziecko.child.maps.childMap;
 import com.example.bezpiecznedziecko.child.schedules.childSchedulesList;
 import com.example.bezpiecznedziecko.welcome;
@@ -123,13 +124,7 @@ public class childMain extends AppCompatActivity implements
             public void onClick(View view)
             {
                 mService.removeLocationUpdates();
-                @SuppressLint("CommitPrefEdits") SharedPreferences.Editor editor = sharedPref.edit();
-                editor.putString(getString(R.string.shared_preferences_logged), getString(R.string.shared_preferences_logged_nobody));
-                editor.putString(getString(R.string.shared_preferences_login), getString(R.string.shared_preferences_logged_nobody));
-                editor.putString(getString(R.string.shared_preferences_first_name), getString(R.string.shared_preferences_logged_nobody));
-                editor.putString(getString(R.string.shared_preferences_last_name), getString(R.string.shared_preferences_logged_nobody));
-                editor.apply();
-                Intent intent = new Intent(childMain.this, welcome.class);
+                Intent intent = new Intent(childMain.this, childLogout.class);
                 startActivity(intent);
             }
         });

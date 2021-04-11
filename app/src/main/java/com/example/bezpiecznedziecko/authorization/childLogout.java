@@ -2,6 +2,7 @@ package com.example.bezpiecznedziecko.authorization;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -12,11 +13,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
 import com.example.bezpiecznedziecko.R;
 import com.example.bezpiecznedziecko.child.main.childMain;
+import com.example.bezpiecznedziecko.parent.main.parentMain;
 import com.example.bezpiecznedziecko.welcome;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -30,34 +31,28 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
-import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
+public class childLogout extends AppCompatActivity {
 
-import static com.example.bezpiecznedziecko.retrofit.RestClient.BASE_URL;
-
-public class childLogin extends AppCompatActivity {
-
-    EditText edt_login, edt_password;
-    Button btn_login, btn_back;
-    Retrofit retrofit;
+    EditText edt_password;
+    Button btn_logout, btn_back;
+    String parent_login;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.child_login);
+        setContentView(R.layout.child_logout);
 
-        edt_login = (EditText)findViewById(R.id.edt_login);
+        SharedPreferences sharedPref = this.getSharedPreferences(getString(R.string.shared_preferences), Context.MODE_PRIVATE);
+        parent_login = sharedPref.getString("parent",null);
+
         edt_password = (EditText)findViewById(R.id.edt_password);
 
-        btn_login = (Button)findViewById(R.id.btn_login);
-        btn_login.setOnClickListener(new View.OnClickListener() {
+        btn_logout = (Button)findViewById(R.id.btn_logout);
+        btn_logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 try {
-                    loginChild(edt_login.getText().toString(),
+                    loginParent(parent_login,
                             edt_password.getText().toString());
                 } catch (IOException | JSONException e) {
                     e.printStackTrace();
@@ -69,10 +64,11 @@ public class childLogin extends AppCompatActivity {
             @Override
             public void onClick(View view)
             {
-                Intent intent = new Intent(childLogin.this, welcome.class);
+                Intent intent = new Intent(childLogout.this, childMain.class);
                 startActivity(intent);
             }
         });
+
     }
 
     private String get_SHA_512_SecurePassword(String passwordToHash, String salt){
@@ -92,7 +88,7 @@ public class childLogin extends AppCompatActivity {
         return generatedPassword;
     }
 
-    private void loginChild(String login, String plain_password) throws IOException, JSONException {
+    private void loginParent(String login, String plain_password) throws IOException, JSONException {
         if(TextUtils.isEmpty(login)){
             Toast.makeText(this, "Wprowadź login", Toast.LENGTH_SHORT).show();
             return;
@@ -105,7 +101,7 @@ public class childLogin extends AppCompatActivity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-        String x = "http://10.0.2.2:8080/children?token="+getString(R.string.child_token)+"&login="+login+"&parent=0";
+        String x = "http://10.0.2.2:8080/parents?token="+ getString(R.string.parent_token)+"&login="+login;
 
         URL url = new URL(x);
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
@@ -125,21 +121,19 @@ public class childLogin extends AppCompatActivity {
         String res_password = (String) new JSONObject(content.toString().replace('[',' ').replace(']', ' ')).get("password");
         String res_first_name = (String) new JSONObject(content.toString().replace('[',' ').replace(']', ' ')).get("first_name");
         String res_last_name = (String) new JSONObject(content.toString().replace('[',' ').replace(']', ' ')).get("last_name");
-        String res_parent = (String) new JSONObject(content.toString().replace('[',' ').replace(']', ' ')).get("parent");
 
         String password = get_SHA_512_SecurePassword(plain_password, res_salt);
 
         if(password.equals(res_password)){
-            Toast.makeText(this, "Zalogowano", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(childLogin.this, childMain.class);
+            Toast.makeText(this, "Wylogowano", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(childLogout.this, welcome.class);
 
-            SharedPreferences sharedPref = this.getSharedPreferences(getString(R.string.shared_preferences),Context.MODE_PRIVATE);
+            SharedPreferences sharedPref = this.getSharedPreferences(getString(R.string.shared_preferences), Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPref.edit();
-            editor.putString(getString(R.string.shared_preferences_logged), getString(R.string.shared_preferences_logged_child));
-            editor.putString(getString(R.string.shared_preferences_login), login);
-            editor.putString("parent", res_parent);
-            editor.putString(getString(R.string.shared_preferences_first_name), res_first_name);
-            editor.putString(getString(R.string.shared_preferences_last_name), res_last_name);
+            editor.putString(getString(R.string.shared_preferences_logged), getString(R.string.shared_preferences_logged_nobody));
+            editor.putString(getString(R.string.shared_preferences_login), getString(R.string.shared_preferences_logged_nobody));
+            editor.putString(getString(R.string.shared_preferences_first_name), getString(R.string.shared_preferences_logged_nobody));
+            editor.putString(getString(R.string.shared_preferences_last_name), getString(R.string.shared_preferences_logged_nobody));
             editor.apply();
 
             startActivity(intent);
@@ -148,8 +142,11 @@ public class childLogin extends AppCompatActivity {
         }
     }
 
+
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
     }
+
 }
