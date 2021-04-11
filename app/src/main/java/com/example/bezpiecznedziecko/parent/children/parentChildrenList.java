@@ -18,6 +18,8 @@ import com.google.gson.GsonBuilder;
 import com.example.bezpiecznedziecko.R;
 import com.example.bezpiecznedziecko.retrofit.RestClient;
 import com.example.bezpiecznedziecko.parent.children.parentChildrenListView.OnNoteListener;
+
+import java.util.ArrayList;
 import java.util.List;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -34,6 +36,7 @@ public class parentChildrenList extends AppCompatActivity implements OnNoteListe
     RecyclerView recyclerView;
     Retrofit retrofit;
     parentChildrenListView parentChildrenListView;
+    List<Children.Child> childrenList;
 
     private OnNoteListener onNoteListener;
 
@@ -78,6 +81,9 @@ public class parentChildrenList extends AppCompatActivity implements OnNoteListe
     private void handleResults(List<Children.Child> children) {
         if (children != null && children.size() != 0) {
             parentChildrenListView.setData(children);
+            childrenList = children;
+            System.out.println(children);
+
         } else {
             Toast.makeText(this, "NO RESULTS FOUND",
                     Toast.LENGTH_LONG).show();
@@ -91,8 +97,11 @@ public class parentChildrenList extends AppCompatActivity implements OnNoteListe
 
     @Override
     public void onNoteClick(int position) {
-        Intent intent = new Intent(this, welcome.class);
-        intent.putExtra("index", position);
+        System.out.println(childrenList);
+        Intent intent = new Intent(this, parentChildProfile.class);
+        intent.putExtra("login", childrenList.get(position).login);
+        intent.putExtra("first_name", childrenList.get(position).first_name);
+        intent.putExtra("last_name", childrenList.get(position).last_name);
         startActivity(intent);
     }
     @Override
