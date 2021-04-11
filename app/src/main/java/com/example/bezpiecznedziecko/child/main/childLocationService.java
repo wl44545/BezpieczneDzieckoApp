@@ -58,12 +58,12 @@ import java.net.URL;
  * continue. When the activity comes back to the foreground, the foreground service stops, and the
  * notification associated with that service is removed.
  */
-public class LocationUpdatesService extends Service {
+public class childLocationService extends Service {
 
     private static final String PACKAGE_NAME =
             "com.google.android.gms.location.sample.locationupdatesforegroundservice";
 
-    private static final String TAG = LocationUpdatesService.class.getSimpleName();
+    private static final String TAG = childLocationService.class.getSimpleName();
 
     /**
      * The name of the channel for notifications.
@@ -126,7 +126,7 @@ public class LocationUpdatesService extends Service {
      */
     private Location mLocation;
 
-    public LocationUpdatesService() {
+    public childLocationService() {
     }
 
     @Override
@@ -211,7 +211,7 @@ public class LocationUpdatesService extends Service {
         // Called when the last client (childMain in case of this sample) unbinds from this
         // service. If this method is called due to a configuration change in childMain, we
         // do nothing. Otherwise, we make this service a foreground service.
-        if (!mChangingConfiguration && Utils.requestingLocationUpdates(this)) {
+        if (!mChangingConfiguration && childLocationUtils.requestingLocationUpdates(this)) {
             Log.i(TAG, "Starting foreground service");
 
             startForeground(NOTIFICATION_ID, getNotification());
@@ -230,13 +230,13 @@ public class LocationUpdatesService extends Service {
      */
     public void requestLocationUpdates() {
         Log.i(TAG, "Requesting location updates");
-        Utils.setRequestingLocationUpdates(this, true);
-        startService(new Intent(getApplicationContext(), LocationUpdatesService.class));
+        childLocationUtils.setRequestingLocationUpdates(this, true);
+        startService(new Intent(getApplicationContext(), childLocationService.class));
         try {
             mFusedLocationClient.requestLocationUpdates(mLocationRequest,
                     mLocationCallback, Looper.myLooper());
         } catch (SecurityException unlikely) {
-            Utils.setRequestingLocationUpdates(this, false);
+            childLocationUtils.setRequestingLocationUpdates(this, false);
             Log.e(TAG, "Lost location permission. Could not request updates. " + unlikely);
         }
     }
@@ -249,10 +249,10 @@ public class LocationUpdatesService extends Service {
         Log.i(TAG, "Removing location updates");
         try {
             mFusedLocationClient.removeLocationUpdates(mLocationCallback);
-            Utils.setRequestingLocationUpdates(this, false);
+            childLocationUtils.setRequestingLocationUpdates(this, false);
             stopSelf();
         } catch (SecurityException unlikely) {
-            Utils.setRequestingLocationUpdates(this, true);
+            childLocationUtils.setRequestingLocationUpdates(this, true);
             Log.e(TAG, "Lost location permission. Could not remove updates. " + unlikely);
         }
     }
@@ -261,9 +261,9 @@ public class LocationUpdatesService extends Service {
      * Returns the {@link NotificationCompat} used as part of the foreground service.
      */
     private Notification getNotification() {
-        Intent intent = new Intent(this, LocationUpdatesService.class);
+        Intent intent = new Intent(this, childLocationService.class);
 
-        CharSequence text = Utils.getLocationText(mLocation);
+        CharSequence text = childLocationUtils.getLocationText(mLocation);
 
         // Extra to help us figure out if we arrived in onStartCommand via the notification or not.
         intent.putExtra(EXTRA_STARTED_FROM_NOTIFICATION, true);
@@ -283,7 +283,7 @@ public class LocationUpdatesService extends Service {
                 .addAction(R.drawable.ic_cancel, getString(R.string.remove_location_updates),
                         servicePendingIntent)
                 .setContentText(text)
-                .setContentTitle(Utils.getLocationTitle(this))
+                .setContentTitle(childLocationUtils.getLocationTitle(this))
                 .setOngoing(true)
                 .setPriority(Notification.PRIORITY_HIGH)
                 .setSmallIcon(R.mipmap.ic_launcher)
@@ -395,8 +395,8 @@ public class LocationUpdatesService extends Service {
      * clients, we don't need to deal with IPC.
      */
     public class LocalBinder extends Binder {
-        LocationUpdatesService getService() {
-            return LocationUpdatesService.this;
+        childLocationService getService() {
+            return childLocationService.this;
         }
     }
 
@@ -419,3 +419,4 @@ public class LocationUpdatesService extends Service {
         return false;
     }
 }
+

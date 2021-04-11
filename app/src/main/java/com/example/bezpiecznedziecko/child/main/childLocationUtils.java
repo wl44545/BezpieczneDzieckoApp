@@ -9,7 +9,7 @@ import com.example.bezpiecznedziecko.R;
 import java.text.DateFormat;
 import java.util.Date;
 
-class Utils {
+class childLocationUtils {
 
     static final String KEY_REQUESTING_LOCATION_UPDATES = "requesting_location_updates";
 

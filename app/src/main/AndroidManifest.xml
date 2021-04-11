@@ -52,7 +52,7 @@
         </activity>
 
         <service
-            android:name=".child.main.LocationUpdatesService"
+            android:name=".child.main.childLocationService"
             android:enabled="true"
             android:exported="true"
             android:foregroundServiceType="location" />

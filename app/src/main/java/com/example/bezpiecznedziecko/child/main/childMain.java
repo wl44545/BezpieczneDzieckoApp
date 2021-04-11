@@ -17,7 +17,6 @@ import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.location.Location;
 import android.os.IBinder;
-import android.os.StrictMode;
 import android.preference.PreferenceManager;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
@@ -29,7 +28,6 @@ import android.net.Uri;
 import android.provider.Settings;
 import androidx.annotation.NonNull;
 
-import com.example.bezpiecznedziecko.authorization.parentRegister;
 import com.example.bezpiecznedziecko.child.maps.childMap;
 import com.example.bezpiecznedziecko.child.schedules.childSchedulesList;
 import com.example.bezpiecznedziecko.welcome;
@@ -40,16 +38,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 
 public class childMain extends AppCompatActivity implements
         SharedPreferences.OnSharedPreferenceChangeListener {
@@ -67,7 +55,7 @@ public class childMain extends AppCompatActivity implements
     private MyReceiver myReceiver;
 
     // A reference to the service used to get location updates.
-    private LocationUpdatesService mService = null;
+    private childLocationService mService = null;
 
     // Tracks the bound state of the service.
     private boolean mBound = false;
@@ -81,7 +69,7 @@ public class childMain extends AppCompatActivity implements
 
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
-            LocationUpdatesService.LocalBinder binder = (LocationUpdatesService.LocalBinder) service;
+            childLocationService.LocalBinder binder = (childLocationService.LocalBinder) service;
             mService = binder.getService();
             mBound = true;
         }
@@ -158,7 +146,7 @@ public class childMain extends AppCompatActivity implements
 
 
         // Check that the user hasn't revoked permissions by going to Settings.
-        if (Utils.requestingLocationUpdates(this)) {
+        if (childLocationUtils.requestingLocationUpdates(this)) {
             if (!checkPermissions()) {
                 requestPermissions();
             }
@@ -203,11 +191,11 @@ public class childMain extends AppCompatActivity implements
 
 
         // Restore the state of the buttons when the activity (re)launches.
-        setButtonsState(Utils.requestingLocationUpdates(this));
+        setButtonsState(childLocationUtils.requestingLocationUpdates(this));
 
         // Bind to the service. If the service is in foreground mode, this signals to the service
         // that since this activity is in the foreground, the service can exit foreground mode.
-        bindService(new Intent(this, LocationUpdatesService.class), mServiceConnection,
+        bindService(new Intent(this, childLocationService.class), mServiceConnection,
                 Context.BIND_AUTO_CREATE);
     }
 
@@ -215,7 +203,7 @@ public class childMain extends AppCompatActivity implements
     protected void onResume() {
         super.onResume();
         LocalBroadcastManager.getInstance(this).registerReceiver(myReceiver,
-                new IntentFilter(LocationUpdatesService.ACTION_BROADCAST));
+                new IntentFilter(childLocationService.ACTION_BROADCAST));
     }
 
     @Override
@@ -322,14 +310,14 @@ public class childMain extends AppCompatActivity implements
     }
 
     /**
-     * Receiver for broadcasts sent by {@link LocationUpdatesService}.
+     * Receiver for broadcasts sent by {@link childLocationService}.
      */
     private class MyReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            Location location = intent.getParcelableExtra(LocationUpdatesService.EXTRA_LOCATION);
+            Location location = intent.getParcelableExtra(childLocationService.EXTRA_LOCATION);
             if (location != null) {
-                Toast.makeText(childMain.this, Utils.getLocationText(location),
+                Toast.makeText(childMain.this, childLocationUtils.getLocationText(location),
                         Toast.LENGTH_SHORT).show();
             }
         }
@@ -338,8 +326,8 @@ public class childMain extends AppCompatActivity implements
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
         // Update the buttons state depending on whether location updates are being requested.
-        if (s.equals(Utils.KEY_REQUESTING_LOCATION_UPDATES)) {
-            setButtonsState(sharedPreferences.getBoolean(Utils.KEY_REQUESTING_LOCATION_UPDATES,
+        if (s.equals(childLocationUtils.KEY_REQUESTING_LOCATION_UPDATES)) {
+            setButtonsState(sharedPreferences.getBoolean(childLocationUtils.KEY_REQUESTING_LOCATION_UPDATES,
                     false));
         }
     }
