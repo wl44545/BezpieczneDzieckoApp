@@ -1,8 +1,6 @@
 package com.example.bezpiecznedziecko.retrofit;
 
 import com.example.bezpiecznedziecko.parent.children.Children;
-import com.example.bezpiecznedziecko.parent.parents.Parents;
-
 import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
@@ -12,9 +10,6 @@ public interface RestClient {
 
     @GET("/children?token=GgV6r7hErAKK8ln7muz71FtM2sdI4yGaf2H6zpbrplBY6pvTjvqKAkW3cAbGyhhe&login=0")
     Observable<Children> getChildrenProfiles(@Query("parent") String parent);
-
-    @GET("parents")
-    Observable<Parents> getParentsProfiles();
 
     @GET("schedules")
     Observable<com.example.bezpiecznedziecko.parent.children.schedules.Schedules> getParentsSchedules();
