@@ -154,12 +154,12 @@ exports.update = function (req, res) {
 
 
 exports.delete = async function (req, res) {
-	/*if(req.body.token != Token.children){
+	if(req.query.token != Token.children){
 		res.json({
 			message: 'Wrong token'
 		});
 		return;
-	}*/
+	}
 	Child.deleteOne({'login': req.query.login}, function (err, child) {
 		if (err)
 			res.send(err);
