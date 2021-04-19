@@ -1,9 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/parent_schedule_edit"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".parent.children.schedules.parentScheduleEdit">
+    tools:context=".parent.children.schedules.parentScheduleEdit"
+    android:orientation="vertical"
+    android:layout_margin="10dp"
+    android:padding="10dp">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="EDYTUJ HARMONOGRAM"
+        android:textSize="30sp"
+        android:layout_marginTop="30dp"
+        android:textAlignment="center"
+        android:elegantTextHeight="true"
+        android:textColor="@color/design_default_color_primary"
+        android:gravity="center_horizontal"/>
+
+    <Button
+        android:id="@+id/btn_save"
+        android:layout_width="300sp"
+        android:layout_height="60sp"
+        android:layout_gravity="center"
+        android:textSize="20sp"
+        android:text="ZAPISZ" />
+
+</LinearLayout>

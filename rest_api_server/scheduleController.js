@@ -2,12 +2,12 @@ Schedule = require('./scheduleModel');
 Token = require('./config/token.json');
 
 exports.index = function (req, res) {
-	/*if(req.query.token != Token.schedules){
+	if(req.query.token != Token.schedules){
 		res.json({
 			message: 'Wrong token'
 		});
 		return;
-	}*/
+	}
 	if(req.query.type == "all"){
 		Schedule.get(function (err, schedules) {
 			if (err) {
@@ -90,12 +90,12 @@ exports.index = function (req, res) {
 
 
 exports.new = function (req, res) {
-	/*if(req.query.token != Token.schedules){
+	if(req.body.token != Token.schedules){
 		res.json({
 			message: 'Wrong token'
 		});
 		return;
-	}*/
+	}
 	Schedule.find({'_id' : req.body._id}).exec((err, count) => {
 		if (err) {
 			res.json({

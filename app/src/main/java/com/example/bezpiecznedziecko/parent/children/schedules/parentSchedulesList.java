@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,6 +14,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bezpiecznedziecko.R;
+import com.example.bezpiecznedziecko.authorization.childRegister;
+import com.example.bezpiecznedziecko.parent.children.parentChildrenList;
 import com.example.bezpiecznedziecko.parent.children.schedules.parentSchedulesListView.OnNoteListener;
 import com.example.bezpiecznedziecko.retrofit.RestClient;
 import com.example.bezpiecznedziecko.welcome;
@@ -39,6 +43,7 @@ public class parentSchedulesList extends AppCompatActivity implements OnNoteList
     List<Schedules.Schedule> scheduleList;
     private OnNoteListener onNoteListener;
     String login;
+    Button btn_add_schedule;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +52,17 @@ public class parentSchedulesList extends AppCompatActivity implements OnNoteList
 
         Intent intent = getIntent();
         login = intent.getStringExtra("login");
+
+        btn_add_schedule = (Button)findViewById(R.id.btn_add_schedule);
+        btn_add_schedule.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view)
+            {
+                Intent intent = new Intent(parentSchedulesList.this, parentScheduleAdd.class);
+                intent.putExtra("login", login);
+                startActivity(intent);
+            }
+        });
 
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -72,6 +88,7 @@ public class parentSchedulesList extends AppCompatActivity implements OnNoteList
 
     @SuppressLint("CheckResult")
     private void callEndpoints() {
+        login = getIntent().getStringExtra("login");
         RestClient retrofitService = retrofit.create(RestClient.class);
         Observable<Schedules> schedulesObservable = retrofitService.getParentChildrenSchedules(login);
         schedulesObservable.subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread()).map(result -> result.data).subscribe(this::handleResults, this::handleError);
