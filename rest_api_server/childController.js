@@ -155,10 +155,10 @@ exports.update = function (req, res) {
 
 exports.delete = function (req, res) {
 	if(req.body.token != Token.children){
-		res.json({
+		/*res.json({
 			message: 'Wrong token'
 		});
-		return;
+		return;*/
 	}
 	else{	
 		Child.remove({
