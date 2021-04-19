@@ -47,5 +47,31 @@ public class parentChildProfile extends AppCompatActivity {
             }
         });
 
+        btn_delete = (Button)findViewById(R.id.btn_delete);
+        btn_delete.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view)
+            {
+                Intent intent = new Intent(parentChildProfile.this, parentChildDelete.class);
+                intent.putExtra("login",login);
+                intent.putExtra("first_name",first_name);
+                intent.putExtra("last_name",last_name);
+                startActivity(intent);
+            }
+        });
+
+        btn_edit = (Button)findViewById(R.id.btn_edit);
+        btn_edit.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view)
+            {
+                Intent intent = new Intent(parentChildProfile.this, parentChildEdit.class);
+                intent.putExtra("login",login);
+                intent.putExtra("first_name",first_name);
+                intent.putExtra("last_name",last_name);
+                startActivity(intent);
+            }
+        });
+
     }
 }

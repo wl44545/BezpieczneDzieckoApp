@@ -18,7 +18,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BezpieczneDziecko"
         android:usesCleartextTraffic="true">
-        <activity android:name=".authorization.childLogout"></activity>
+        <activity android:name=".parent.children.parentChildDelete"></activity>
+        <activity android:name=".parent.children.parentChildEdit" />
+        <activity android:name=".authorization.childLogout" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -44,7 +46,7 @@
         <activity android:name=".parent.children.schedules.parentSchedulesList" />
         <activity android:name=".parent.children.schedules.parentSchedule" />
         <activity android:name=".child.schedules.childSchedule" />
-        <activity android:name=".parent.children.parentChildProfile"   />
+        <activity android:name=".parent.children.parentChildProfile" />
         <activity android:name=".welcome">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
