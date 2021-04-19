@@ -38,7 +38,7 @@ public class childSchedulesList extends AppCompatActivity implements OnNoteListe
     RecyclerView recyclerView;
     Retrofit retrofit;
     childSchedulesListView childSchedulesListView;
-
+    List<Schedules.Schedule> scheduleList;
     private OnNoteListener onNoteListener;
 
     @Override
@@ -81,6 +81,7 @@ public class childSchedulesList extends AppCompatActivity implements OnNoteListe
     private void handleResults(List<Schedules.Schedule> schedules) {
         if (schedules != null && schedules.size() != 0) {
             childSchedulesListView.setData(schedules);
+            scheduleList = schedules;
         } else {
             Toast.makeText(this, "NO RESULTS FOUND",
                     Toast.LENGTH_LONG).show();
@@ -94,8 +95,8 @@ public class childSchedulesList extends AppCompatActivity implements OnNoteListe
 
     @Override
     public void onNoteClick(int position) {
-        Intent intent = new Intent(this, welcome.class);
-        intent.putExtra("index", position);
+        Intent intent = new Intent(this, childSchedule.class);
+        intent.putExtra("_id", scheduleList.get(position)._id);
         startActivity(intent);
     }
     @Override

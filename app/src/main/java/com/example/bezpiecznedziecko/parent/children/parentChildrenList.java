@@ -99,8 +99,6 @@ public class parentChildrenList extends AppCompatActivity implements OnNoteListe
         if (children != null && children.size() != 0) {
             parentChildrenListView.setData(children);
             childrenList = children;
-            System.out.println(children);
-
         } else {
             Toast.makeText(this, "NO RESULTS FOUND",
                     Toast.LENGTH_LONG).show();

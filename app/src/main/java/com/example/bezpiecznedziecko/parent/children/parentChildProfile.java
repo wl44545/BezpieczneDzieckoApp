@@ -42,6 +42,7 @@ public class parentChildProfile extends AppCompatActivity {
             public void onClick(View view)
             {
                 Intent intent = new Intent(parentChildProfile.this, parentSchedulesList.class);
+                intent.putExtra("login",login);
                 startActivity(intent);
             }
         });

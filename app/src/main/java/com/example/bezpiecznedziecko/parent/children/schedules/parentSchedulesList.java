@@ -36,13 +36,17 @@ public class parentSchedulesList extends AppCompatActivity implements OnNoteList
     RecyclerView recyclerView;
     Retrofit retrofit;
     parentSchedulesListView parentSchedulesListView;
-
+    List<Schedules.Schedule> scheduleList;
     private OnNoteListener onNoteListener;
+    String login;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.parent_schedules_list);
+
+        Intent intent = getIntent();
+        login = intent.getStringExtra("login");
 
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -68,8 +72,6 @@ public class parentSchedulesList extends AppCompatActivity implements OnNoteList
 
     @SuppressLint("CheckResult")
     private void callEndpoints() {
-        String login = "ddd";
-
         RestClient retrofitService = retrofit.create(RestClient.class);
         Observable<Schedules> schedulesObservable = retrofitService.getParentChildrenSchedules(login);
         schedulesObservable.subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread()).map(result -> result.data).subscribe(this::handleResults, this::handleError);
@@ -78,6 +80,7 @@ public class parentSchedulesList extends AppCompatActivity implements OnNoteList
     private void handleResults(List<Schedules.Schedule> schedules) {
         if (schedules != null && schedules.size() != 0) {
             parentSchedulesListView.setData(schedules);
+            scheduleList = schedules;
         } else {
             Toast.makeText(this, "NO RESULTS FOUND",
                     Toast.LENGTH_LONG).show();
@@ -91,8 +94,8 @@ public class parentSchedulesList extends AppCompatActivity implements OnNoteList
 
     @Override
     public void onNoteClick(int position) {
-        Intent intent = new Intent(this, welcome.class);
-        intent.putExtra("index", position);
+        Intent intent = new Intent(this, parentSchedule.class);
+        intent.putExtra("_id", scheduleList.get(position)._id);
         startActivity(intent);
     }
     @Override

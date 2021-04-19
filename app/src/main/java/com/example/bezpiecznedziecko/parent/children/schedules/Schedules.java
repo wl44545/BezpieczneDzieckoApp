@@ -13,6 +13,8 @@ public class Schedules {
     public List<Schedule> data = null;
 
     public class Schedule {
+        @SerializedName("_id")
+        public String _id;
         @SerializedName("child")
         public String child;
         @SerializedName("longitude")
