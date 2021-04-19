@@ -153,23 +153,20 @@ exports.update = function (req, res) {
 };
 
 
-exports.delete = function (req, res) {
-	if(req.body.token != Token.children){
-		/*res.json({
+exports.delete = async function (req, res) {
+	/*if(req.body.token != Token.children){
+		res.json({
 			message: 'Wrong token'
 		});
-		return;*/
-	}
-	else{	
-		Child.remove({
-			login: req.body.login
-		}, function (err, child) {
-			if (err)
-				res.send(err);
-			res.json({
-				status: "success",
-				message: 'Child deleted'
-			});
-		});	
-	}
+		return;
+	}*/
+	Child.deleteOne({'login': req.query.login}, function (err, child) {
+		if (err)
+			res.send(err);
+		res.json({
+			status: "success",
+			message: 'Child deleted'
+		});
+	});	
+
 };

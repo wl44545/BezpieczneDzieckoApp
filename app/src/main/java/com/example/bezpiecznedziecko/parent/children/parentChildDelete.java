@@ -63,7 +63,24 @@ public class parentChildDelete extends AppCompatActivity {
     }
 
     private void deleteChild(String login) throws IOException, JSONException {
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
 
+        String x = "http://10.0.2.2:8080/children?token="+getString(R.string.child_token)+"&login="+login;
+
+        URL url = new URL(x);
+        HttpURLConnection con = (HttpURLConnection) url.openConnection();
+        con.setRequestMethod("DELETE");
+
+        int status = con.getResponseCode();
+        BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+        String inputLine;
+        StringBuilder content = new StringBuilder();
+        while((inputLine = in.readLine()) != null) {
+            content.append(inputLine);
+        }
+        in.close();
+        con.disconnect();
     }
 
 }
