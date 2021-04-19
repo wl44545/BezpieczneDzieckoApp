@@ -8,21 +8,13 @@ var scheduleSchema = mongoose.Schema({
         type: String,
         required: true
     },
-	start_date: {
-        type: String,
-        required: true
-    },
-	start_time: {
-		type: String,
+	start: {
+		type: Date,
 		required: true
     },
-    stop_date: {
-        type: String,
+    stop: {
+        type: Date,
         required: true
-    },
-	stop_time: {
-		type: String,
-		required: true
     },
 	longitude: {
 		type: String,
