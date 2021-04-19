@@ -1,7 +1,9 @@
 package com.example.bezpiecznedziecko.child.schedules;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -68,8 +70,11 @@ public class childSchedulesList extends AppCompatActivity implements OnNoteListe
 
     @SuppressLint("CheckResult")
     private void callEndpoints() {
+        SharedPreferences sharedPref = this.getSharedPreferences(getString(R.string.shared_preferences), Context.MODE_PRIVATE);
+        String login = sharedPref.getString(getString(R.string.shared_preferences_login), "login");
+
         RestClient retrofitService = retrofit.create(RestClient.class);
-        Observable<Schedules> schedulesObservable = retrofitService.getChildrenSchedules();
+        Observable<Schedules> schedulesObservable = retrofitService.getChildrenChildrenSchedules(login);
         schedulesObservable.subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread()).map(result -> result.data).subscribe(this::handleResults, this::handleError);
     }
 

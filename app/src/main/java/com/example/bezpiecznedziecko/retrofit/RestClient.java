@@ -11,10 +11,15 @@ public interface RestClient {
     @GET("/children?token=GgV6r7hErAKK8ln7muz71FtM2sdI4yGaf2H6zpbrplBY6pvTjvqKAkW3cAbGyhhe&login=0")
     Observable<Children> getChildrenProfiles(@Query("parent") String parent);
 
-    @GET("schedules")
-    Observable<com.example.bezpiecznedziecko.parent.children.schedules.Schedules> getParentsSchedules();
+    @GET("schedules?token=WBLGQ1u9bOVoVRM3XWLYmGg2iuUXTlGgnSmDjgdVvyJQPWkdjwC6CiykdTIwEPcr&type=parent")
+    Observable<com.example.bezpiecznedziecko.parent.children.schedules.Schedules> getParentsSchedules(@Query("parent") String parent);
 
-    @GET("schedules")
-    Observable<com.example.bezpiecznedziecko.child.schedules.Schedules> getChildrenSchedules();
+    @GET("/schedules?token=WBLGQ1u9bOVoVRM3XWLYmGg2iuUXTlGgnSmDjgdVvyJQPWkdjwC6CiykdTIwEPcr&type=child")
+    Observable<com.example.bezpiecznedziecko.child.schedules.Schedules> getChildrenChildrenSchedules(@Query("child") String child);
+
+    @GET("/schedules?token=WBLGQ1u9bOVoVRM3XWLYmGg2iuUXTlGgnSmDjgdVvyJQPWkdjwC6CiykdTIwEPcr&type=child")
+    Observable<com.example.bezpiecznedziecko.parent.children.schedules.Schedules> getParentChildrenSchedules(@Query("child") String child);
+
+
 
 }

@@ -34,11 +34,7 @@ exports.index = function (req, res) {
 				});
 				return;
 			}
-			res.json({
-				status: "success",
-				message: "Schedule retrieved successfully",
-				data: schedule
-			});
+			res.json(schedule);
 		});
 		return;	
 	}
@@ -51,11 +47,7 @@ exports.index = function (req, res) {
 				});
 				return;
 			}
-			res.json({
-				status: "success",
-				message: "Schedule retrieved successfully",
-				data: schedule
-			});
+			res.json(schedule);
 		}).sort({create_date:-1});
 		return;	
 	}
@@ -68,7 +60,11 @@ exports.index = function (req, res) {
 				});
 				return;
 			}
-			res.json(schedule);
+			res.json({
+				status: "success",
+				message: "Schedule retrieved successfully",
+				data: schedule
+			});
 		}).sort({create_date:-1});
 		return;	
 	}
@@ -81,7 +77,11 @@ exports.index = function (req, res) {
 				});
 				return;
 			}
-			res.json(schedule);
+			res.json({
+				status: "success",
+				message: "Schedule retrieved successfully",
+				data: schedule
+			});
 		}).sort({create_date:-1});
 		return;	
 	}
