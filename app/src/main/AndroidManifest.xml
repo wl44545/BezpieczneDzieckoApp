@@ -18,7 +18,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BezpieczneDziecko"
         android:usesCleartextTraffic="true">
-        <activity android:name=".parent.children.parentChildDelete"></activity>
+        <activity android:name=".parent.children.schedules.parentScheduleDelete"></activity>
+        <activity android:name=".parent.children.schedules.parentScheduleEdit" />
+        <activity android:name=".parent.children.schedules.parentScheduleAdd" />
+        <activity android:name=".parent.children.parentChildDelete" />
         <activity android:name=".parent.children.parentChildEdit" />
         <activity android:name=".authorization.childLogout" />
         <!--

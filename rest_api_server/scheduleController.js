@@ -169,14 +169,14 @@ exports.update = function (req, res) {
 
 
 exports.delete = function (req, res) {
-	if(req.body.token != Token.schedules){
+	if(req.query.token != Token.schedules){
 		res.json({
 			message: 'Wrong token'
 		});
 		return;
 	}
 	else{	
-		Schedule.remove({ _id: req.body._id }, function (err, schedule) {
+		Schedule.deleteOne({ _id: req.query._id }, function (err, schedule) {
 			if (err) {
 				res.json({
 					status: "error",
