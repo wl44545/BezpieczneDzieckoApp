@@ -1,10 +1,13 @@
 package com.example.bezpiecznedziecko.parent.children;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,11 +17,16 @@ import android.widget.Toast;
 
 import com.example.bezpiecznedziecko.R;
 import com.example.bezpiecznedziecko.authorization.childRegister;
+import com.example.bezpiecznedziecko.authorization.parentRegister;
+import com.example.bezpiecznedziecko.authorization.safetyFunctions;
 import com.example.bezpiecznedziecko.parent.children.schedules.parentSchedulesList;
 import com.example.bezpiecznedziecko.parent.main.parentMain;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -59,19 +67,88 @@ public class parentChildEdit extends AppCompatActivity {
         edt_pesel = (EditText)findViewById(R.id.edt_pesel);
 
         edt_login.setText(login);
-        edt_password.setText(password);
+//        edt_password.setText(password);
         edt_first_name.setText(first_name);
         edt_last_name.setText(last_name);
         edt_email.setText(email);
         edt_phone_number.setText(phone_number);
-        edt_pesel.setText(pesel);
+        if(!pesel.equals(" "))
+        {
+            edt_pesel.setText(pesel);
+        }
+
 
         btn_save = (Button)findViewById(R.id.btn_save);
         btn_save.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view)
             {
+                String newPassword = edt_password.getText().toString();
 
+                if(newPassword.equals(""))
+                {
+                    System.out.println("nie wprowadzono nowego hasła");
+
+                    //TODO: update data - send them to the database
+                }
+                else
+                {
+                    System.out.println("wprowadzono nowe hasło");
+                    AlertDialog.Builder mBuilder = new AlertDialog.Builder(parentChildEdit.this);
+                    View mView = getLayoutInflater().inflate(R.layout.parent_child_edit_confirm,null);
+                    final TextInputEditText mCurrentPassword = (TextInputEditText) mView.findViewById(R.id.child_edit_confirm_currentPassword);
+                    final TextInputLayout passwordInputLayout  = (TextInputLayout) mView.findViewById(R.id.child_edit_confirm_currentPasswordLayout);
+
+                    mCurrentPassword.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                        }
+
+                        @Override
+                        public void onTextChanged(CharSequence s, int start, int before, int count) {
+                            passwordInputLayout.setError(null);
+                        }
+
+                        @Override
+                        public void afterTextChanged(Editable s) {
+
+                        }
+                    });
+
+                    mBuilder.setView(mView);
+                    AlertDialog confirmDialog = mBuilder.create();
+
+                    Button mConfirmButton = (Button) mView.findViewById(R.id.child_edit_confirm_confirmButton);
+                    mConfirmButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            String enteredPassword = mCurrentPassword.getText().toString();
+
+
+                            com.example.bezpiecznedziecko.authorization.safetyFunctions safetyFunctions = new safetyFunctions();
+                            String hashedGivenPassword = safetyFunctions.get_SHA_512_SecurePassword(enteredPassword,salt);
+
+                            if(!hashedGivenPassword.equals(password))
+                                passwordInputLayout.setError("Nieprawidłowe hasło!");
+                            else
+                                confirmDialog.dismiss();
+
+                            //TODO: when veryfication passes - update data
+                        }
+                    });
+                    Button mCancelButton = (Button) mView.findViewById(R.id.child_edit_confirm_cancelButton);
+                    mCancelButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            confirmDialog.dismiss();
+                        }
+                    });
+
+                    confirmDialog.show();
+                }
+
+                //TODO: probably I can do it here - in order to not multiply code (reduce one if's branch above)
             }
         });
 
@@ -114,6 +191,4 @@ public class parentChildEdit extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
     }
-
-
 }

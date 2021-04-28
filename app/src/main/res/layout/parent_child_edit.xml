@@ -12,7 +12,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="EDYTUJ DZIECKO"
+        android:text="@string/child_edit_label_header"
         android:textSize="30sp"
         android:layout_marginTop="30dp"
         android:textAlignment="center"
@@ -20,14 +20,24 @@
         android:textColor="@color/design_default_color_primary"
         android:gravity="center_horizontal"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/child_edit_label_login"
+        android:layout_marginTop="20sp" />
+
     <EditText
         android:id="@+id/edt_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="15sp"
-        android:layout_marginTop="20sp"
         android:hint="@string/child_register_hint_login"
         android:inputType="textPersonName" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/child_edit_label_new_password"/>
 
     <EditText
         android:id="@+id/edt_password"
@@ -36,6 +46,12 @@
         android:hint="@string/child_register_hint_password"
         android:inputType="textPassword"
         android:textSize="15sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/child_edit_label_first_name"/>
+
     <EditText
         android:id="@+id/edt_first_name"
         android:layout_width="match_parent"
@@ -43,6 +59,12 @@
         android:textSize="15sp"
         android:hint="@string/child_register_hint_first_name"
         android:inputType="textPersonName" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/child_edit_label_last_name"/>
+
     <EditText
         android:id="@+id/edt_last_name"
         android:layout_width="match_parent"
@@ -50,6 +72,11 @@
         android:textSize="15sp"
         android:hint="@string/child_register_hint_last_name"
         android:inputType="textPersonName" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/child_edit_label_email" />
 
     <EditText
         android:id="@+id/edt_email"
@@ -59,6 +86,11 @@
         android:inputType="textEmailAddress"
         android:textSize="15sp" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/child_edit_label_phone_number"/>
+
     <EditText
         android:id="@+id/edt_phone_number"
         android:layout_width="match_parent"
@@ -66,6 +98,11 @@
         android:hint="@string/child_register_hint_phone_number"
         android:inputType="phone"
         android:textSize="15sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/child_edit_label_pesel"/>
 
     <EditText
         android:id="@+id/edt_pesel"
@@ -107,14 +144,12 @@
     </LinearLayout>
 
 
-
-
     <Button
         android:id="@+id/btn_save"
         android:layout_width="300sp"
         android:layout_height="60sp"
         android:layout_gravity="center"
         android:textSize="20sp"
-        android:text="ZAPISZ" />
+        android:text="@string/child_edit_label_savebutton"/>
 
 </LinearLayout>

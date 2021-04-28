@@ -104,5 +104,19 @@
     <string name="shared_preferences_logged_parent">parent</string>
     <string name="shared_preferences_logged_nobody">nobody</string>
 
+    <string name="child_edit_label_header">EDYTUJ DZIECKO</string>
+    <string name="child_edit_label_login">Nazwa użytkownika:</string>
+    <string name="child_edit_label_new_password">Nowe hasło:</string>
+    <string name="child_edit_label_first_name">Imię:</string>
+    <string name="child_edit_label_last_name">Nazwisko:</string>
+    <string name="child_edit_label_email">EMail:</string>
+    <string name="child_edit_label_phone_number">Numer telefonu:</string>
+    <string name="child_edit_label_pesel">Numer PESEL:</string>
+    <string name="child_edit_label_savebutton">ZAPISZ</string>
+    <string name="child_edit_confirm_header">Potwierdzenie zmiany hasła</string>
+    <string name="child_edit_confirm_explanation">W celu zmiany hasla, wymagana jest weryfikacja. \nProszę wprowadzić aktualne hasło:</string>
+    <string name="child_edit_confirm_confirmButton">Potwierdź</string>
+    <string name="child_edit_confirm_cancelButton">Anuluj</string>
+
 
 </resources>
