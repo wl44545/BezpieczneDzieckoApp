@@ -1,4 +1,5 @@
 Parent = require('./parentModel');
+Child = require('./childModel');
 Token = require('./config/token.json');
 
 exports.index = function (req, res) {
@@ -152,13 +153,13 @@ exports.new = function (req, res) {
 
 
 exports.update = function (req, res) {
-	if(req.body.token != Token.parents){
+	if(req.query.token != Token.parents){
 		res.json({
 			message: 'Wrong token'
 		});
 		return;
 	}	
-    Parent.find({'login': req.body.login}, function (err, parent) {
+    Parent.find({'login': req.query.login}, function (err, parent) {
 		if (err) {
 			res.json({
 				status: "error",
@@ -167,20 +168,20 @@ exports.update = function (req, res) {
 			return;
 		};
 		var parent = new Parent();
-		parent.login = req.body.login;
-		parent.password = req.body.password;
-		parent.salt = req.body.salt;	
-		parent.first_name = req.body.first_name;
-		parent.last_name = req.body.last_name;
-		parent.email = req.body.email;
-		parent.phone_number = req.body.phone_number;
-		parent.pesel = req.body.pesel;
-		parent.gender = req.body.gender;
-		parent.address = req.body.address;
-		parent.postal_code = req.body.postal_code;
-		parent.city = req.body.city;
-		parent.country = req.body.country;
-		parent.account_type = req.body.account_type;			
+		parent.login = req.query.login;
+		parent.password = req.query.password;
+		parent.salt = req.query.salt;	
+		parent.first_name = req.query.first_name;
+		parent.last_name = req.query.last_name;
+		parent.email = req.query.email;
+		parent.phone_number = req.query.phone_number;
+		parent.pesel = req.query.pesel;
+		parent.gender = req.query.gender;
+		parent.address = req.query.address;
+		parent.postal_code = req.query.postal_code;
+		parent.city = req.query.city;
+		parent.country = req.query.country;
+		parent.account_type = req.query.account_type;			
         parent.save(function (err) {
             if (err)
 				res.json({
@@ -196,6 +197,7 @@ exports.update = function (req, res) {
 };
 
 
+
 exports.delete = function (req, res) {
 	if(req.body.token != Token.parents){
 		res.json({
@@ -203,16 +205,20 @@ exports.delete = function (req, res) {
 		});
 		return;
 	}
-	else{	
-		Parent.remove({
-			login: req.body.login
-		}, function (err, parent) {
-			if (err)
-				res.send(err);
-			res.json({
-				status: "success",
-				message: 'Parent deleted'
-			});
-		});	
-	}
+	Parent.deleteOne({login: req.body.login}, function (err, parent) {
+		if (err)
+			res.send(err);
+		res.json({
+			status: "success",
+			message: 'Parent deleted'
+		});
+	});	
+	Child.deleteMany({'parent': req.query.login}, function (err, child) {
+		if (err)
+			res.send(err);
+		res.json({
+			status: "success",
+			message: 'Child deleted'
+		});
+	});	
 };

@@ -319,10 +319,11 @@ public class childLocationService extends Service {
     private void onNewLocation(Location location) {
         Log.i(TAG, "New location: " + location);
 
+        String child_login = "ddd";
         mLocation = location;
 
         try {
-            sendLocation("login", String.valueOf(location.getLongitude()), String.valueOf(location.getLatitude()), "0","0");
+            sendLocation(child_login, String.valueOf(location.getLongitude()), String.valueOf(location.getLatitude()), "0","0");
         } catch (IOException | JSONException e) {
             e.printStackTrace();
         }
@@ -356,7 +357,7 @@ public class childLocationService extends Service {
 
         con.setDoOutput(true);
         DataOutputStream out = new DataOutputStream(con.getOutputStream());
-        out.writeBytes("token="+getString(R.string.location_token)+"&child="+child+"&longitude="+longitude+"&latitude="+latitude+"&status="+status+"&alarm="+alarm);
+        out.writeBytes("token="+getString(R.string.location_token)+"&child="+child+"&longitude="+longitude+"&latitude="+latitude+"&status="+status+"&alarm="+alarm+"&location=null");
         out.flush();
         out.close();
 

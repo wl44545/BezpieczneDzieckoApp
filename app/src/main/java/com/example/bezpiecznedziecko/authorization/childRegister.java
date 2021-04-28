@@ -37,14 +37,12 @@ public class childRegister extends AppCompatActivity {
             edt_pesel, edt_adress, edt_postal_code, edt_city, edt_country;
     RadioButton radio_male, radio_female, radio_no;
     Button btn_register, btn_back;
-    String txt_gender, txt_account_type, txt_parent;
+    String txt_gender, txt_parent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.child_register);
-
-        txt_account_type = "Free";
 
         SharedPreferences sharedPref = this.getSharedPreferences(getString(R.string.shared_preferences), Context.MODE_PRIVATE);
         txt_parent = sharedPref.getString(getString(R.string.shared_preferences_login), "login");
@@ -92,7 +90,7 @@ public class childRegister extends AppCompatActivity {
                 try {
                     registerChild(edt_login.getText().toString(), edt_password.getText().toString(), edt_first_name.getText().toString(),
                             edt_last_name.getText().toString(), edt_email.getText().toString(), edt_phone_number.getText().toString(),
-                            edt_pesel.getText().toString(), txt_gender , txt_parent, txt_account_type);
+                            edt_pesel.getText().toString(), txt_gender , txt_parent);
                 } catch (IOException | JSONException e) {
                     e.printStackTrace();
                 }
@@ -137,7 +135,7 @@ public class childRegister extends AppCompatActivity {
 
     private void registerChild(String login, String plain_password, String first_name, String last_name,
                                 String email, String phone_number, String pesel, String gender,
-                                String txt_parent, String account_type) throws IOException, JSONException {
+                                String txt_parent) throws IOException, JSONException {
 
         String salt = randomString(64);
         String password = get_SHA_512_SecurePassword(plain_password, salt);
@@ -154,7 +152,7 @@ public class childRegister extends AppCompatActivity {
         /* Payload support */
         con.setDoOutput(true);
         DataOutputStream out = new DataOutputStream(con.getOutputStream());
-        out.writeBytes("token="+getString(R.string.child_token)+"&login="+login+"&password="+password+"&salt="+salt+"&first_name="+first_name+"&last_name="+last_name+"&email="+email+"&phone_number="+phone_number+"&pesel="+pesel+"&gender="+gender+"&parent="+txt_parent+"&account_type="+account_type);
+        out.writeBytes("token="+getString(R.string.child_token)+"&login="+login+"&password="+password+"&salt="+salt+"&first_name="+first_name+"&last_name="+last_name+"&email="+email+"&phone_number="+phone_number+"&pesel="+pesel+"&gender="+gender+"&parent="+txt_parent);
         out.flush();
         out.close();
 

@@ -130,13 +130,13 @@ exports.new = function (req, res) {
 
 
 exports.update = function (req, res) {
-	if(req.body.token != Token.schedules){
+	if(req.query.token != Token.schedules){
 		res.json({
 			message: 'Wrong token'
 		});
 		return;
 	}	
-    Schedule.find({'_id': req.body._id}, function (err, schedule) {
+    Schedule.find({'_id': req.query._id}, function (err, schedule) {
 		if (err) {
 			res.json({
 				status: "error",
@@ -145,14 +145,14 @@ exports.update = function (req, res) {
 			return;
 		};
 		var schedule = new Schedule();
-		schedule.child = req.body.child;
-		schedule.parent = req.body.parent;
-		schedule.start = req.body.start;	
-		schedule.stop = req.body.stop;
-		schedule.longitude = req.body.longitude;
-		schedule.latitude = req.body.latitude;	
-		schedule.radius = req.body.radius;		
-		schedule.description = req.body.description;			
+		schedule.child = req.query.child;
+		schedule.parent = req.query.parent;
+		schedule.start = req.query.start;	
+		schedule.stop = req.query.stop;
+		schedule.longitude = req.query.longitude;
+		schedule.latitude = req.query.latitude;	
+		schedule.radius = req.query.radius;		
+		schedule.description = req.query.description;			
         schedule.save(function (err) {
             if (err)
 				res.json({
