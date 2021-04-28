@@ -34,11 +34,11 @@ var childSchema = mongoose.Schema({
     },	
 	pesel: {
 		type: String,
-		required: true
+		required: false
     },
 	gender: {
 		type: String,
-		required: true
+		required: false
     },
     create_date: {
         type: Date,

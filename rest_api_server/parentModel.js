@@ -30,27 +30,27 @@ var parentSchema = mongoose.Schema({
     },	
 	pesel: {
 		type: String,
-		required: true
+		required: false
     },
 	gender: {
 		type: String,
-		required: true
+		required: false
     },
 	address: {
 		type: String,
-		required: true
+		required: false
     },
 	postal_code: {
 		type: String,
-		required: true
+		required: false
     },
 	city: {
 		type: String,
-		required: true
+		required: false
     },
 	country: {
 		type: String,
-		required: true
+		required: false
     },
 	account_type: {
 		type: String,
