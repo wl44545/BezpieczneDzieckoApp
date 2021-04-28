@@ -95,18 +95,20 @@ exports.new = function (req, res) {
 		location.alarm = req.body.alarm;	
 		
 		location.save(function (err) {
-			if (err)
+			if (err){
 				res.json({
 					code: "-1",
 					status: "error",
 					message: err
 				});
-			else
+			}
+			else{
 				res.json({
 					code: "0",
 					status: "success",
 					message: "Location registered successfully"
 				});
+			}
 		});
 	});	
 };

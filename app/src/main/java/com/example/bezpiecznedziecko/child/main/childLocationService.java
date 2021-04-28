@@ -319,7 +319,9 @@ public class childLocationService extends Service {
     private void onNewLocation(Location location) {
         Log.i(TAG, "New location: " + location);
 
-        String child_login = "ddd";
+        SharedPreferences sharedPref = this.getSharedPreferences(getString(R.string.shared_preferences), Context.MODE_PRIVATE);
+        String child_login = sharedPref.getString(getString(R.string.shared_preferences_login), getString(R.string.shared_preferences_login));
+
         mLocation = location;
 
         try {
@@ -328,7 +330,6 @@ public class childLocationService extends Service {
             e.printStackTrace();
         }
 
-        SharedPreferences sharedPref = this.getSharedPreferences(getString(R.string.shared_preferences),Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putFloat(getString(R.string.shared_preferences_longitude), (float) location.getLongitude());
         editor.putFloat(getString(R.string.shared_preferences_latitude), (float) location.getLatitude());

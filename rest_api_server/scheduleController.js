@@ -114,16 +114,21 @@ exports.new = function (req, res) {
 		schedule.radius = req.body.radius;		
 		schedule.description = req.body.description;		
 		schedule.save(function (err) {
-			if (err)
+			if (err){
 				res.json({
 					status: "error",
 					message: err
 				});
-			else
+				console.log(err);
+			}
+			else{
 				res.json({
 					status: "success",
 					message: "Schedule registered successfully"
 				});
+				console.log("success");
+				console.log(schedule);
+			}
 		});
 	});	
 };
