@@ -30,7 +30,6 @@ public class PassConfirmDialog extends AppCompatDialogFragment {
         AlertDialog.Builder mBuilder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View mView = inflater.inflate(R.layout.parent_child_edit_confirm,null);
-        getActivity().setFinishOnTouchOutside(false);
 
         mCurrentPassword = (TextInputEditText) mView.findViewById(R.id.child_edit_confirm_currentPassword);
         passwordInputLayout  = (TextInputLayout) mView.findViewById(R.id.child_edit_confirm_currentPasswordLayout);
@@ -54,6 +53,7 @@ public class PassConfirmDialog extends AppCompatDialogFragment {
 
         mBuilder.setView(mView);
         AlertDialog confirmDialog = mBuilder.create();
+        confirmDialog.setCanceledOnTouchOutside(false);
 
         Button mConfirmButton = (Button) mView.findViewById(R.id.child_edit_confirm_confirmButton);
         mConfirmButton.setOnClickListener(new View.OnClickListener() {
