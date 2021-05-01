@@ -3,7 +3,6 @@ package com.example.bezpiecznedziecko.parent.children;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -31,7 +30,6 @@ import java.net.URL;
 public class parentChildEdit extends AppCompatActivity implements PassConfirmDialog.PassConfirmDialogListener {
 
     Button btn_save;
-//    RadioButton radio_male, radio_female, radio_no;
     String login, password, salt, first_name, last_name, email, phone_number, pesel, gender, txt_parent, account_type;
     EditText edt_login, edt_password, edt_first_name, edt_last_name, edt_email, edt_phone_number,
             edt_pesel;
@@ -81,28 +79,9 @@ public class parentChildEdit extends AppCompatActivity implements PassConfirmDia
                 String newPassword = edt_password.getText().toString();
 
                 if(newPassword.equals(""))
-                {
-                    System.out.println("nie wprowadzono nowego hasła");
                     prepareToUpdateChild();
-                    //TODO: update data - send them to the database
-                }
                 else
-                {
-                    System.out.println("wprowadzono nowe hasło");
-                    System.out.println("current password: "+password);
                     openDialog();
-                }
-
-                //TODO: probably I can do it here - in order to not multiply code (reduce one if's branch above)
-//                try {
-//                    deleteChild(login);
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
-
-
             }
         });
 
@@ -138,7 +117,7 @@ public class parentChildEdit extends AppCompatActivity implements PassConfirmDia
             pesel = tmp;
 
         try {
-            registerChild(passwordChanged,login,salt,password,first_name,last_name,email,phone_number,txt_parent,account_type);
+            updateChild(passwordChanged);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (JSONException e) {
@@ -180,15 +159,13 @@ public class parentChildEdit extends AppCompatActivity implements PassConfirmDia
     }
 
     //account type is not given into consideration in rest api server
-    private void registerChild(boolean passwordChanged, String login, String salt, String plain_password, String first_name, String last_name,
-                               String email, String phone_number,
-                               String txt_parent, String account_type) throws IOException, JSONException {
+    private void updateChild(boolean passwordChanged) throws IOException, JSONException {
 
-        String password = plain_password;
+        String password = this.password;
         if(passwordChanged)
         {
             safetyFunctions safetyFunctions = new safetyFunctions();
-            password = safetyFunctions.get_SHA_512_SecurePassword(plain_password, salt);
+            password = safetyFunctions.get_SHA_512_SecurePassword(this.password, salt);
         }
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -203,9 +180,8 @@ public class parentChildEdit extends AppCompatActivity implements PassConfirmDia
         /* Payload support */
         con.setDoOutput(true);
         DataOutputStream out = new DataOutputStream(con.getOutputStream());
-        String outline = "token="+getString(R.string.child_token)+"&login="+login+"&password="+password+"&salt="+salt+"&first_name="+first_name+"&last_name="+last_name+"&email="+email+"&phone_number="+phone_number+"&parent="+txt_parent+"&pesel="+pesel+"&gender="+gender;
-        System.out.println(outline);
-        out.writeBytes(outline);//"&pesel="+pesel+"&gender="+gender+"&parent="+txt_parent+"&account_type="+account_type);
+        //removed account_type from request below
+        out.writeBytes("token="+getString(R.string.child_token)+"&login="+login+"&password="+password+"&salt="+salt+"&first_name="+first_name+"&last_name="+last_name+"&email="+email+"&phone_number="+phone_number+"&parent="+txt_parent+"&pesel="+pesel+"&gender="+gender);//"&pesel="+pesel+"&gender="+gender+"&parent="+txt_parent+"&account_type="+account_type);
         out.flush();
         out.close();
 
@@ -253,28 +229,6 @@ public class parentChildEdit extends AppCompatActivity implements PassConfirmDia
         }
 
     }
-
-    private void deleteChild(String login) throws IOException, JSONException {
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
-
-        String x = "http://10.0.2.2:8080/children?token="+getString(R.string.child_token)+"&login="+login;
-
-        URL url = new URL(x);
-        HttpURLConnection con = (HttpURLConnection) url.openConnection();
-        con.setRequestMethod("DELETE");
-
-        int status = con.getResponseCode();
-        BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-        String inputLine;
-        StringBuilder content = new StringBuilder();
-        while((inputLine = in.readLine()) != null) {
-            content.append(inputLine);
-        }
-        in.close();
-        con.disconnect();
-    }
-
 
     @Override
     protected void onDestroy() {

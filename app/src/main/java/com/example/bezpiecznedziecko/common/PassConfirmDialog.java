@@ -27,7 +27,6 @@ public class PassConfirmDialog extends AppCompatDialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-//        return super.onCreateDialog(savedInstanceState);
         AlertDialog.Builder mBuilder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View mView = inflater.inflate(R.layout.parent_child_edit_confirm,null);
@@ -62,8 +61,6 @@ public class PassConfirmDialog extends AppCompatDialogFragment {
             public void onClick(View v) {
                 String enteredPassword = mCurrentPassword.getText().toString();
                 listener.confirmCorrectPassword(confirmDialog, passwordInputLayout, enteredPassword);
-
-                //TODO: when veryfication passes - update data
             }
         });
         Button mCancelButton = (Button) mView.findViewById(R.id.child_edit_confirm_cancelButton);
