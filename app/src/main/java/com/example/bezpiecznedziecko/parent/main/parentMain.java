@@ -83,11 +83,23 @@ public class parentMain extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-
-
-
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        SharedPreferences sharedPref = this.getSharedPreferences(getString(R.string.shared_preferences), Context.MODE_PRIVATE);
+        login = sharedPref.getString(getString(R.string.shared_preferences_login), "login");
+        first_name = sharedPref.getString(getString(R.string.shared_preferences_first_name), "first_name");
+        last_name = sharedPref.getString(getString(R.string.shared_preferences_last_name), "last_name");
+
+        name = first_name + " " + last_name;
+
+        txt_name.setText(name);
+        txt_login.setText(login);
+    }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();

@@ -153,7 +153,7 @@ exports.new = function (req, res) {
 
 
 exports.update = function (req, res) {
-	if(req.query.token != Token.parents){
+	if(req.body.token != Token.parents){
 		res.json({
 			message: 'Wrong token'
 		});
@@ -162,11 +162,33 @@ exports.update = function (req, res) {
     Parent.find({'login': req.query.login}, function (err, parent) {
 		if (err) {
 			res.json({
-				status: "error",
+				status: "error - cannot find parent with given login",
 				message: err,
 			});
 			return;
 		};
+		//Parent.updateOne({'login': req.body.login}, { $set: { first_name: req.body.first_name} }, function (err, parent) {
+		Parent.updateOne({'login': req.body.login}, req.body, function (err, parent) {
+			if (err) {
+				res.json({
+					code: "-1",
+					status: "error",
+					message: err,
+				});
+				return;
+			}
+			else
+			{
+				res.json({
+					code: "0",
+					status: "success",
+					message: "Parent updated successfully",
+					data: parent
+				});
+			}
+			console.log(parent);
+		});
+		/*
 		var parent = new Parent();
 		parent.login = req.query.login;
 		parent.password = req.query.password;
@@ -193,6 +215,7 @@ exports.update = function (req, res) {
                 data: parent
             });
         });
+		*/
     });
 };
 

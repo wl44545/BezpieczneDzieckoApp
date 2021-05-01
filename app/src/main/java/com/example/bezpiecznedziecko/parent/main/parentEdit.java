@@ -1,6 +1,5 @@
 package com.example.bezpiecznedziecko.parent.main;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -91,18 +90,18 @@ public class parentEdit extends AppCompatActivity implements PassConfirmDialog.P
             @Override
             public void onClick(View view)
             {
-//                String newPassword = edt_password.getText().toString();
-//
-//                if(newPassword.equals(""))
-//                    prepareToUpdateChild();
-//                else
-//                    openDialog();
+                String newPassword = edt_password.getText().toString();
+
+                if(newPassword.equals(""))
+                    prepareToUpdateParent();
+                else
+                    openDialog();
             }
         });
 
     }
 
-    private void prepareToUpdateChild() {
+    private void prepareToUpdateParent() {
         String tmp;
         boolean passwordChanged = false;
 
@@ -130,9 +129,22 @@ public class parentEdit extends AppCompatActivity implements PassConfirmDialog.P
         tmp = edt_pesel.getText().toString();
         if(!tmp.equals(""))
             pesel = tmp;
+//        tmp = edt_account_type.getText().toString();
+        tmp = edt_address.getText().toString();
+        if(!tmp.equals(""))
+            address = tmp;
+        tmp = edt_postal_code.getText().toString();
+        if(!tmp.equals(""))
+            postal_code = tmp;
+        tmp = edt_city.getText().toString();
+        if(!tmp.equals(""))
+            city = tmp;
+        tmp = edt_country.getText().toString();
+        if(!tmp.equals(""))
+            country = tmp;
 
         try {
-            updateChild(passwordChanged);
+            updateParent(passwordChanged);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (JSONException e) {
@@ -178,7 +190,7 @@ public class parentEdit extends AppCompatActivity implements PassConfirmDialog.P
     }
 
     //account type is not given into consideration in rest api server
-    private void updateChild(boolean passwordChanged) throws IOException, JSONException {
+    private void updateParent(boolean passwordChanged) throws IOException, JSONException {
 
         String password = this.password;
         if(passwordChanged)
@@ -190,7 +202,7 @@ public class parentEdit extends AppCompatActivity implements PassConfirmDialog.P
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-        URL url = new URL("http://10.0.2.2:8080/children");
+        URL url = new URL("http://10.0.2.2:8080/parents");
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
         con.setRequestMethod("PUT");
         con.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
@@ -199,8 +211,12 @@ public class parentEdit extends AppCompatActivity implements PassConfirmDialog.P
         /* Payload support */
         con.setDoOutput(true);
         DataOutputStream out = new DataOutputStream(con.getOutputStream());
-        //removed account_type from request below
-        out.writeBytes("token="+getString(R.string.child_token)+"&login="+login+"&password="+password+"&salt="+salt+"&first_name="+first_name+"&last_name="+last_name+"&email="+email+"&phone_number="+phone_number+"&pesel="+pesel+"&gender="+gender);//"&pesel="+pesel+"&gender="+gender+"&parent="+txt_parent+"&account_type="+account_type);
+        out.writeBytes("token="+getString(R.string.parent_token)+"&login="+login+
+                "&password="+password+"&salt="+salt+"&first_name="+first_name+
+                "&last_name="+last_name+"&email="+email+"&phone_number="+phone_number+
+                "&pesel="+pesel+"&gender="+gender+"&address="+address+"&postal_code="+postal_code+
+                "&city="+city+"&country="+country+"&account_type="+account_type);
+        //"&pesel="+pesel+"&gender="+gender+"&parent="+txt_parent+"&account_type="+account_type);
         out.flush();
         out.close();
 
@@ -232,9 +248,9 @@ public class parentEdit extends AppCompatActivity implements PassConfirmDialog.P
 //            setResult(RESULT_OK,returnIntent);
             SharedPreferences sharedPreferences = this.getSharedPreferences(getString(R.string.shared_preferences),MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString(getString(R.string.shared_preferences_child_login),login);
-            editor.putString(getString(R.string.shared_preferences_child_first_name),first_name);
-            editor.putString(getString(R.string.shared_preferences_child_last_name),last_name);
+            editor.putString(getString(R.string.shared_preferences_login),login);
+            editor.putString(getString(R.string.shared_preferences_first_name),first_name);
+            editor.putString(getString(R.string.shared_preferences_last_name),last_name);
             editor.apply();
 
             Toast.makeText(this, "Zaaktualizowano dane.", Toast.LENGTH_SHORT).show();
@@ -257,19 +273,19 @@ public class parentEdit extends AppCompatActivity implements PassConfirmDialog.P
     public void onGenderChoose(View view) {
         boolean checked = ((RadioButton) view).isChecked();
         switch (view.getId()) {
-            case R.id.radio_male:
+            case R.id.parent_radio_male:
                 if (checked) {
                     Toast.makeText(this, "Male", Toast.LENGTH_SHORT).show();
                     gender = "Male";
                 }
                 break;
-            case R.id.radio_female:
+            case R.id.parent_radio_female:
                 if (checked) {
                     Toast.makeText(this, "Female", Toast.LENGTH_SHORT).show();
                     gender = "Female";
                 }
                 break;
-            case R.id.radio_no:
+            case R.id.parent_radio_no:
                 if (checked) {
                     Toast.makeText(this,"No gender",Toast.LENGTH_SHORT).show();
                     gender = "No gender";
@@ -316,7 +332,7 @@ public class parentEdit extends AppCompatActivity implements PassConfirmDialog.P
         else
         {
             confirmDialog.dismiss();
-            prepareToUpdateChild();
+            prepareToUpdateParent();
         }
 
     }

@@ -22,7 +22,7 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="500dp">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -187,7 +187,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/parent_register_hint_postal_code"
-            android:inputType="numberDecimal"
+            android:inputType="textPostalAddress"
             android:textSize="15sp" />
 
         <TextView
@@ -242,14 +242,15 @@
                 android:text="@string/parent_edit_btn_buy_premium"/>
         </LinearLayout>
 
-        <Button
-            android:id="@+id/parent_btn_save"
-            android:layout_width="300sp"
-            android:layout_height="60sp"
-            android:layout_gravity="center"
-            android:textSize="20sp"
-            android:text="@string/child_edit_label_savebutton"/>
         </LinearLayout>
     </ScrollView>
+
+    <Button
+        android:id="@+id/parent_btn_save"
+        android:layout_width="300sp"
+        android:layout_height="60sp"
+        android:layout_gravity="center"
+        android:textSize="20sp"
+        android:text="@string/child_edit_label_savebutton"/>
 
 </LinearLayout>

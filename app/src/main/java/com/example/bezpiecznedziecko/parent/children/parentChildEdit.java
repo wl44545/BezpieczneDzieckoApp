@@ -183,7 +183,11 @@ public class parentChildEdit extends AppCompatActivity implements PassConfirmDia
         con.setDoOutput(true);
         DataOutputStream out = new DataOutputStream(con.getOutputStream());
         //removed account_type from request below
-        out.writeBytes("token="+getString(R.string.child_token)+"&login="+login+"&password="+password+"&salt="+salt+"&first_name="+first_name+"&last_name="+last_name+"&email="+email+"&phone_number="+phone_number+"&parent="+txt_parent+"&pesel="+pesel+"&gender="+gender);//"&pesel="+pesel+"&gender="+gender+"&parent="+txt_parent+"&account_type="+account_type);
+        out.writeBytes("token="+getString(R.string.child_token)+"&login="+login+
+                "&password="+password+"&salt="+salt+"&first_name="+first_name+"&last_name="+last_name+
+                "&email="+email+"&phone_number="+phone_number+"&parent="+txt_parent+
+                "&pesel="+pesel+"&gender="+gender);
+        //"&pesel="+pesel+"&gender="+gender+"&parent="+txt_parent+"&account_type="+account_type);
         out.flush();
         out.close();
 
