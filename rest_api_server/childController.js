@@ -1,7 +1,9 @@
 Child = require('./childModel');
 Token = require('./config/token.json');
+db = require('./index.js').db;
 
 exports.index = function (req, res) {
+	console.log("here index");
 	if(req.query.token != Token.children){
 		res.json({
 			message: 'Wrong token'
@@ -59,6 +61,7 @@ exports.index = function (req, res) {
 
 
 exports.new = function (req, res) {
+	console.log("here new");
 	if(req.body.token != Token.children){
 		res.json({
 			message: 'Wrong token'
@@ -113,12 +116,16 @@ exports.new = function (req, res) {
 
 
 exports.update = function (req, res) {
-	if(req.query.token != Token.children){
+	console.log("here update");
+	if(req.body.token != Token.children){
+		var msg = req.query.token + "\n" + Token.children +'\nWrong token';
 		res.json({
-			message: 'Wrong token'
+			message: msg //'Wrong token'
 		});
 		return;
 	}
+	
+	/*
 	Child.deleteOne({'login': req.query.login}, function (err, child) {
 		if (err)
 			res.send(err);
@@ -127,6 +134,7 @@ exports.update = function (req, res) {
 			message: 'Child deleted'
 		});
 	});	
+	*/
 	Child.countDocuments({'login' : req.body.login}).exec((err, count) => {
 		if (err) {
 			res.json({
@@ -136,6 +144,7 @@ exports.update = function (req, res) {
 			});
 			return;
 		};
+		/*
 		if (count != 0){
 			res.json({
 				code: "1",
@@ -144,6 +153,95 @@ exports.update = function (req, res) {
 			});
 			return;
 		}
+		*/
+		Child.find({'login' : req.body.login}, function (err, child) {
+			if (err) {
+				res.json({
+					status: "error - cannot find child with given login",
+					message: err,
+				});
+				return;
+			}
+			//Child.updateOne({'login': req.body.login}, { $set: { first_name: req.body.first_name} }, function (err, child) {
+			Child.updateOne({'login': req.body.login}, req.body, function (err, child) {
+				if (err) {
+					res.json({
+						code: "-1",
+						status: "error",
+						message: err,
+					});
+					return;
+				}
+				else
+				{
+					res.json({
+						code: "0",
+						status: "success",
+						message: "Child updated successfully",
+						data: child
+					});
+				}
+				//res.json(child);
+				console.log(child);
+			});
+			
+			/*
+			db.collection("users.children").updateOne(child,req.body,function(err,res){
+				if(err)
+				{
+					res.json({
+						status: "cannot update via db";
+						message: err;
+					});
+				}
+				else
+				{
+					res.json({
+						code: "0",
+						status: "success",
+						message: "Child updated successfully"
+					});
+				}
+			});
+			*/
+			/*	
+			res.json({
+				status: "success",
+				message: "Child retrieved successfully",
+				data: child
+			});
+			*/
+			/*
+			child.login = req.body.login;
+			child.password = req.body.password;
+			child.salt = req.body.salt;	
+			child.parent = req.body.parent;
+			child.first_name = req.body.first_name;
+			child.last_name = req.body.last_name;
+			child.email = req.body.email;
+			child.phone_number = req.body.phone_number;
+			child.pesel = req.body.pesel;
+			child.gender = req.body.gender;
+			*/
+			/*
+			child.save (function (err) {
+			if (err)
+				res.json({
+					code: "-1",
+					status: "error",
+					message: err
+				});
+			else
+				res.json({
+					code: "0",
+					status: "success",
+					message: "Child updated successfully"
+				});
+			});
+			*/
+		});
+		
+		/*
 		var child = new Child();
 		child.login = req.body.login;
 		child.password = req.body.password;
@@ -169,6 +267,7 @@ exports.update = function (req, res) {
 					message: "Child registered successfully"
 				});
 		});
+		*/
 	});	
 
 
@@ -221,6 +320,7 @@ exports.update = function (req, res) {
 
 
 exports.delete = async function (req, res) {
+	console.log("here delete");
 	if(req.query.token != Token.children){
 		res.json({
 			message: 'Wrong token'
