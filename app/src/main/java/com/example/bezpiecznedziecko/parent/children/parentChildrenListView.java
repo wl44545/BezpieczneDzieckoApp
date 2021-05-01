@@ -50,6 +50,11 @@ public class parentChildrenListView extends RecyclerView.Adapter<parentChildrenL
         notifyDataSetChanged();
     }
 
+    public void clearList()
+    {
+        this.childrenList.clear();
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         OnNoteListener onNoteListener;
 
@@ -79,5 +84,6 @@ public class parentChildrenListView extends RecyclerView.Adapter<parentChildrenL
     public interface OnNoteListener {
         void onNoteClick(int position);
     }
+
 
 }

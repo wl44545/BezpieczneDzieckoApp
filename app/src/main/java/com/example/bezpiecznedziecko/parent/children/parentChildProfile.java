@@ -1,6 +1,7 @@
 package com.example.bezpiecznedziecko.parent.children;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -25,12 +26,17 @@ public class parentChildProfile extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.parent_child_profile);
-//        System.out.println(this.getLocalClassName().toString()+": onCreate");
+        System.out.println(this.getLocalClassName().toString()+": onCreate");
 
-        Intent intent = getIntent();
-        login = intent.getStringExtra("login");
-        first_name = intent.getStringExtra("first_name");
-        last_name = intent.getStringExtra("last_name");
+//        Intent intent = getIntent();
+//        login = intent.getStringExtra("login");
+//        first_name = intent.getStringExtra("first_name");
+//        last_name = intent.getStringExtra("last_name");
+
+        SharedPreferences sharedPreferences = this.getSharedPreferences(getString(R.string.shared_preferences),MODE_PRIVATE);
+        login = sharedPreferences.getString(getString(R.string.shared_preferences_child_login),"");
+        first_name = sharedPreferences.getString(getString(R.string.shared_preferences_child_first_name),"");
+        last_name = sharedPreferences.getString(getString(R.string.shared_preferences_child_last_name),"");
 
         name = first_name + " " + last_name;
 
@@ -70,14 +76,30 @@ public class parentChildProfile extends AppCompatActivity {
             public void onClick(View view)
             {
                 Intent intent = new Intent(parentChildProfile.this, parentChildEdit.class);
-                intent.putExtra("login",login);
-                intent.putExtra("first_name",first_name);
-                intent.putExtra("last_name",last_name);
+//                intent.putExtra("login",login);
+//                intent.putExtra("first_name",first_name);
+//                intent.putExtra("last_name",last_name);
 //                startActivityForResult(intent,EDIT_UPDATED_DATA);
                 startActivity(intent);
             }
         });
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        System.out.println(this.getLocalClassName().toString()+": onResume");
+
+        SharedPreferences sharedPreferences = this.getSharedPreferences(getString(R.string.shared_preferences),MODE_PRIVATE);
+        login = sharedPreferences.getString(getString(R.string.shared_preferences_child_login),"");
+        first_name = sharedPreferences.getString(getString(R.string.shared_preferences_child_first_name),"");
+        last_name = sharedPreferences.getString(getString(R.string.shared_preferences_child_last_name),"");
+
+        name = first_name + " " + last_name;
+
+        txt_name.setText(name);
+        txt_login.setText(login);
     }
 
 //    @Override

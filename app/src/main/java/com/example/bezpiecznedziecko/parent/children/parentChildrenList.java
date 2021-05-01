@@ -84,6 +84,34 @@ public class parentChildrenList extends AppCompatActivity implements OnNoteListe
         callEndpoints();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if(childrenList!=null && parentChildrenListView!=null)
+        {
+            childrenList.clear();
+            parentChildrenListView.clearList();
+
+            HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+            interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+            OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
+
+            Gson gson = new GsonBuilder()
+                    .setLenient()
+                    .create();
+
+            retrofit = new Retrofit.Builder()
+                    .baseUrl(BASE_URL)
+                    .client(client)
+                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                    .addConverterFactory(GsonConverterFactory.create(gson))
+                    .build();
+            callEndpoints();
+        }
+
+    }
+
     @SuppressLint("CheckResult")
     private void callEndpoints() {
 
@@ -114,9 +142,15 @@ public class parentChildrenList extends AppCompatActivity implements OnNoteListe
     public void onNoteClick(int position) {
         System.out.println(childrenList);
         Intent intent = new Intent(this, parentChildProfile.class);
-        intent.putExtra("login", childrenList.get(position).login);
-        intent.putExtra("first_name", childrenList.get(position).first_name);
-        intent.putExtra("last_name", childrenList.get(position).last_name);
+//        intent.putExtra("login", childrenList.get(position).login);
+//        intent.putExtra("first_name", childrenList.get(position).first_name);
+//        intent.putExtra("last_name", childrenList.get(position).last_name);
+        SharedPreferences sharedPreferences = this.getSharedPreferences(getString(R.string.shared_preferences),MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(getString(R.string.shared_preferences_child_login),childrenList.get(position).login);
+        editor.putString(getString(R.string.shared_preferences_child_first_name),childrenList.get(position).first_name);
+        editor.putString(getString(R.string.shared_preferences_child_last_name),childrenList.get(position).last_name);
+        editor.apply();
         startActivity(intent);
     }
     @Override

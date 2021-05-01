@@ -1,6 +1,6 @@
 Child = require('./childModel');
 Token = require('./config/token.json');
-db = require('./index.js').db;
+//db = require('./index.js').db;
 
 exports.index = function (req, res) {
 	console.log("here index");

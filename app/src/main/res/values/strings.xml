@@ -98,6 +98,9 @@
     <string name="shared_preferences_login">login</string>
     <string name="shared_preferences_first_name">first_name</string>
     <string name="shared_preferences_last_name">last_name</string>
+    <string name="shared_preferences_child_login">child_login</string>
+    <string name="shared_preferences_child_first_name">child_first_name</string>
+    <string name="shared_preferences_child_last_name">child_last_name</string>
     <string name="shared_preferences_logged_child">child</string>
     <string name="shared_preferences_longitude">longitude</string>
     <string name="shared_preferences_latitude">latitude</string>

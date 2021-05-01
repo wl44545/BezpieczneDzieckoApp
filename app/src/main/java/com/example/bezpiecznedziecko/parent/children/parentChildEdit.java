@@ -41,8 +41,10 @@ public class parentChildEdit extends AppCompatActivity implements PassConfirmDia
         super.onCreate(savedInstanceState);
         setContentView(R.layout.parent_child_edit);
 
-        Intent intent = getIntent();
-        login = intent.getStringExtra("login");
+//        Intent intent = getIntent();
+//        login = intent.getStringExtra("login");
+        SharedPreferences sharedPreferences = this.getSharedPreferences(getString(R.string.shared_preferences),MODE_PRIVATE);
+        login = sharedPreferences.getString(getString(R.string.shared_preferences_child_login),"");
 
         try {
             loadChild(login);
@@ -233,6 +235,12 @@ public class parentChildEdit extends AppCompatActivity implements PassConfirmDia
 //            returnIntent.putExtra("first_name",first_name);
 //            returnIntent.putExtra("last_name",last_name);
 //            setResult(RESULT_OK,returnIntent);
+            SharedPreferences sharedPreferences = this.getSharedPreferences(getString(R.string.shared_preferences),MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString(getString(R.string.shared_preferences_child_login),login);
+            editor.putString(getString(R.string.shared_preferences_child_first_name),first_name);
+            editor.putString(getString(R.string.shared_preferences_child_last_name),last_name);
+            editor.apply();
 
             Toast.makeText(this, "Zaaktualizowano dane.", Toast.LENGTH_SHORT).show();
             this.finish();
