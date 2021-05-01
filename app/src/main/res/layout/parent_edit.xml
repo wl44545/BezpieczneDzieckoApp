@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/parent_child_edit"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".parent.children.parentChildEdit"
+    android:orientation="vertical"
+    android:layout_margin="10dp"
+    android:padding="10dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/parent_edit_label_header"
+        android:textSize="30sp"
+        android:layout_marginTop="30dp"
+        android:textAlignment="center"
+        android:elegantTextHeight="true"
+        android:textColor="@color/design_default_color_primary"
+        android:gravity="center_horizontal"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/parent_edit_label_login"
+            android:layout_marginTop="20sp" />
+
+        <EditText
+            android:id="@+id/parent_edit_login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:hint="@string/parent_register_hint_login"
+            android:inputType="textPersonName" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/parent_edit_label_new_password"/>
+
+        <EditText
+            android:id="@+id/parent_edit_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/parent_register_hint_password"
+            android:inputType="textPassword"
+            android:textSize="15sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/parent_edit_label_first_name"/>
+
+        <EditText
+            android:id="@+id/parent_edit_first_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:hint="@string/parent_register_hint_first_name"
+            android:inputType="textPersonName" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/parent_edit_label_last_name"/>
+
+        <EditText
+            android:id="@+id/parent_edit_last_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:hint="@string/parent_register_hint_last_name"
+            android:inputType="textPersonName" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/parent_edit_label_email" />
+
+        <EditText
+            android:id="@+id/parent_edit_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/parent_register_hint_email"
+            android:inputType="textEmailAddress"
+            android:textSize="15sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/parent_edit_label_phone_number"/>
+
+        <EditText
+            android:id="@+id/parent_edit_phone_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/parent_register_hint_phone_number"
+            android:inputType="phone"
+            android:textSize="15sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/parent_edit_label_pesel"/>
+
+        <EditText
+            android:id="@+id/parent_edit_pesel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/parent_register_hint_pesel"
+            android:inputType="number"
+            android:textSize="15sp" />
+
+
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="45sp"
+            android:orientation="horizontal"
+            android:gravity="left">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/parent_register_hint_gender"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:textSize="15dp"/>
+
+            <RadioGroup
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/parent_radio_male"
+                    android:text="@string/parent_register_hint_gender_male"
+                    android:onClick="onGenderChoose"/>
+                <RadioButton
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/parent_radio_female"
+                    android:text="@string/parent_register_hint_gender_female"
+                    android:onClick="onGenderChoose"/>
+                <RadioButton
+                    android:layout_width="110dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/parent_radio_no"
+                    android:text="@string/parent_register_hint_gender_no"
+                    android:onClick="onGenderChoose"/>
+
+            </RadioGroup>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/parent_edit_label_address"/>
+
+        <EditText
+            android:id="@+id/parent_edit_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/parent_register_hint_adress"
+            android:inputType="textPostalAddress"
+            android:textSize="15sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/parent_edit_label_postal_code"/>
+
+        <EditText
+            android:id="@+id/parent_edit_postal_code"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/parent_register_hint_postal_code"
+            android:inputType="numberDecimal"
+            android:textSize="15sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/parent_edit_label_city"/>
+
+        <EditText
+            android:id="@+id/parent_edit_city"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/parent_register_hint_city"
+            android:inputType="text"
+            android:textSize="15sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/parent_edit_label_country"/>
+
+        <EditText
+            android:id="@+id/parent_edit_country"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/parent_register_hint_country"
+            android:inputType="text"
+            android:textSize="15sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/parent_edit_label_account_type"/>
+
+            <EditText
+                android:id="@+id/parent_edit_account_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/parent_register_hint_account_type"
+                android:inputType="none"
+                android:enabled="false"
+                android:textSize="15sp"
+                android:layout_marginHorizontal="10dp"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/parent_edit_btn_buy_premium"/>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/parent_btn_save"
+            android:layout_width="300sp"
+            android:layout_height="60sp"
+            android:layout_gravity="center"
+            android:textSize="20sp"
+            android:text="@string/child_edit_label_savebutton"/>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

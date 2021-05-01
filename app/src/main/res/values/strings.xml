@@ -121,5 +121,27 @@
     <string name="child_edit_confirm_confirmButton">Potwierdź</string>
     <string name="child_edit_confirm_cancelButton">Anuluj</string>
 
+    <string name="parent_main_btn_edit">EDYTUJ</string>
+    <string name="parent_edit_label_header">EDYTUJ RODZICA</string>
+    <string name="parent_edit_label_login">Nazwa użytkownika:</string>
+    <string name="parent_edit_label_new_password">Nowe hasło:</string>
+    <string name="parent_edit_label_first_name">Imię:</string>
+    <string name="parent_edit_label_last_name">Nazwisko:</string>
+    <string name="parent_edit_label_email">EMail:</string>
+    <string name="parent_edit_label_phone_number">Numer telefonu:</string>
+    <string name="parent_edit_label_pesel">Numer PESEL:</string>
+    <string name="parent_edit_label_address">Adres:</string>
+    <string name="parent_edit_label_postal_code">Kod pocztowy:</string>
+    <string name="parent_edit_label_city">Miejscowość:</string>
+    <string name="parent_edit_label_country">Kraj:</string>
+    <string name="parent_edit_label_account_type">Typ konta:</string>
+    <string name="parent_edit_btn_buy_premium">Wykup wersję premium</string>
+    <string name="parent_edit_label_savebutton">ZAPISZ</string>
+    <string name="parent_edit_confirm_header">Potwierdzenie zmiany hasła</string>
+    <string name="parent_edit_confirm_explanation">W celu zmiany hasla, wymagana jest weryfikacja. \nProszę wprowadzić aktualne hasło:</string>
+    <string name="parent_edit_confirm_confirmButton">Potwierdź</string>
+    <string name="parent_edit_confirm_cancelButton">Anuluj</string>
+    <string name="parent_register_hint_account_type">Typ</string>
+
 
 </resources>

@@ -20,7 +20,7 @@ import com.example.bezpiecznedziecko.welcome;
 
 public class parentMain extends AppCompatActivity {
 
-    Button btn_maps, btn_children, btn_logout;
+    Button btn_maps, btn_edit, btn_children, btn_logout;
     TextView txt_name, txt_login;
     String login,first_name,last_name,name;
 
@@ -47,6 +47,15 @@ public class parentMain extends AppCompatActivity {
             public void onClick(View view)
             {
                 Intent intent = new Intent(parentMain.this, parentMap.class);
+                startActivity(intent);
+            }
+        });
+        btn_edit = (Button)findViewById(R.id.btn_edit);
+        btn_edit.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view)
+            {
+                Intent intent = new Intent(parentMain.this, parentEdit.class);
                 startActivity(intent);
             }
         });

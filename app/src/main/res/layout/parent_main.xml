@@ -37,6 +37,13 @@
         android:textSize="20sp"
         android:text="@string/parent_main_btn_maps" />
     <Button
+        android:id="@+id/btn_edit"
+        android:layout_width="300sp"
+        android:layout_height="60sp"
+        android:layout_gravity="center"
+        android:textSize="20sp"
+        android:text="@string/parent_main_btn_edit" />
+    <Button
         android:id="@+id/btn_children"
         android:layout_width="300sp"
         android:layout_height="60sp"
