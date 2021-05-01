@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import com.example.bezpiecznedziecko.R;
@@ -18,10 +19,13 @@ public class parentChildProfile extends AppCompatActivity {
     TextView txt_name, txt_login;
     String login, first_name, last_name, name;
 
+//    public static final int EDIT_UPDATED_DATA = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.parent_child_profile);
+//        System.out.println(this.getLocalClassName().toString()+": onCreate");
 
         Intent intent = getIntent();
         login = intent.getStringExtra("login");
@@ -69,9 +73,26 @@ public class parentChildProfile extends AppCompatActivity {
                 intent.putExtra("login",login);
                 intent.putExtra("first_name",first_name);
                 intent.putExtra("last_name",last_name);
+//                startActivityForResult(intent,EDIT_UPDATED_DATA);
                 startActivity(intent);
             }
         });
 
     }
+
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        if(requestCode == RESULT_OK && resultCode == EDIT_UPDATED_DATA)
+//        {
+//            try {
+//                login = data.getStringExtra("login");
+//                first_name = data.getStringExtra("first_name");
+//                last_name = data.getStringExtra("last_name");
+//            } catch (NullPointerException e) {
+//                throw new NullPointerException(e.toString()+" attempt to retrieve data from Intent which doesn't exist");
+//            }
+//
+//        }
+//    }
 }
