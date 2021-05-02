@@ -48,13 +48,6 @@ public class parentDelete extends  AppCompatActivity implements PassConfirmDialo
         openDialog();
     }
 
-    //    public parentDelete(String login, Context context, androidx.fragment.app.FragmentManager fragmentManager)
-//    {
-//        this.login = login;
-//        this.context = context;
-//        this.fragmentManager = fragmentManager;
-//    }
-
     private void getParentPassword(String login) throws IOException, JSONException
     {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();

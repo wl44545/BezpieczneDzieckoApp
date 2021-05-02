@@ -222,16 +222,12 @@ exports.update = function (req, res) {
 
 
 exports.delete = function (req, res) {
-	console.log("parent delete");
 	if(req.query.token != Token.parents){
-		var msg = req.body.token + "\n" + Token.parents + "\nWrong token";
 		res.json({
-			message: msg//'Wrong token'
+			message: 'Wrong token'
 		});
 		return;
 	}
-	//console.log(req.body.login);
-	console.log(req.query.login);
 	Child.deleteMany({'parent': req.query.login}, function (err, child) {
 		if (err)
 		{
