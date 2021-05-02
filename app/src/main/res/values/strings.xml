@@ -142,6 +142,9 @@
     <string name="parent_edit_confirm_confirmButton">Potwierdź</string>
     <string name="parent_edit_confirm_cancelButton">Anuluj</string>
     <string name="parent_register_hint_account_type">Typ</string>
+    <string name="parent_main_btn_delete">USUŃ</string>
+    <string name="parent_delete_confirm_header">Potwierdzenie usunięcia konta rodzica</string>
+    <string name="parent_delete_confirm_explanation">UWAGA! Wraz z kontem rodzica zostaną usunięte przypisane konta dzieci. Aby kontynuować, wprowadź aktualne hasło:</string>
 
 
 </resources>

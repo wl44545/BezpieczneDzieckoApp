@@ -1,5 +1,7 @@
 package com.example.bezpiecznedziecko.parent.main;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
@@ -7,27 +9,42 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.bezpiecznedziecko.R;
 import com.example.bezpiecznedziecko.authorization.childRegister;
+import com.example.bezpiecznedziecko.common.PassConfirmDialog;
 import com.example.bezpiecznedziecko.parent.children.parentChildrenList;
 import com.example.bezpiecznedziecko.parent.maps.parentMap;
 import com.example.bezpiecznedziecko.parent.children.schedules.parentSchedulesList;
 import com.example.bezpiecznedziecko.welcome;
+import com.google.android.material.textfield.TextInputLayout;
 
-public class parentMain extends AppCompatActivity {
+import org.json.JSONException;
+import org.json.JSONObject;
 
-    Button btn_maps, btn_edit, btn_children, btn_logout;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
+public class parentMain extends AppCompatActivity{
+
+    Button btn_maps, btn_edit, btn_children, btn_delete, btn_logout;
     TextView txt_name, txt_login;
     String login,first_name,last_name,name;
+
+    static final int DELETE_RESULT = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.parent_main);
+        setVisible(false);
 
         SharedPreferences sharedPref = this.getSharedPreferences(getString(R.string.shared_preferences), Context.MODE_PRIVATE);
         login = sharedPref.getString(getString(R.string.shared_preferences_login), "login");
@@ -68,6 +85,15 @@ public class parentMain extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        btn_delete = (Button)findViewById(R.id.btn_delete);
+        btn_delete.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view)
+            {
+                //TODO: create new transparent activity and on this show dialog
+                startActivityForResult(new Intent(parentMain.this, parentDelete.class), DELETE_RESULT);
+            }
+        });
         btn_logout = (Button)findViewById(R.id.btn_logout);
         btn_logout.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -103,5 +129,12 @@ public class parentMain extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == RESULT_OK  && requestCode == DELETE_RESULT)
+            btn_logout.callOnClick();
     }
 }

@@ -23,16 +23,32 @@ public class PassConfirmDialog extends AppCompatDialogFragment {
     private TextInputEditText mCurrentPassword;
     private TextInputLayout passwordInputLayout;
     private PassConfirmDialogListener listener;
+    private final int layout;
+
+    public PassConfirmDialog(int layout)
+    {
+        this.layout = layout;
+    }
 
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
+        Dialog dialog = null;
+        if(layout == R.layout.parent_child_edit_confirm)
+            dialog = prepareChildEditPassConfirmDialog();
+        else if(layout == R.layout.parent_delete_confirm)
+            dialog  = prepareParentDeleteDialog();
+        return dialog;
+    }
+
+    private Dialog prepareChildEditPassConfirmDialog()
+    {
         AlertDialog.Builder mBuilder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        View mView = inflater.inflate(R.layout.parent_child_edit_confirm,null);
+        View mView = inflater.inflate(R.layout.parent_child_edit_confirm, null);
 
         mCurrentPassword = (TextInputEditText) mView.findViewById(R.id.child_edit_confirm_currentPassword);
-        passwordInputLayout  = (TextInputLayout) mView.findViewById(R.id.child_edit_confirm_currentPasswordLayout);
+        passwordInputLayout = (TextInputLayout) mView.findViewById(R.id.child_edit_confirm_currentPasswordLayout);
 
         mCurrentPassword.addTextChangedListener(new TextWatcher() {
             @Override
@@ -70,7 +86,55 @@ public class PassConfirmDialog extends AppCompatDialogFragment {
                 confirmDialog.dismiss();
             }
         });
+        return confirmDialog;
+    }
 
+    private Dialog prepareParentDeleteDialog()
+    {
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(getActivity());
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+        View mView = inflater.inflate(R.layout.parent_delete_confirm, null);
+
+        mCurrentPassword = (TextInputEditText) mView.findViewById(R.id.parent_delete_confirm_currentPassword);
+        passwordInputLayout = (TextInputLayout) mView.findViewById(R.id.parent_delete_confirm_currentPasswordLayout);
+
+        mCurrentPassword.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                passwordInputLayout.setError(null);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        mBuilder.setView(mView);
+        AlertDialog confirmDialog = mBuilder.create();
+        confirmDialog.setCanceledOnTouchOutside(false);
+
+        Button mConfirmButton = (Button) mView.findViewById(R.id.parent_delete_confirm_confirmButton);
+        mConfirmButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String enteredPassword = mCurrentPassword.getText().toString();
+                listener.confirmCorrectPassword(confirmDialog, passwordInputLayout, enteredPassword);
+            }
+        });
+        Button mCancelButton = (Button) mView.findViewById(R.id.parent_delete_confirm_cancelButton);
+        mCancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().finish();
+                confirmDialog.dismiss();
+            }
+        });
         return confirmDialog;
     }
 

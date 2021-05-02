@@ -222,26 +222,42 @@ exports.update = function (req, res) {
 
 
 exports.delete = function (req, res) {
-	if(req.body.token != Token.parents){
+	console.log("parent delete");
+	if(req.query.token != Token.parents){
+		var msg = req.body.token + "\n" + Token.parents + "\nWrong token";
 		res.json({
-			message: 'Wrong token'
+			message: msg//'Wrong token'
 		});
 		return;
 	}
-	Parent.deleteOne({login: req.body.login}, function (err, parent) {
-		if (err)
-			res.send(err);
-		res.json({
-			status: "success",
-			message: 'Parent deleted'
-		});
-	});	
+	//console.log(req.body.login);
+	console.log(req.query.login);
 	Child.deleteMany({'parent': req.query.login}, function (err, child) {
 		if (err)
+		{
 			res.send(err);
+			return;
+		}
+		/*
 		res.json({
+			code: "0",
 			status: "success",
 			message: 'Child deleted'
 		});
+		*/
+		//console.log(child);
+	});	
+	Parent.deleteOne({login: req.query.login}, function (err, parent) {
+		if (err)
+		{
+			res.send(err);
+			return;
+		}
+		res.json({
+			code: "0",
+			status: "success",
+			message: 'Parent deleted'
+		});
+		console.log(parent);
 	});	
 };

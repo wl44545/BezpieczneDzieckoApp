@@ -316,7 +316,7 @@ public class parentEdit extends AppCompatActivity implements PassConfirmDialog.P
 
     public void openDialog()
     {
-        PassConfirmDialog passConfirmDialog = new PassConfirmDialog();
+        PassConfirmDialog passConfirmDialog = new PassConfirmDialog(R.layout.parent_child_edit_confirm);
         passConfirmDialog.show(getSupportFragmentManager(), "Password Confirmation");
     }
 

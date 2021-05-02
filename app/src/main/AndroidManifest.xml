@@ -51,6 +51,7 @@
         <activity android:name=".child.schedules.childSchedule" />
         <activity android:name=".parent.children.parentChildProfile" />
         <activity android:name=".parent.main.parentEdit" />
+        <activity android:name=".parent.main.parentDelete" />
         <activity android:name=".welcome">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -50,7 +50,13 @@
         android:textSize="20sp"
         android:layout_gravity="center"
         android:text="@string/parent_main_btn_children" />
-
+    <Button
+        android:id="@+id/btn_delete"
+        android:layout_width="300sp"
+        android:layout_height="60sp"
+        android:textSize="20sp"
+        android:layout_gravity="center"
+        android:text="@string/parent_main_btn_delete" />
     <Button
         android:id="@+id/btn_logout"
         android:layout_width="300sp"
