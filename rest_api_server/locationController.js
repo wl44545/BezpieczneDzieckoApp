@@ -2,14 +2,49 @@ Location = require('./locationModel');
 Token = require('./config/token.json');
 
 exports.index = function (req, res) {
-		
-	if(req.query.token != Token.locations){
+	
+	/*if(req.query.token != Token.locations){
 		res.json({
 			message: 'Wrong token'
 		});
 		return;
-	}
-	
+	}*/
+		
+	if(req.query.type == 'last'){
+		const agg = [
+		  {
+			'$sort': {
+			  'child': -1, 
+			  'date': -1
+			}
+		  }, {
+			'$group': {
+				'_id': '$child',
+				'date': {
+					'$first': '$date'
+				}
+			}
+		  }
+		];
+		
+		Location.aggregate(agg, (err, result) => {
+			if (err) {
+				res.json({
+					status: "error",
+					message: err,
+				});
+				return;
+			}
+			console.log(result)
+			res.json({
+				status: "success",
+				message: "results retrieved successfully",
+				data: result
+			});
+			return;
+		});
+		
+	}	
 	
 	Location.findOne({'child' : req.query.child}, function (err, location) {
 		if (err) {
@@ -22,7 +57,6 @@ exports.index = function (req, res) {
 		res.json(location);
 	}).sort({date:-1});
 	return;
-	
 	
 };
 

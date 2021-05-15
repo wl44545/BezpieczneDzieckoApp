@@ -1,4 +1,7 @@
 <resources>
+
+    <string name="base_url">http://77.55.216.17:8080/</string>
+
     <string name="app_name">BEZPIECZNE DZIECKO</string>
 
     <string name="welcome_btn_parent">ZALOGUJ RODZICA</string>

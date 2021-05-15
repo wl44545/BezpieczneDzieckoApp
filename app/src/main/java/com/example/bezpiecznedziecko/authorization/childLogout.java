@@ -101,7 +101,7 @@ public class childLogout extends AppCompatActivity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-        String x = "http://10.0.2.2:8080/parents?token="+ getString(R.string.parent_token)+"&login="+login;
+        String x = getString(R.string.base_url)+"parents?token="+ getString(R.string.parent_token)+"&login="+login;
 
         URL url = new URL(x);
         HttpURLConnection con = (HttpURLConnection) url.openConnection();

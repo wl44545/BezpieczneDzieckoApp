@@ -131,7 +131,7 @@ public class parentChildEdit extends AppCompatActivity implements PassConfirmDia
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-        String x = "http://10.0.2.2:8080/children?token="+getString(R.string.child_token)+"&login="+login+"&parent=0";
+        String x = getString(R.string.base_url)+"children?token="+getString(R.string.child_token)+"&login="+login+"&parent=0";
 
         URL url = new URL(x);
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
@@ -173,7 +173,7 @@ public class parentChildEdit extends AppCompatActivity implements PassConfirmDia
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-        URL url = new URL("http://10.0.2.2:8080/children");
+        URL url = new URL(getString(R.string.base_url)+"children");
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
         con.setRequestMethod("PUT");
         con.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");

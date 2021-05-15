@@ -33,8 +33,6 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import static com.example.bezpiecznedziecko.retrofit.RestClient.BASE_URL;
-
 public class parentSchedulesList extends AppCompatActivity implements OnNoteListener {
 
     RecyclerView recyclerView;
@@ -78,7 +76,7 @@ public class parentSchedulesList extends AppCompatActivity implements OnNoteList
                 .create();
 
         retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
+                .baseUrl(getString(R.string.base_url))
                 .client(client)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(gson))

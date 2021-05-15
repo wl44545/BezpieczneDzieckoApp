@@ -28,10 +28,8 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
-
 import com.example.bezpiecznedziecko.child.schedules.Schedules;
 
-import static com.example.bezpiecznedziecko.retrofit.RestClient.BASE_URL;
 
 public class childSchedulesList extends AppCompatActivity implements OnNoteListener {
 
@@ -60,7 +58,7 @@ public class childSchedulesList extends AppCompatActivity implements OnNoteListe
                 .create();
 
         retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
+                .baseUrl(getString(R.string.base_url))
                 .client(client)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(gson))

@@ -36,8 +36,6 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import static com.example.bezpiecznedziecko.retrofit.RestClient.BASE_URL;
-
 public class childLogin extends AppCompatActivity {
 
     EditText edt_login, edt_password;
@@ -105,7 +103,7 @@ public class childLogin extends AppCompatActivity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-        String x = "http://10.0.2.2:8080/children?token="+getString(R.string.child_token)+"&login="+login+"&parent=0";
+        String x = getString(R.string.base_url)+"children?token="+getString(R.string.child_token)+"&login="+login+"&parent=0";
 
         URL url = new URL(x);
         HttpURLConnection con = (HttpURLConnection) url.openConnection();

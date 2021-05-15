@@ -55,7 +55,7 @@ public class parentScheduleDelete extends AppCompatActivity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-        String x = "http://10.0.2.2:8080/schedules?token="+getString(R.string.schedule_token)+"&_id="+_id;
+        String x = getString(R.string.base_url)+"schedules?token="+getString(R.string.schedule_token)+"&_id="+_id;
 
         URL url = new URL(x);
         HttpURLConnection con = (HttpURLConnection) url.openConnection();

@@ -156,7 +156,7 @@ public class parentEdit extends AppCompatActivity implements PassConfirmDialog.P
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-        String x = "http://10.0.2.2:8080/parents?token="+getString(R.string.parent_token)+"&login="+login;//+"&parent=0";
+        String x = getString(R.string.base_url)+"parents?token="+getString(R.string.parent_token)+"&login="+login;//+"&parent=0";
 
         URL url = new URL(x);
         HttpURLConnection con = (HttpURLConnection) url.openConnection();

@@ -62,7 +62,7 @@ public class childMap extends FragmentActivity implements OnMapReadyCallback {
 
         mMap.addMarker(new MarkerOptions().position(latlng).title("Ja"));
 
-        /*mMap.addCircle(new CircleOptions()
+      /*mMap.addCircle(new CircleOptions()
                 .center(latlng)
                 .radius(100)
                 .strokeColor(Color.RED)
