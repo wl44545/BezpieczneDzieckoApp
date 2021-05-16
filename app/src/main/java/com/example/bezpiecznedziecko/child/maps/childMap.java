@@ -48,6 +48,9 @@ public class childMap extends FragmentActivity implements OnMapReadyCallback {
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+        schedule_longitude = "0.0";
+        schedule_latitude = "0.0";
+        schedule_radius = "0.0";
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
