@@ -21,7 +21,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 public class parentMap extends FragmentActivity implements OnMapReadyCallback {
 
-    private GoogleMap mMap;
+    public GoogleMap mMap;
     String login;
 
     @Override
@@ -34,7 +34,6 @@ public class parentMap extends FragmentActivity implements OnMapReadyCallback {
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
     }
-
 
     @Override
     public void onMapReady(GoogleMap googleMap) {

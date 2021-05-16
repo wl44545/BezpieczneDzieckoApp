@@ -152,6 +152,18 @@ public class parentMain extends AppCompatActivity implements
         });
 
 
+        Button btn_tmp = (Button)findViewById(R.id.btn_tmp);
+        btn_tmp.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view)
+            {
+                Intent intent = new Intent(parentMain.this, parentDataAnalysing.class);
+                startActivity(intent);
+            }
+        });
+
+
+
         // Check that the user hasn't revoked permissions by going to Settings.
         if (parentLocationUtils.requestingLocationUpdates(this)) {
             if (!checkPermissions()) {

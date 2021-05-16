@@ -80,6 +80,12 @@
         android:layout_height="wrap_content"
         android:text="@string/remove_location_updates"/>
 
+    <Button
+        android:id="@+id/btn_tmp"
+        android:layout_width="75dp"
+        android:layout_height="50dp"
+        android:text="tmp" />
+
 </LinearLayout>
 
 
