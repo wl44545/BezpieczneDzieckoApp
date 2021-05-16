@@ -50,8 +50,8 @@ public class parentScheduleAddMap extends FragmentActivity implements OnMapReady
         child = intent.getStringExtra("login");
 
         SharedPreferences sharedPref = this.getSharedPreferences(getString(R.string.shared_preferences), Context.MODE_PRIVATE);
-        longitude = sharedPref.getFloat(getString(R.string.shared_preferences_longitude), (float) 53.4481);
-        latitude = sharedPref.getFloat(getString(R.string.shared_preferences_latitude), (float) 14.5372);
+        longitude = sharedPref.getFloat(getString(R.string.shared_preferences_longitude), (float) 0.0);
+        latitude = sharedPref.getFloat(getString(R.string.shared_preferences_latitude), (float) 0.0);
         map_latitude = String.valueOf(latitude);
         map_longitude = String.valueOf(longitude);
 
@@ -70,7 +70,8 @@ public class parentScheduleAddMap extends FragmentActivity implements OnMapReady
                 mMap.addCircle(new CircleOptions()
                         .center(latlng)
                         .radius(Double.parseDouble(map_radius))
-                        .strokeColor(Color.RED));
+                        .strokeColor(Color.RED)
+                        .fillColor(Color.argb(32,255,0,0)));
                 CameraPosition cameraPosition = new CameraPosition.Builder()
                         .target(latlng)
                         .zoom(15)

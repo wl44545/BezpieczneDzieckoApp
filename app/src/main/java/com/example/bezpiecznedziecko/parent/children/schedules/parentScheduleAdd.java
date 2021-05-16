@@ -19,7 +19,9 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.bezpiecznedziecko.R;
+import com.example.bezpiecznedziecko.authorization.childLogin;
 import com.example.bezpiecznedziecko.authorization.childRegister;
+import com.example.bezpiecznedziecko.child.main.childMain;
 import com.example.bezpiecznedziecko.parent.main.parentMain;
 
 import org.json.JSONException;
@@ -232,44 +234,10 @@ public class parentScheduleAdd extends AppCompatActivity {
     private void addSchedule(String child, String parent, String start, String stop, String latitude, String longitude,
                                String radius, String description) throws IOException, JSONException {
 
-        System.out.println(child);
-        System.out.println(parent);
-        System.out.println(start);
-        System.out.println(stop);
-        System.out.println(latitude);
-        System.out.println(longitude);
-        System.out.println(radius);
-        System.out.println(description);
-
-
-        /*StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
-
-        String x = "http://77.55.216.17:8080/schedules?token="+getString(R.string.schedule_token)+"&child="+child+"&parent="+parent+"&start="+start+"&stop="+stop+"&latitude="+latitude+"&longitude="+longitude+"&radius="+radius+"&description="+description;
-
-        URL url = new URL(x);
-        HttpURLConnection con = (HttpURLConnection) url.openConnection();
-        con.setRequestMethod("POST");
-        con.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-
-        int status = con.getResponseCode();
-        BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-        String inputLine;
-        StringBuilder content = new StringBuilder();
-        while((inputLine = in.readLine()) != null) {
-            content.append(inputLine);
-        }
-        in.close();
-        con.disconnect();*/
-
-
-
-
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
         URL url = new URL(getString(R.string.base_url)+"schedules");
-        //URL url = new URL("http://77.55.216.17:8080/schedules");
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
         con.setRequestMethod("POST");
         con.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
@@ -293,6 +261,11 @@ public class parentScheduleAdd extends AppCompatActivity {
         /*JSONObject jsonObj = new JSONObject(content.toString());
         String response = (String) jsonObj.get("message");
         System.out.println(response);*/
+
+        Intent intent = new Intent(parentScheduleAdd.this, parentSchedulesList.class);
+        intent.putExtra("login", child);
+        startActivity(intent);
+
     }
     @Override
     protected void onDestroy() {
