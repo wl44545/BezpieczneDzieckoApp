@@ -11,7 +11,7 @@
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:text="DODAJ HARMONOGRAM"
         android:textSize="30sp"
         android:layout_marginTop="30dp"
@@ -24,46 +24,49 @@
 
     <Button
         android:id="@+id/btn_map"
-        android:layout_width="124dp"
-        android:layout_height="50sp"
+        android:layout_width="180dp"
+        android:layout_height="60sp"
         android:layout_gravity="center"
+        android:layout_marginBottom="20dp"
         android:text="MAPA"
         android:textSize="20sp" />
 
+
+
+
+
     <Button
         android:id="@+id/btn_start_date"
-        android:layout_width="124dp"
-        android:layout_height="50sp"
+        android:layout_width="180dp"
+        android:layout_height="60sp"
         android:text="DATA POCZĄTKOWA"
-        android:textSize="10sp"
-        android:translationX="60dp" />
+        android:textSize="15sp"/>
 
     <Button
         android:id="@+id/btn_start_time"
-        android:layout_width="124dp"
-        android:layout_height="50sp"
+        android:layout_width="180dp"
+        android:layout_height="60sp"
         android:text="GODZINA POCZĄTKOWA"
-        android:textSize="10sp"
+        android:textSize="15sp"
         android:translationX="200dp"
-        android:translationY="-50dp" />
+        android:translationY="-60dp" />
 
     <Button
         android:id="@+id/btn_stop_date"
-        android:layout_width="124dp"
-        android:layout_height="50sp"
+        android:layout_width="180dp"
+        android:layout_height="60sp"
         android:text="DATA KOŃCOWA"
-        android:textSize="10sp"
-        android:translationX="60dp"
-        android:translationY="-45dp" />
+        android:textSize="15sp"
+        android:translationY="-60dp" />
 
     <Button
         android:id="@+id/btn_stop_time"
-        android:layout_width="124dp"
-        android:layout_height="50sp"
+        android:layout_width="180dp"
+        android:layout_height="60sp"
         android:text="GODZINA KOŃCOWA"
-        android:textSize="10sp"
+        android:textSize="15sp"
         android:translationX="200dp"
-        android:translationY="-95dp" />
+        android:translationY="-120dp" />
 
 
 
@@ -74,7 +77,103 @@
         android:hint="Opis"
         android:inputType="text"
         android:textSize="15sp"
-        android:translationY="-75dp"/>
+        android:translationY="-100dp"/>
+
+
+    <LinearLayout
+        android:translationY="-90dp"
+        android:layout_marginBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/schedule_start"/>
+        <TextView
+            android:id="@+id/txt_start_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"/>
+        <TextView
+            android:id="@+id/txt_start_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"/>
+    </LinearLayout>
+    <LinearLayout
+        android:translationY="-90dp"
+        android:layout_marginBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/schedule_stop" />
+        <TextView
+            android:id="@+id/txt_stop_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"/>
+        <TextView
+            android:id="@+id/txt_stop_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"/>
+    </LinearLayout>
+    <LinearLayout
+        android:translationY="-90dp"
+        android:layout_marginBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/longitude" />
+        <TextView
+            android:id="@+id/txt_longitude"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="3" />
+    </LinearLayout>
+    <LinearLayout
+        android:translationY="-90dp"
+        android:layout_marginBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/latitude" />
+        <TextView
+            android:id="@+id/txt_latitude"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"/>
+    </LinearLayout>
+    <LinearLayout
+        android:translationY="-90dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/schedule_radius" />
+        <TextView
+            android:id="@+id/txt_radius"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="3" />
+    </LinearLayout>
 
 
     <Button
@@ -82,56 +181,7 @@
         android:layout_width="300sp"
         android:layout_height="60sp"
         android:layout_gravity="center"
-        android:textSize="20sp"
-        android:text="ZAPISZ" />
-
-
-
-
-
-
-
-    <EditText
-        android:id="@+id/edt_start"
-        android:layout_width="370dp"
-        android:layout_height="wrap_content"
-        android:hint="Obowiązuje od"
-        android:inputType="text"
-        android:textSize="5sp" />
-    <EditText
-        android:id="@+id/edt_stop"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Obowiązuje do"
-        android:inputType="text"
-        android:textSize="5sp" />
-
-
-
-
-    <EditText
-        android:id="@+id/edt_latitude"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Długość geograficzna środka"
-        android:inputType="text"
-        android:textSize="5sp" />
-    <EditText
-        android:id="@+id/edt_longitude"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Szerokość geograficzna środka"
-        android:inputType="text"
-        android:textSize="5sp" />
-    <EditText
-        android:id="@+id/edt_radius"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Dozwolony promień"
-        android:inputType="text"
-        android:textSize="5sp" />
-
-
-
+        android:text="ZAPISZ"
+        android:textSize="20sp" />
 
 </LinearLayout>

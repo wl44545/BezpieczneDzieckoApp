@@ -152,8 +152,8 @@
     <string name="description">description</string>
     <string name="schedule_start">Obowiązuje od</string>
     <string name="schedule_stop">Obowiązuje do</string>
-    <string name="longitude">Długość geograficzna</string>
-    <string name="latitude">Szerokość geograficzna</string>
+    <string name="longitude">Długość GPS</string>
+    <string name="latitude">Szerokość GPS</string>
     <string name="schedule_radius">Dozwolony obszar</string>
     <string name="btn_edit">EDYTUJ</string>
     <string name="btn_delete">USUŃ</string>
