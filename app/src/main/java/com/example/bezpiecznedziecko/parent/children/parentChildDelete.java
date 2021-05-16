@@ -10,9 +10,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.bezpiecznedziecko.R;
-import com.example.bezpiecznedziecko.authorization.parentLogin;
-import com.example.bezpiecznedziecko.parent.children.schedules.parentSchedulesList;
-import com.example.bezpiecznedziecko.welcome;
 
 import org.json.JSONException;
 
@@ -39,8 +36,8 @@ public class parentChildDelete extends AppCompatActivity {
         last_name = intent.getStringExtra("last_name");
         name = first_name + " " + last_name;
 
-        txt_name = (TextView) findViewById(R.id.txt_name);
-        txt_login = (TextView) findViewById(R.id.txt_login);
+        txt_name = (TextView) findViewById(R.id.view_txt2);
+        txt_login = (TextView) findViewById(R.id.view_txt1);
         txt_name.setText(name);
         txt_login.setText(login);
 

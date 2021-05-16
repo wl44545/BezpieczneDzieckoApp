@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/parent_schedules_list"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".parent.children.parentChildrenList">
+    tools:context=".parent.children.parentChildrenList"
+    android:orientation="vertical"
+    android:layout_margin="10dp"
+    android:padding="10dp">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
-        android:layout_width="402dp"
-        android:layout_height="683dp"
+        android:layout_width="370dp"
+        android:layout_height="631dp"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="4dp"
         tools:layout_editor_absoluteY="-2dp" />
@@ -17,7 +20,7 @@
     <Button
         android:id="@+id/btn_add_schedule"
         android:layout_width="300sp"
-        android:layout_height="60sp"
+        android:layout_height="50sp"
         android:layout_gravity="center"
         android:text="DODAJ"
         android:textSize="20sp"
@@ -25,4 +28,4 @@
         tools:layout_editor_absoluteY="655dp"
         tools:ignore="MissingConstraints" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

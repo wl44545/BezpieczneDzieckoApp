@@ -111,6 +111,12 @@ public class parentSchedulesList extends AppCompatActivity implements OnNoteList
     public void onNoteClick(int position) {
         Intent intent = new Intent(this, parentSchedule.class);
         intent.putExtra("_id", scheduleList.get(position)._id);
+        intent.putExtra("description",scheduleList.get(position).description);
+        intent.putExtra("start",scheduleList.get(position).start);
+        intent.putExtra("stop",scheduleList.get(position).stop);
+        intent.putExtra("longitude",scheduleList.get(position).longitude);
+        intent.putExtra("latitude",scheduleList.get(position).latitude);
+        intent.putExtra("radius",scheduleList.get(position).radius);
         startActivity(intent);
     }
     @Override

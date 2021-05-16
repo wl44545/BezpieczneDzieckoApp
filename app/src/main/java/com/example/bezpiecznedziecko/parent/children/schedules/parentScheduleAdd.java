@@ -28,9 +28,9 @@ import java.net.URL;
 
 public class parentScheduleAdd extends AppCompatActivity {
 
-    Button btn_save;
+    Button btn_save, btn_map;
     EditText edt_start,edt_stop,edt_latitude,edt_longitude,edt_radius,edt_description;
-    String txt_child, txt_parent;
+    String txt_child, txt_parent, map_latitude, map_longitude, map_radius;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +39,10 @@ public class parentScheduleAdd extends AppCompatActivity {
 
         Intent intent = getIntent();
         txt_child = intent.getStringExtra("login");
+        map_latitude = intent.getStringExtra("map_latitude");
+        map_longitude = intent.getStringExtra("map_longitude");
+        map_radius = intent.getStringExtra("map_radius");
+
         SharedPreferences sharedPref = this.getSharedPreferences(getString(R.string.shared_preferences), Context.MODE_PRIVATE);
         txt_parent = sharedPref.getString(getString(R.string.shared_preferences_login), "login");
 
@@ -48,6 +52,10 @@ public class parentScheduleAdd extends AppCompatActivity {
         edt_longitude = (EditText)findViewById(R.id.edt_longitude);
         edt_radius = (EditText)findViewById(R.id.edt_radius);
         edt_description = (EditText)findViewById(R.id.edt_description);
+
+        edt_latitude.setText(map_latitude);
+        edt_longitude.setText(map_longitude);
+        edt_radius.setText(map_radius);
 
         btn_save = (Button)findViewById(R.id.btn_save);
         btn_save.setOnClickListener(new View.OnClickListener(){
@@ -59,6 +67,16 @@ public class parentScheduleAdd extends AppCompatActivity {
                 } catch (IOException | JSONException e) {
                     e.printStackTrace();
                 }
+            }
+        });
+
+        btn_map = (Button)findViewById(R.id.btn_map);
+        btn_map.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view)
+            {
+                Intent intent = new Intent(parentScheduleAdd.this, parentScheduleAddMap.class);
+                startActivity(intent);
             }
         });
 

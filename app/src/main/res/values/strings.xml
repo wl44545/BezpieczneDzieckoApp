@@ -148,6 +148,15 @@
     <string name="parent_main_btn_delete">USUŃ</string>
     <string name="parent_delete_confirm_header">Potwierdzenie usunięcia konta rodzica</string>
     <string name="parent_delete_confirm_explanation">UWAGA! Wraz z kontem rodzica zostaną usunięte przypisane konta dzieci. Aby kontynuować, wprowadź aktualne hasło:</string>
+    <string name="title_activity_parent_schedule_add_map">Map</string>
+    <string name="description">description</string>
+    <string name="schedule_start">Obowiązuje od</string>
+    <string name="schedule_stop">Obowiązuje do</string>
+    <string name="longitude">Długość geograficzna</string>
+    <string name="latitude">Szerokość geograficzna</string>
+    <string name="schedule_radius">Dozwolony obszar</string>
+    <string name="btn_edit">EDYTUJ</string>
+    <string name="btn_delete">USUŃ</string>
 
 
 </resources>

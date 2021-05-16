@@ -3,9 +3,7 @@ package com.example.bezpiecznedziecko.parent.children;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.cardview.widget.CardView;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import android.widget.Toast;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,10 +32,9 @@ public class parentChildrenListView extends RecyclerView.Adapter<parentChildrenL
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Children.Child children = childrenList.get(position);
-
-        holder.txtCoin.setText(children.login);
-        holder.txtMarket.setText(children.first_name);
-        holder.txtPrice.setText(children.last_name);
+        String name = children.first_name+" "+children.last_name;
+        holder.txt_login.setText(children.login);
+        holder.txt_name.setText(name);
     }
 
     @Override
@@ -58,17 +55,15 @@ public class parentChildrenListView extends RecyclerView.Adapter<parentChildrenL
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         OnNoteListener onNoteListener;
 
-        public TextView txtCoin;
-        public TextView txtMarket;
-        public TextView txtPrice;
+        public TextView txt_login;
+        public TextView txt_name;
         public CardView cardView;
 
         public ViewHolder(View view, OnNoteListener onNoteListener) {
             super(view);
 
-            txtCoin = view.findViewById(R.id.txtCoin);
-            txtMarket = view.findViewById(R.id.txtMarket);
-            txtPrice = view.findViewById(R.id.txtPrice);
+            txt_login = view.findViewById(R.id.view_txt1);
+            txt_name = view.findViewById(R.id.view_txt2);
             cardView = view.findViewById(R.id.cardView);
 
             this.onNoteListener = onNoteListener;

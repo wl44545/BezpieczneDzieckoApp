@@ -7,12 +7,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
+
 import com.example.bezpiecznedziecko.R;
 import com.example.bezpiecznedziecko.parent.children.schedules.parentSchedulesList;
-import com.example.bezpiecznedziecko.parent.main.parentMain;
 
 public class parentChildProfile extends AppCompatActivity {
 
@@ -40,8 +38,8 @@ public class parentChildProfile extends AppCompatActivity {
 
         name = first_name + " " + last_name;
 
-        txt_name = (TextView) findViewById(R.id.txt_name);
-        txt_login = (TextView) findViewById(R.id.txt_login);
+        txt_name = (TextView) findViewById(R.id.view_txt2);
+        txt_login = (TextView) findViewById(R.id.view_txt1);
         txt_name.setText(name);
         txt_login.setText(login);
 

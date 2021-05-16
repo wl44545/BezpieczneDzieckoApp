@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/parent_schedule_add_map"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".parent.children.schedules.parentScheduleAddMap"
+    android:orientation="vertical"
+    android:layout_margin="10dp"
+    android:padding="10dp">
+
+    <fragment
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="641dp"
+        tools:context=".parent.children.schedules.parentScheduleAddMap" />
+
+
+    <EditText
+        android:id="@+id/edt_radius"
+        android:layout_width="97dp"
+        android:layout_height="50dp"
+        android:inputType="number|numberDecimal" />
+
+    <Button
+        android:id="@+id/btn_radius"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:text="OBSZAR"
+        android:textSize="12sp"
+        android:translationX="100dp"
+        android:translationY="-50dp" />
+
+    <Button
+        android:id="@+id/btn_save"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:text="ZAPISZ"
+        android:textSize="12sp"
+        android:translationX="270dp"
+        android:translationY="-100dp" />
+
+</LinearLayout>

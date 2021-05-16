@@ -13,7 +13,6 @@ import com.example.bezpiecznedziecko.R;
 
 import java.util.ArrayList;
 import java.util.List;
-import com.example.bezpiecznedziecko.child.schedules.Schedules;
 
 public class childSchedulesListView extends RecyclerView.Adapter<childSchedulesListView.ViewHolder> {
 
@@ -62,9 +61,9 @@ public class childSchedulesListView extends RecyclerView.Adapter<childSchedulesL
         public ViewHolder(View view, OnNoteListener onNoteListener) {
             super(view);
 
-            txtCoin = view.findViewById(R.id.txtCoin);
-            txtMarket = view.findViewById(R.id.txtMarket);
-            txtPrice = view.findViewById(R.id.txtPrice);
+            txtCoin = view.findViewById(R.id.view_txt1);
+            txtMarket = view.findViewById(R.id.view_txt2);
+            txtPrice = view.findViewById(R.id.view_txt3);
             cardView = view.findViewById(R.id.cardView);
 
             this.onNoteListener = onNoteListener;

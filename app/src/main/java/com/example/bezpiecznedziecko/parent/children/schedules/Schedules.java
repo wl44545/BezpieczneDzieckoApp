@@ -21,6 +21,14 @@ public class Schedules {
         public String longitude;
         @SerializedName("latitude")
         public String latitude;
+        @SerializedName("radius")
+        public String radius;
+        @SerializedName("description")
+        public String description;
+        @SerializedName("start")
+        public String start;
+        @SerializedName("stop")
+        public String stop;
     }
 
 }

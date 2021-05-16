@@ -15,4 +15,10 @@
     <string name="shared_preferences_latitude">latitude</string>
     <string name="shared_preferences_logged_parent">parent</string>
     <string name="shared_preferences_logged_nobody">nobody</string>
+    <string name="description">description</string>
+    <string name="schedule_start">Obowiązuje od:</string>
+    <string name="schedule_stop">Obowiązuje do:</string>
+    <string name="longitude">Długość geograficzna</string>
+    <string name="btn_edit">EDYTUJ</string>
+    <string name="btn_delete">USUŃ</string>
 </resources>

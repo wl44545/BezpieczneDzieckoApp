@@ -2,7 +2,6 @@ package com.example.bezpiecznedziecko.child.main;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import com.example.bezpiecznedziecko.BuildConfig;
@@ -31,7 +30,6 @@ import androidx.annotation.NonNull;
 import com.example.bezpiecznedziecko.authorization.childLogout;
 import com.example.bezpiecznedziecko.child.maps.childMap;
 import com.example.bezpiecznedziecko.child.schedules.childSchedulesList;
-import com.example.bezpiecznedziecko.welcome;
 import com.google.android.material.snackbar.Snackbar;
 import androidx.core.app.ActivityCompat;
 
@@ -95,8 +93,8 @@ public class childMain extends AppCompatActivity implements
 
         name = first_name + " " + last_name;
 
-        txt_name = (TextView) findViewById(R.id.txt_name);
-        txt_login = (TextView) findViewById(R.id.txt_login);
+        txt_name = (TextView) findViewById(R.id.view_txt2);
+        txt_login = (TextView) findViewById(R.id.view_txt1);
         txt_name.setText(name);
         txt_login.setText(login);
 

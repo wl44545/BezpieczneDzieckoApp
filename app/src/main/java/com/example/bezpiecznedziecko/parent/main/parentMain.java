@@ -1,7 +1,6 @@
 package com.example.bezpiecznedziecko.parent.main;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
@@ -9,28 +8,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.bezpiecznedziecko.R;
-import com.example.bezpiecznedziecko.authorization.childRegister;
-import com.example.bezpiecznedziecko.common.PassConfirmDialog;
 import com.example.bezpiecznedziecko.parent.children.parentChildrenList;
 import com.example.bezpiecznedziecko.parent.maps.parentMap;
-import com.example.bezpiecznedziecko.parent.children.schedules.parentSchedulesList;
 import com.example.bezpiecznedziecko.welcome;
-import com.google.android.material.textfield.TextInputLayout;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 
 public class parentMain extends AppCompatActivity{
 
@@ -53,8 +38,8 @@ public class parentMain extends AppCompatActivity{
 
         name = first_name + " " + last_name;
 
-        txt_name = (TextView) findViewById(R.id.txt_name);
-        txt_login = (TextView) findViewById(R.id.txt_login);
+        txt_name = (TextView) findViewById(R.id.view_txt2);
+        txt_login = (TextView) findViewById(R.id.view_txt1);
         txt_name.setText(name);
         txt_login.setText(login);
 
