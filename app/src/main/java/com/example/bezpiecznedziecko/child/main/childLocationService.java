@@ -26,6 +26,7 @@ import android.os.StrictMode;
 import android.util.Log;
 
 import com.example.bezpiecznedziecko.R;
+import com.example.bezpiecznedziecko.welcome;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
@@ -81,7 +82,7 @@ public class childLocationService extends Service {
     /**
      * The desired interval for location updates. Inexact. Updates may be more or less frequent.
      */
-    private static final long UPDATE_INTERVAL_IN_MILLISECONDS = 10000;
+    private static final long UPDATE_INTERVAL_IN_MILLISECONDS = 60000;
 
     /**
      * The fastest rate for active location updates. Updates will never be more frequent
@@ -277,14 +278,20 @@ public class childLocationService extends Service {
         PendingIntent activityPendingIntent = PendingIntent.getActivity(this, 0,
                 new Intent(this, childMain.class), 0);
 
+        PendingIntent alarm = PendingIntent.getActivity(this, 0,
+                new Intent(this, welcome.class), 0);
+
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
-                .addAction(R.drawable.ic_launch, getString(R.string.launch_activity),
+                .addAction(R.drawable.ic_launch, "Powrót",
                         activityPendingIntent)
-  //anulowanie w powiadomieniach
-                .addAction(R.drawable.ic_cancel, getString(R.string.remove_location_updates),
-                        servicePendingIntent)
-                .setContentText(text)
-                .setContentTitle(childLocationUtils.getLocationTitle(this))
+                .addAction(R.drawable.ic_launch, "Alarm",
+                        alarm)
+                /*.addAction(R.drawable.ic_cancel, getString(R.string.remove_location_updates),
+                        servicePendingIntent)*/
+                //.setContentText(text)
+                .setContentText("Aplikacja ciągle dba o Twoje bezpieczeństwo!")
+                //.setContentTitle(childLocationUtils.getLocationTitle(this))
+                .setContentTitle("BEZPIECZNE DZIECKO")
                 .setOngoing(true)
                 .setPriority(Notification.PRIORITY_HIGH)
                 .setSmallIcon(R.mipmap.ic_launcher)
@@ -352,7 +359,7 @@ public class childLocationService extends Service {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-        URL url = new URL("http://10.0.2.2:8080/locations");
+        URL url = new URL(getString(R.string.base_url)+"locations");
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
         con.setRequestMethod("POST");
         con.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
@@ -366,7 +373,7 @@ public class childLocationService extends Service {
         int res_status = con.getResponseCode();
         BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
         String inputLine;
-        StringBuffer content = new StringBuffer();
+        StringBuilder content = new StringBuilder();
         while((inputLine = in.readLine()) != null) {
             content.append(inputLine);
         }
