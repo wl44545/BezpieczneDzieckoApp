@@ -80,4 +80,11 @@ public class parentChildDelete extends AppCompatActivity {
         con.disconnect();
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, parentChildProfile.class);
+        intent.putExtra("login",login);
+        startActivity(intent);
+    }
+
 }

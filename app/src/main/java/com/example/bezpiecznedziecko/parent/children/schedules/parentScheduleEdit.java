@@ -2,6 +2,7 @@ package com.example.bezpiecznedziecko.parent.children.schedules;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -11,11 +12,16 @@ import com.example.bezpiecznedziecko.R;
 public class parentScheduleEdit extends AppCompatActivity {
 
     Button btn_save;
+    String _id, login;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.parent_schedule_edit);
+
+        Intent intent = getIntent();
+        _id = intent.getStringExtra("_id");
+        login = intent.getStringExtra("login");
 
         btn_save = (Button)findViewById(R.id.btn_save);
         btn_save.setOnClickListener(new View.OnClickListener(){
@@ -27,4 +33,13 @@ public class parentScheduleEdit extends AppCompatActivity {
         });
 
     }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, parentSchedule.class);
+        intent.putExtra("_id",_id);
+        intent.putExtra("login",login);
+        startActivity(intent);
+    }
+
 }

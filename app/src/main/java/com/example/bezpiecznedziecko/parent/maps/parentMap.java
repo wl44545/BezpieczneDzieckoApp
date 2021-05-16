@@ -3,11 +3,13 @@ package com.example.bezpiecznedziecko.parent.maps;
 import androidx.fragment.app.FragmentActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 
 import com.example.bezpiecznedziecko.R;
+import com.example.bezpiecznedziecko.parent.main.parentMain;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -59,4 +61,13 @@ public class parentMap extends FragmentActivity implements OnMapReadyCallback {
                 .build();                   // Creates a CameraPosition from the builder
         mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
     }
+
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, parentMain.class);
+        startActivity(intent);
+    }
+
+
 }

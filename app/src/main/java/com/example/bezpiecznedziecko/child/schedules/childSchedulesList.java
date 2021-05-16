@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bezpiecznedziecko.R;
+import com.example.bezpiecznedziecko.authorization.childLogout;
+import com.example.bezpiecznedziecko.child.main.childMain;
 import com.example.bezpiecznedziecko.child.schedules.childSchedulesListView.OnNoteListener;
 import com.example.bezpiecznedziecko.parent.children.schedules.parentSchedule;
 import com.example.bezpiecznedziecko.retrofit.RestClient;
@@ -108,4 +110,11 @@ public class childSchedulesList extends AppCompatActivity implements OnNoteListe
     protected void onDestroy() {
         super.onDestroy();
     }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, childMain.class);
+        startActivity(intent);
+    }
+
 }

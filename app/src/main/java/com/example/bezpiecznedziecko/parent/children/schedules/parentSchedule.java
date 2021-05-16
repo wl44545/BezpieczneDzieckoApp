@@ -17,7 +17,7 @@ import java.io.IOException;
 
 public class parentSchedule extends AppCompatActivity {
 
-    String login, _id, description, start, stop, longitude, latitude, radius;
+    String login, _id, description, start, stop, longitude, latitude, radius, child;
     TextView txt_description, txt_start, txt_stop, txt_longitude, txt_latitude, txt_radius;
     Button btn_edit, btn_delete;
 
@@ -28,6 +28,7 @@ public class parentSchedule extends AppCompatActivity {
         setContentView(R.layout.parent_schedule);
 
         Intent intent = getIntent();
+        child = intent.getStringExtra("child");
         _id = intent.getStringExtra("_id");
         login = intent.getStringExtra("login");
         description = intent.getStringExtra("description");
@@ -75,4 +76,12 @@ public class parentSchedule extends AppCompatActivity {
         });
 
     }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, parentSchedulesList.class);
+        intent.putExtra("login", child);
+        startActivity(intent);
+    }
+
 }

@@ -272,5 +272,11 @@ public class parentScheduleAdd extends AppCompatActivity {
         super.onDestroy();
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, parentSchedulesList.class);
+        intent.putExtra("login",child);
+        startActivity(intent);
+    }
 
 }

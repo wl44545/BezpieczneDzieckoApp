@@ -23,7 +23,7 @@ import java.net.URL;
 public class parentScheduleDelete extends AppCompatActivity {
 
     Button btn_delete;
-    String _id, login;
+    String _id, login, child;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +33,7 @@ public class parentScheduleDelete extends AppCompatActivity {
         Intent intent = getIntent();
         _id = intent.getStringExtra("_id");
         login = intent.getStringExtra("login");
+        child = intent.getStringExtra("child");
 
         btn_delete = (Button)findViewById(R.id.btn_delete);
         btn_delete.setOnClickListener(new View.OnClickListener(){
@@ -72,5 +73,13 @@ public class parentScheduleDelete extends AppCompatActivity {
         con.disconnect();
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, parentSchedule.class);
+        intent.putExtra("_id",_id);
+        intent.putExtra("login",login);
+        intent.putExtra("child",child);
+        startActivity(intent);
+    }
 
 }

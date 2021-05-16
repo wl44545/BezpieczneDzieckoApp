@@ -156,4 +156,12 @@ public class parentChildrenList extends AppCompatActivity implements OnNoteListe
     protected void onDestroy() {
         super.onDestroy();
     }
+
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, parentMain.class);
+        startActivity(intent);
+    }
+
 }

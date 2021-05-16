@@ -104,4 +104,11 @@ public class childMap extends FragmentActivity implements OnMapReadyCallback {
         schedule_latitude = (String) new JSONObject(content.toString().replace('[',' ').replace(']', ' ')).get("latitude");
         schedule_radius = (String) new JSONObject(content.toString().replace('[',' ').replace(']', ' ')).get("radius");
     }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, childMain.class);
+        startActivity(intent);
+    }
+
 }

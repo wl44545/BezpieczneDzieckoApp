@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -17,6 +18,7 @@ import android.widget.Toast;
 import com.example.bezpiecznedziecko.R;
 import com.example.bezpiecznedziecko.authorization.safetyFunctions;
 import com.example.bezpiecznedziecko.common.PassConfirmDialog;
+import com.example.bezpiecznedziecko.parent.main.parentMain;
 import com.google.android.material.textfield.TextInputLayout;
 
 import org.json.JSONException;
@@ -307,4 +309,12 @@ public class parentChildEdit extends AppCompatActivity implements PassConfirmDia
         }
 
     }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, parentChildProfile.class);
+        intent.putExtra("login",login);
+        startActivity(intent);
+    }
+
 }

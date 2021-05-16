@@ -7,6 +7,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.bezpiecznedziecko.R;
+import com.example.bezpiecznedziecko.authorization.childLogout;
 
 public class childSchedule extends AppCompatActivity {
 
@@ -42,4 +43,11 @@ public class childSchedule extends AppCompatActivity {
         txt_radius.setText(radius);
 
     }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, childSchedulesList.class);
+        startActivity(intent);
+    }
+
 }

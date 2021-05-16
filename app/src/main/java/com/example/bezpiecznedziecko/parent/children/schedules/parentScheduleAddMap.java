@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.example.bezpiecznedziecko.R;
 import com.example.bezpiecznedziecko.authorization.parentLogin;
+import com.example.bezpiecznedziecko.parent.children.parentChildProfile;
 import com.example.bezpiecznedziecko.parent.main.parentMain;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -124,4 +125,12 @@ public class parentScheduleAddMap extends FragmentActivity implements OnMapReady
             }
         });
     }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, parentScheduleAdd.class);
+        intent.putExtra("login", child);
+        startActivity(intent);
+    }
+
 }

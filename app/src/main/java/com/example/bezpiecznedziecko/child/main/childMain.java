@@ -132,7 +132,7 @@ public class childMain extends AppCompatActivity implements
             @Override
             public void onClick(View view)
             {
-                
+
             }
         });
 
@@ -327,4 +327,11 @@ public class childMain extends AppCompatActivity implements
             mRemoveLocationUpdatesButton.setEnabled(false);
         }
     }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, childLogout.class);
+        startActivity(intent);
+    }
+
 }

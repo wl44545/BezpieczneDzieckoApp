@@ -368,4 +368,9 @@ public class parentMain extends AppCompatActivity implements
     }
 
 
+    @Override
+    public void onBackPressed() {
+
+    }
+
 }

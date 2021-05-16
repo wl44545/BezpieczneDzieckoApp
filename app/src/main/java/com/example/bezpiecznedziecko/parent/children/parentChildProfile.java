@@ -115,4 +115,14 @@ public class parentChildProfile extends AppCompatActivity {
 //
 //        }
 //    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, parentChildrenList.class);
+        intent.putExtra("login",login);
+        startActivity(intent);
+    }
+
+
+
 }

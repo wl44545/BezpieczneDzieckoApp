@@ -34,7 +34,7 @@ import java.security.NoSuchAlgorithmException;
 public class childLogout extends AppCompatActivity {
 
     EditText edt_password;
-    Button btn_logout, btn_back;
+    Button btn_logout;
     String parent_login;
 
     @Override
@@ -57,15 +57,6 @@ public class childLogout extends AppCompatActivity {
                 } catch (IOException | JSONException e) {
                     e.printStackTrace();
                 }
-            }
-        });
-        btn_back = (Button)findViewById(R.id.btn_back);
-        btn_back.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view)
-            {
-                Intent intent = new Intent(childLogout.this, childMain.class);
-                startActivity(intent);
             }
         });
 
@@ -142,11 +133,15 @@ public class childLogout extends AppCompatActivity {
         }
     }
 
-
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, childMain.class);
+        startActivity(intent);
     }
 
 }

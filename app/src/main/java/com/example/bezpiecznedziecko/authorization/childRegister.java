@@ -14,6 +14,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.bezpiecznedziecko.R;
+import com.example.bezpiecznedziecko.parent.children.parentChildrenList;
 import com.example.bezpiecznedziecko.parent.main.parentMain;
 import com.example.bezpiecznedziecko.welcome;
 
@@ -178,7 +179,7 @@ public class childRegister extends AppCompatActivity {
         }
         else if(response.equals("0")){
             Toast.makeText(this, "Zarejestrowano", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(childRegister.this, parentMain.class);
+            Intent intent = new Intent(childRegister.this, parentChildrenList.class);
             startActivity(intent);
 
         }
@@ -191,4 +192,11 @@ public class childRegister extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
     }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, parentChildrenList.class);
+        startActivity(intent);
+    }
+
 }
