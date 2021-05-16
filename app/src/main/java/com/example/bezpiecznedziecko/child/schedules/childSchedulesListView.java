@@ -34,10 +34,9 @@ public class childSchedulesListView extends RecyclerView.Adapter<childSchedulesL
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Schedules.Schedule schedules = schedulesList.get(position);
-
-        holder.txtCoin.setText(schedules.child);
-        holder.txtMarket.setText(schedules.longitude);
-        holder.txtPrice.setText(schedules.latitude);
+        String times = "OD: " + schedules.start + " DO: " + schedules.stop;
+        holder.txt_description.setText(schedules.description);
+        holder.txt_times.setText(times);
     }
 
     @Override
@@ -53,17 +52,15 @@ public class childSchedulesListView extends RecyclerView.Adapter<childSchedulesL
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         OnNoteListener onNoteListener;
 
-        public TextView txtCoin;
-        public TextView txtMarket;
-        public TextView txtPrice;
+        public TextView txt_description;
+        public TextView txt_times;
         public CardView cardView;
 
         public ViewHolder(View view, OnNoteListener onNoteListener) {
             super(view);
 
-            txtCoin = view.findViewById(R.id.view_txt1);
-            txtMarket = view.findViewById(R.id.view_txt2);
-            txtPrice = view.findViewById(R.id.view_txt3);
+            txt_description = view.findViewById(R.id.view_txt1);
+            txt_times = view.findViewById(R.id.view_txt2);
             cardView = view.findViewById(R.id.cardView);
 
             this.onNoteListener = onNoteListener;

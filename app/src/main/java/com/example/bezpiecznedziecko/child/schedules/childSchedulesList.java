@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bezpiecznedziecko.R;
 import com.example.bezpiecznedziecko.child.schedules.childSchedulesListView.OnNoteListener;
+import com.example.bezpiecznedziecko.parent.children.schedules.parentSchedule;
 import com.example.bezpiecznedziecko.retrofit.RestClient;
 import com.example.bezpiecznedziecko.welcome;
 import com.google.gson.Gson;
@@ -95,6 +96,12 @@ public class childSchedulesList extends AppCompatActivity implements OnNoteListe
     public void onNoteClick(int position) {
         Intent intent = new Intent(this, childSchedule.class);
         intent.putExtra("_id", scheduleList.get(position)._id);
+        intent.putExtra("description",scheduleList.get(position).description);
+        intent.putExtra("start",scheduleList.get(position).start);
+        intent.putExtra("stop",scheduleList.get(position).stop);
+        intent.putExtra("longitude",scheduleList.get(position).longitude);
+        intent.putExtra("latitude",scheduleList.get(position).latitude);
+        intent.putExtra("radius",scheduleList.get(position).radius);
         startActivity(intent);
     }
     @Override

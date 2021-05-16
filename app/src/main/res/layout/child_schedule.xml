@@ -9,17 +9,86 @@
     android:layout_margin="10dp"
     android:padding="10dp">
 
-    <TextView
-        android:id="@+id/txt_id"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="left|center"
-        android:text="id"
-        android:layout_marginTop="30dp"
-        android:textSize="25sp"
-        android:elegantTextHeight="true"
-        android:textColor="@color/design_default_color_primary"
-        android:textStyle="italic"/>
+
+<TextView
+    android:id="@+id/txt_description"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="left|center"
+    android:text="@string/description"
+    android:layout_marginTop="10dp"
+    android:layout_marginBottom="20dp"
+    android:textSize="25sp"
+    android:elegantTextHeight="true"
+    android:textColor="@color/design_default_color_primary"
+    android:textStyle="italic"/>
+
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="@string/schedule_start"
+    android:textSize="12sp"/>
+<TextView
+    android:id="@+id/txt_start"
+    android:layout_width="wrap_content"
+    android:layout_height="39dp"
+    android:layout_marginTop="2sp"
+    android:text="@string/schedule_start"
+    android:textSize="24sp" />
+
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="@string/schedule_stop"
+    android:textSize="12sp"/>
+<TextView
+    android:id="@+id/txt_stop"
+    android:layout_width="wrap_content"
+    android:layout_height="39dp"
+    android:layout_marginTop="2sp"
+    android:text="@string/schedule_stop"
+    android:textSize="24sp" />
+
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="@string/longitude"
+    android:textSize="12sp"/>
+<TextView
+    android:id="@+id/txt_longitude"
+    android:layout_width="wrap_content"
+    android:layout_height="39dp"
+    android:layout_marginTop="2sp"
+    android:text="@string/longitude"
+    android:textSize="24sp" />
+
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="@string/latitude"
+    android:textSize="12sp"/>
+<TextView
+    android:id="@+id/txt_latitude"
+    android:layout_width="wrap_content"
+    android:layout_height="39dp"
+    android:layout_marginTop="2sp"
+    android:text="@string/latitude"
+    android:textSize="24sp" />
+
+
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="@string/schedule_radius"
+    android:textSize="12sp"/>
+<TextView
+    android:id="@+id/txt_radius"
+    android:layout_width="wrap_content"
+    android:layout_height="39dp"
+    android:layout_marginTop="2sp"
+    android:text="@string/schedule_radius"
+    android:textSize="24sp" />
+
 
 
 </LinearLayout>
