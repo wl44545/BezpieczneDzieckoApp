@@ -35,7 +35,7 @@ public class parentScheduleAddMap extends FragmentActivity implements OnMapReady
     private GoogleMap mMap;
     EditText edt_radius;
     Button btn_save, btn_radius;
-    String map_latitude, map_longitude, map_radius;
+    String map_latitude, map_longitude, map_radius, child;
     float latitude, longitude;
 
     @Override
@@ -45,6 +45,9 @@ public class parentScheduleAddMap extends FragmentActivity implements OnMapReady
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        Intent intent = getIntent();
+        child = intent.getStringExtra("login");
 
         SharedPreferences sharedPref = this.getSharedPreferences(getString(R.string.shared_preferences), Context.MODE_PRIVATE);
         longitude = sharedPref.getFloat(getString(R.string.shared_preferences_longitude), (float) 53.4481);
@@ -85,6 +88,7 @@ public class parentScheduleAddMap extends FragmentActivity implements OnMapReady
                 intent.putExtra("map_latitude", map_latitude);
                 intent.putExtra("map_longitude", map_longitude);
                 intent.putExtra("map_radius", map_radius);
+                intent.putExtra("login", child);
                 startActivity(intent);
             }
         });

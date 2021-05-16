@@ -97,6 +97,7 @@ public class parentScheduleAdd extends AppCompatActivity {
             public void onClick(View view)
             {
                 Intent intent = new Intent(parentScheduleAdd.this, parentScheduleAddMap.class);
+                intent.putExtra("login", child);
                 startActivity(intent);
             }
         });
@@ -150,13 +151,13 @@ public class parentScheduleAdd extends AppCompatActivity {
                         month, day);
             case start_time_id:
                 return new TimePickerDialog(parentScheduleAdd.this, start_time_listener, hour,
-                        minute, false);
+                        minute, true);
             case stop_date_id:
                 return new DatePickerDialog(parentScheduleAdd.this, stop_date_listener, year,
                         month, day);
             case stop_time_id:
                 return new TimePickerDialog(parentScheduleAdd.this, stop_time_listener, hour,
-                        minute, false);
+                        minute, true);
         }
         return null;
     }
@@ -164,7 +165,16 @@ public class parentScheduleAdd extends AppCompatActivity {
     DatePickerDialog.OnDateSetListener start_date_listener = new DatePickerDialog.OnDateSetListener() {
         @Override
         public void onDateSet(DatePicker view, int year, int month, int day) {
-            in_start_date = String.valueOf(year) + "-" + String.valueOf(month) + "-" + String.valueOf(day);
+            String mm,dd;
+           if(month+1 < 10)
+               mm = "0"+String.valueOf(month+1);
+           else
+               mm = String.valueOf(month+1);
+            if(day < 10)
+                dd = "0"+String.valueOf(day);
+            else
+                dd = String.valueOf(day);
+            in_start_date = String.valueOf(year) + "-" + mm + "-" + dd;
             txt_start_date.setText(in_start_date);
         }
     };
@@ -172,14 +182,32 @@ public class parentScheduleAdd extends AppCompatActivity {
 
         @Override
         public void onTimeSet(TimePicker view, int hour, int minute) {
-            in_start_time = String.valueOf(hour) + ":" + String.valueOf(minute) + ":00.000+00:00";
+            String hh,mm;
+            if(hour < 10)
+                hh = "0"+String.valueOf(hour);
+            else
+                hh = String.valueOf(hour);
+            if(minute < 10)
+                mm = "0"+String.valueOf(minute);
+            else
+                mm = String.valueOf(minute);
+            in_start_time = hh + ":" + mm + ":00";
             txt_start_time.setText(in_start_time);
         }
     };
     DatePickerDialog.OnDateSetListener stop_date_listener = new DatePickerDialog.OnDateSetListener() {
         @Override
         public void onDateSet(DatePicker view, int year, int month, int day) {
-            in_stop_date = String.valueOf(year) + "-" + String.valueOf(month) + "-" + String.valueOf(day);
+            String mm,dd;
+            if(month+1 < 10)
+                mm = "0"+String.valueOf(month+1);
+            else
+                mm = String.valueOf(month+1);
+            if(day < 10)
+                dd = "0"+String.valueOf(day);
+            else
+                dd = String.valueOf(day);
+            in_stop_date = String.valueOf(year) + "-" + mm + "-" + dd;
             txt_stop_date.setText(in_stop_date);
         }
     };
@@ -187,7 +215,16 @@ public class parentScheduleAdd extends AppCompatActivity {
 
         @Override
         public void onTimeSet(TimePicker view, int hour, int minute) {
-            in_stop_time = String.valueOf(hour) + ":" + String.valueOf(minute) + ":00.000+00:00";
+            String hh,mm;
+            if(hour < 10)
+                hh = "0"+String.valueOf(hour);
+            else
+                hh = String.valueOf(hour);
+            if(minute < 10)
+                mm = "0"+String.valueOf(minute);
+            else
+                mm = String.valueOf(minute);
+            in_stop_time =  hh + ":" + mm + ":00";
             txt_stop_time.setText(in_stop_time);
         }
     };
@@ -195,10 +232,44 @@ public class parentScheduleAdd extends AppCompatActivity {
     private void addSchedule(String child, String parent, String start, String stop, String latitude, String longitude,
                                String radius, String description) throws IOException, JSONException {
 
+        System.out.println(child);
+        System.out.println(parent);
+        System.out.println(start);
+        System.out.println(stop);
+        System.out.println(latitude);
+        System.out.println(longitude);
+        System.out.println(radius);
+        System.out.println(description);
+
+
+        /*StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
+        String x = "http://77.55.216.17:8080/schedules?token="+getString(R.string.schedule_token)+"&child="+child+"&parent="+parent+"&start="+start+"&stop="+stop+"&latitude="+latitude+"&longitude="+longitude+"&radius="+radius+"&description="+description;
+
+        URL url = new URL(x);
+        HttpURLConnection con = (HttpURLConnection) url.openConnection();
+        con.setRequestMethod("POST");
+        con.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+
+        int status = con.getResponseCode();
+        BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+        String inputLine;
+        StringBuilder content = new StringBuilder();
+        while((inputLine = in.readLine()) != null) {
+            content.append(inputLine);
+        }
+        in.close();
+        con.disconnect();*/
+
+
+
+
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
         URL url = new URL(getString(R.string.base_url)+"schedules");
+        //URL url = new URL("http://77.55.216.17:8080/schedules");
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
         con.setRequestMethod("POST");
         con.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
@@ -212,7 +283,7 @@ public class parentScheduleAdd extends AppCompatActivity {
         int status = con.getResponseCode();
         BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
         String inputLine;
-        StringBuffer content = new StringBuffer();
+        StringBuilder content = new StringBuilder();
         while((inputLine = in.readLine()) != null) {
             content.append(inputLine);
         }
@@ -220,7 +291,7 @@ public class parentScheduleAdd extends AppCompatActivity {
         con.disconnect();
 
         /*JSONObject jsonObj = new JSONObject(content.toString());
-        String response = (String) jsonObj.get("code");
+        String response = (String) jsonObj.get("message");
         System.out.println(response);*/
     }
     @Override
