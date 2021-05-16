@@ -131,6 +131,7 @@ public class childLocationService extends Service {
 
     @Override
     public void onCreate() {
+
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
         mLocationCallback = new LocationCallback() {

@@ -63,6 +63,7 @@ public class childMain extends AppCompatActivity implements
     private Button mRequestLocationUpdatesButton;
     private Button mRemoveLocationUpdatesButton;
 
+
     // Monitors the state of the connection to the service.
     private final ServiceConnection mServiceConnection = new ServiceConnection() {
 
@@ -131,12 +132,9 @@ public class childMain extends AppCompatActivity implements
             @Override
             public void onClick(View view)
             {
-
+                
             }
         });
-
-
-
 
         // Check that the user hasn't revoked permissions by going to Settings.
         if (childLocationUtils.requestingLocationUpdates(this)) {
@@ -159,7 +157,6 @@ public class childMain extends AppCompatActivity implements
         mRequestLocationUpdatesButton = (Button) findViewById(R.id.request_location_updates_button);
         mRemoveLocationUpdatesButton = (Button) findViewById(R.id.remove_location_updates_button);
 
-
         mRequestLocationUpdatesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -169,8 +166,6 @@ public class childMain extends AppCompatActivity implements
                 } else {
                     mService.requestLocationUpdates();
                 }
-
-
             }
         });
 
@@ -180,8 +175,6 @@ public class childMain extends AppCompatActivity implements
                 mService.removeLocationUpdates();
             }
         });
-
-
 
         // Restore the state of the buttons when the activity (re)launches.
         setButtonsState(childLocationUtils.requestingLocationUpdates(this));
