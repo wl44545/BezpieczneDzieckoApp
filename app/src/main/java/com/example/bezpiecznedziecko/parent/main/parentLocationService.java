@@ -503,7 +503,7 @@ public class parentLocationService extends Service {
                 .addAction(R.drawable.ic_launch, "Mapa",
                         map)
                 //.setContentText(text)
-                .setContentText("DZIECKO POZA OBSZREM ("+login+")")
+                .setContentText("Dziecko poza dozwolonym obszarem ("+login+")")
                 .setContentTitle("BEZPIECZNE DZIECKO")
                 .setOngoing(true)
                 .setPriority(Notification.PRIORITY_HIGH)

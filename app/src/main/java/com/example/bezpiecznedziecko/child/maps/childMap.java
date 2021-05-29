@@ -86,7 +86,7 @@ public class childMap extends FragmentActivity implements OnMapReadyCallback {
                 .radius(Double.parseDouble(schedule_radius))
                 .strokeColor(Color.RED)
                 .fillColor(Color.argb(32,255,0,0)));
-        mMap.addMarker(new MarkerOptions().icon(vectorToBitmap(R.drawable.ic_schedule, Color.RED)).position(new LatLng(Double.parseDouble(schedule_latitude), Double.parseDouble(schedule_longitude))).title("Tu powinno być dziecko: "+login));
+        mMap.addMarker(new MarkerOptions().icon(vectorToBitmap(R.drawable.ic_schedule, Color.RED)).position(new LatLng(Double.parseDouble(schedule_latitude), Double.parseDouble(schedule_longitude))).title("Nie wychodź poza ten obszar"));
 
         CameraPosition cameraPosition = new CameraPosition.Builder()
                 .target(latlng)      // Sets the center of the map to Mountain View
