@@ -59,11 +59,6 @@ public class childMain extends AppCompatActivity implements
     // Tracks the bound state of the service.
     private boolean mBound = false;
 
-    // UI elements.
-    private Button mRequestLocationUpdatesButton;
-    private Button mRemoveLocationUpdatesButton;
-
-
     // Monitors the state of the connection to the service.
     private final ServiceConnection mServiceConnection = new ServiceConnection() {
 
@@ -154,36 +149,11 @@ public class childMain extends AppCompatActivity implements
         PreferenceManager.getDefaultSharedPreferences(this)
                 .registerOnSharedPreferenceChangeListener(this);
 
-        mRequestLocationUpdatesButton = (Button) findViewById(R.id.request_location_updates_button);
-        mRemoveLocationUpdatesButton = (Button) findViewById(R.id.remove_location_updates_button);
-
-        mRequestLocationUpdatesButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                if (!checkPermissions()) {
-                    requestPermissions();
-                } else {
-                    mService.requestLocationUpdates();
-                }
-            }
-        });
-
-        mRemoveLocationUpdatesButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mService.removeLocationUpdates();
-            }
-        });
-
-        // Restore the state of the buttons when the activity (re)launches.
-        setButtonsState(childLocationUtils.requestingLocationUpdates(this));
-
         // Bind to the service. If the service is in foreground mode, this signals to the service
         // that since this activity is in the foreground, the service can exit foreground mode.
         bindService(new Intent(this, childLocationService.class), mServiceConnection,
                 Context.BIND_AUTO_CREATE);
-//        requestPermissions();
+        requestPermissions();
     }
 
     @Override
@@ -273,7 +243,6 @@ public class childMain extends AppCompatActivity implements
                 mService.requestLocationUpdates();
             } else {
                 // Permission denied.
-                setButtonsState(false);
                 Snackbar.make(
                         findViewById(R.id.child_main),
                         R.string.permission_denied_explanation,
@@ -313,22 +282,10 @@ public class childMain extends AppCompatActivity implements
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
-        // Update the buttons state depending on whether location updates are being requested.
-        if (s.equals(childLocationUtils.KEY_REQUESTING_LOCATION_UPDATES)) {
-            setButtonsState(sharedPreferences.getBoolean(childLocationUtils.KEY_REQUESTING_LOCATION_UPDATES,
-                    false));
-        }
+
     }
 
-    private void setButtonsState(boolean requestingLocationUpdates) {
-        if (requestingLocationUpdates) {
-            mRequestLocationUpdatesButton.setEnabled(false);
-            mRemoveLocationUpdatesButton.setEnabled(true);
-        } else {
-            mRequestLocationUpdatesButton.setEnabled(true);
-            mRemoveLocationUpdatesButton.setEnabled(false);
-        }
-    }
+
 
     @Override
     public void onBackPressed() {

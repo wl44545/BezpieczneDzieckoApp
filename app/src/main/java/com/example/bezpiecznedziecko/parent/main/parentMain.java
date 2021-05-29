@@ -152,17 +152,6 @@ public class parentMain extends AppCompatActivity implements
         });
 
 
-        Button btn_tmp = (Button)findViewById(R.id.btn_tmp);
-        btn_tmp.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view)
-            {
-
-            }
-        });
-
-
-
         // Check that the user hasn't revoked permissions by going to Settings.
         if (parentLocationUtils.requestingLocationUpdates(this)) {
             if (!checkPermissions()) {
