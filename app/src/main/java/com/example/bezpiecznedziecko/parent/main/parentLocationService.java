@@ -12,6 +12,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.location.Location;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Binder;
 import android.os.Build;
 import android.os.Handler;
@@ -100,7 +103,7 @@ public class parentLocationService extends Service {
     /**
      * The desired interval for location updates. Inexact. Updates may be more or less frequent.
      */
-    private static final long UPDATE_INTERVAL_IN_MILLISECONDS = 60000;
+    private static final long UPDATE_INTERVAL_IN_MILLISECONDS = 5000;
 
     /**
      * The fastest rate for active location updates. Updates will never be more frequent
@@ -112,8 +115,7 @@ public class parentLocationService extends Service {
     /**
      * The identifier for the notification displayed for the foreground service.
      */
-    private static final int NOTIFICATION_ID = 12345678;
-    private static final int NOTIFICATION_ID2 = 12345679;
+    private static int NOTIFICATION_ID = 12345678;
 
     /**
      * Used to check whether the bound activity has really gone away and not unbound as part of an
@@ -444,7 +446,7 @@ public class parentLocationService extends Service {
             childrenList = children;
             System.out.println(childrenList);
             for(int i=0;i<children.size();i++){
-                loadCurrentLocation(childrenList.get(i).login);
+                loadCurrentLocation(childrenList.get(i).login,i+1);
             }
 
         } else {
@@ -458,7 +460,7 @@ public class parentLocationService extends Service {
                 Toast.LENGTH_LONG).show();
     }
 
-    private void loadCurrentLocation(String login) throws IOException, JSONException {
+    private void loadCurrentLocation(String login,int id) throws IOException, JSONException {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         String x = getString(R.string.base_url) + "locations?token=" + getString(R.string.schedule_token) + "&child=" + login;
@@ -480,7 +482,10 @@ public class parentLocationService extends Service {
 
         if(schedule_location.equals("1")){
             Log.i(TAG, login+" poza obszarem");
-            mNotificationManager.notify(NOTIFICATION_ID2, child_alarm(login));
+            mNotificationManager.notify(NOTIFICATION_ID+id, child_alarm(login));
+            Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+            Ringtone r = RingtoneManager.getRingtone(getApplicationContext(), notification);
+            r.play();
         }else if(schedule_location.equals("0")) {
             Log.i(TAG, login + " w obszarze");
         }else{

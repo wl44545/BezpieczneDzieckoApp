@@ -64,6 +64,7 @@ public class parentMap extends FragmentActivity implements OnMapReadyCallback {
     List<Children.Child> childrenList;
     Random rnd = new Random();
     int[][] colors = new int[255][3];
+    boolean first_map;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,6 +97,7 @@ public class parentMap extends FragmentActivity implements OnMapReadyCallback {
             colors[i][2] = rnd.nextInt(256);
         }
 
+        first_map = true;
     }
 
     @Override
@@ -113,13 +115,16 @@ public class parentMap extends FragmentActivity implements OnMapReadyCallback {
 
         callEndpoints();
 
-        CameraPosition cameraPosition = new CameraPosition.Builder()
-                .target(latlng)      // Sets the center of the map to Mountain View
-                .zoom(15)                   // Sets the zoom
-                .bearing(0)                // Sets the orientation of the camera to east
-                .tilt(0)                   // Sets the tilt of the camera to 30 degrees
-                .build();                   // Creates a CameraPosition from the builder
-        //mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+        if(first_map==true){
+            CameraPosition cameraPosition = new CameraPosition.Builder()
+                    .target(latlng)      // Sets the center of the map to Mountain View
+                    .zoom(15)                   // Sets the zoom
+                    .bearing(0)                // Sets the orientation of the camera to east
+                    .tilt(0)                   // Sets the tilt of the camera to 30 degrees
+                    .build();                   // Creates a CameraPosition from the builder
+            mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+        }
+        first_map = false;
     }
 
 
