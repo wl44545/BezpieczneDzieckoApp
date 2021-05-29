@@ -113,6 +113,7 @@ public class parentLocationService extends Service {
      * The identifier for the notification displayed for the foreground service.
      */
     private static final int NOTIFICATION_ID = 12345678;
+    private static final int NOTIFICATION_ID2 = 12345679;
 
     /**
      * Used to check whether the bound activity has really gone away and not unbound as part of an
@@ -479,7 +480,7 @@ public class parentLocationService extends Service {
 
         if(schedule_location.equals("1")){
             Log.i(TAG, login+" poza obszarem");
-            //mNotificationManager.notify(NOTIFICATION_ID, getNotification());
+            mNotificationManager.notify(NOTIFICATION_ID2, child_alarm(login));
         }else if(schedule_location.equals("0")) {
             Log.i(TAG, login + " w obszarze");
         }else{
@@ -503,6 +504,12 @@ public class parentLocationService extends Service {
                 .setPriority(Notification.PRIORITY_HIGH)
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setWhen(System.currentTimeMillis());
+
+        // Set the Channel ID for Android O.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            builder.setChannelId(CHANNEL_ID); // Channel ID
+        }
+
         return builder.build();
     }
 
