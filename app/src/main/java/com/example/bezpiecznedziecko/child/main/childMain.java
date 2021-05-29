@@ -143,10 +143,9 @@ public class childMain extends AppCompatActivity implements
             }
         }
 
-        bindService(new Intent(this, childLocationService.class), mServiceConnection,
-                Context.BIND_AUTO_CREATE);
-        mService.requestLocationUpdates();
-
+//        bindService(new Intent(this, childLocationService.class), mServiceConnection,
+//                Context.BIND_AUTO_CREATE);
+//        mService.requestLocationUpdates();
     }
 
     @Override
@@ -154,9 +153,6 @@ public class childMain extends AppCompatActivity implements
         super.onStart();
         PreferenceManager.getDefaultSharedPreferences(this)
                 .registerOnSharedPreferenceChangeListener(this);
-
-
-
 
         mRequestLocationUpdatesButton = (Button) findViewById(R.id.request_location_updates_button);
         mRemoveLocationUpdatesButton = (Button) findViewById(R.id.remove_location_updates_button);
@@ -187,6 +183,7 @@ public class childMain extends AppCompatActivity implements
         // that since this activity is in the foreground, the service can exit foreground mode.
         bindService(new Intent(this, childLocationService.class), mServiceConnection,
                 Context.BIND_AUTO_CREATE);
+//        requestPermissions();
     }
 
     @Override
@@ -194,6 +191,7 @@ public class childMain extends AppCompatActivity implements
         super.onResume();
         LocalBroadcastManager.getInstance(this).registerReceiver(myReceiver,
                 new IntentFilter(childLocationService.ACTION_BROADCAST));
+//        mRequestLocationUpdatesButton.callOnClick();
     }
 
     @Override
