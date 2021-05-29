@@ -16,21 +16,29 @@
         android:layout_height="641dp"
         tools:context=".parent.children.schedules.parentScheduleAddMap" />
 
-
+    <Button
+        android:id="@+id/btn_radius_decrease"
+        android:layout_width="40dp"
+        android:layout_height="50dp"
+        android:text="-"
+        android:textSize="12sp" />
     <EditText
         android:id="@+id/edt_radius"
         android:layout_width="97dp"
         android:layout_height="50dp"
-        android:inputType="number|numberDecimal" />
+        android:inputType="number|numberDecimal"
+        android:text="100"
+        android:translationX="40dp"
+        android:translationY="-50dp"/>
 
     <Button
-        android:id="@+id/btn_radius"
-        android:layout_width="100dp"
+        android:id="@+id/btn_radius_increase"
+        android:layout_width="40dp"
         android:layout_height="50dp"
-        android:text="OBSZAR"
+        android:text="+"
         android:textSize="12sp"
-        android:translationX="100dp"
-        android:translationY="-50dp" />
+        android:translationX="140dp"
+        android:translationY="-100dp" />
 
     <Button
         android:id="@+id/btn_save"
@@ -39,6 +47,6 @@
         android:text="ZAPISZ"
         android:textSize="12sp"
         android:translationX="270dp"
-        android:translationY="-100dp" />
+        android:translationY="-150dp" />
 
 </LinearLayout>
