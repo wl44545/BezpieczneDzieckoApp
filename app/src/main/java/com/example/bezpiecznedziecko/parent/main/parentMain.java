@@ -135,6 +135,7 @@ public class parentMain extends AppCompatActivity implements
             @Override
             public void onClick(View view)
             {
+                mService.removeLocationUpdates();
                 @SuppressLint("CommitPrefEdits") SharedPreferences.Editor editor = sharedPref.edit();
                 editor.putString(getString(R.string.shared_preferences_logged), getString(R.string.shared_preferences_logged_nobody));
                 editor.putString(getString(R.string.shared_preferences_login), getString(R.string.shared_preferences_logged_nobody));
@@ -310,11 +311,11 @@ public class parentMain extends AppCompatActivity implements
     private class MyReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            Location location = intent.getParcelableExtra(parentLocationService.EXTRA_LOCATION);
+            /*Location location = intent.getParcelableExtra(parentLocationService.EXTRA_LOCATION);
             if (location != null) {
                 Toast.makeText(parentMain.this, parentLocationUtils.getLocationText(location),
                         Toast.LENGTH_SHORT).show();
-            }
+            }*/
         }
     }
 

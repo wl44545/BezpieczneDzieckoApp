@@ -1,12 +1,19 @@
 package com.example.bezpiecznedziecko.child.maps;
 
+import androidx.annotation.ColorInt;
+import androidx.annotation.DrawableRes;
 import androidx.annotation.RequiresApi;
+import androidx.core.content.res.ResourcesCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.fragment.app.FragmentActivity;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -20,6 +27,8 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
@@ -65,7 +74,7 @@ public class childMap extends FragmentActivity implements OnMapReadyCallback {
         float longitude = sharedPref.getFloat(getString(R.string.shared_preferences_longitude), (float) 0.0);
         float latitude = sharedPref.getFloat(getString(R.string.shared_preferences_latitude), (float) 0.0);
         LatLng latlng = new LatLng(latitude, longitude);
-        mMap.addMarker(new MarkerOptions().position(latlng).title("Ja"));
+        mMap.addMarker(new MarkerOptions().icon(vectorToBitmap(R.drawable.ic_parent, Color.BLUE)).position(latlng).title("Tu jesteś"));
 
         try {
             loadCurrentSchedule(login);
@@ -77,6 +86,8 @@ public class childMap extends FragmentActivity implements OnMapReadyCallback {
                 .radius(Double.parseDouble(schedule_radius))
                 .strokeColor(Color.RED)
                 .fillColor(Color.argb(32,255,0,0)));
+        mMap.addMarker(new MarkerOptions().icon(vectorToBitmap(R.drawable.ic_schedule, Color.RED)).position(new LatLng(Double.parseDouble(schedule_latitude), Double.parseDouble(schedule_longitude))).title("Tu powinno być dziecko: "+login));
+
         CameraPosition cameraPosition = new CameraPosition.Builder()
                 .target(latlng)      // Sets the center of the map to Mountain View
                 .zoom(15)                   // Sets the zoom
@@ -111,6 +122,17 @@ public class childMap extends FragmentActivity implements OnMapReadyCallback {
     public void onBackPressed() {
         Intent intent = new Intent(this, childMain.class);
         startActivity(intent);
+    }
+
+    private BitmapDescriptor vectorToBitmap(@DrawableRes int id, @ColorInt int color) {
+        Drawable vectorDrawable = ResourcesCompat.getDrawable(getResources(), id, null);
+        Bitmap bitmap = Bitmap.createBitmap(vectorDrawable.getIntrinsicWidth(),
+                vectorDrawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        vectorDrawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+        DrawableCompat.setTint(vectorDrawable, color);
+        vectorDrawable.draw(canvas);
+        return BitmapDescriptorFactory.fromBitmap(bitmap);
     }
 
     private void refresh (int milliseconds) {

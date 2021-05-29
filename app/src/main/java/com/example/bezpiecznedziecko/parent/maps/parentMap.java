@@ -111,7 +111,7 @@ public class parentMap extends FragmentActivity implements OnMapReadyCallback {
         float longitude = sharedPref.getFloat(getString(R.string.shared_preferences_longitude), (float) 0.0);
         float latitude = sharedPref.getFloat(getString(R.string.shared_preferences_latitude), (float) 0.0);
         LatLng latlng = new LatLng(latitude, longitude);
-        mMap.addMarker(new MarkerOptions().position(latlng).title("Ja"));
+        mMap.addMarker(new MarkerOptions().icon(vectorToBitmap(R.drawable.ic_parent, Color.BLUE)).position(latlng).title("Tu jesteś"));
 
         callEndpoints();
 
@@ -193,7 +193,7 @@ public class parentMap extends FragmentActivity implements OnMapReadyCallback {
                 .radius(Double.parseDouble(schedule_radius))
                 .strokeColor(clr)
                 .fillColor(clr));
-        mMap.addMarker(new MarkerOptions().icon(vectorToBitmap(R.drawable.ic_schedule, clr)).position(new LatLng(Double.parseDouble(schedule_latitude), Double.parseDouble(schedule_longitude))).title("schedule: "+login));
+        mMap.addMarker(new MarkerOptions().icon(vectorToBitmap(R.drawable.ic_schedule, clr)).position(new LatLng(Double.parseDouble(schedule_latitude), Double.parseDouble(schedule_longitude))).title("Tu powinno być dziecko: "+login));
     }
 
 
@@ -217,7 +217,7 @@ public class parentMap extends FragmentActivity implements OnMapReadyCallback {
         String schedule_latitude = (String) new JSONObject(content.toString().replace('[',' ').replace(']', ' ')).get("latitude");
         String schedule_location = (String) new JSONObject(content.toString().replace('[',' ').replace(']', ' ')).get("location");
         int clr = Color.argb(255,r,g,b);
-        mMap.addMarker(new MarkerOptions().icon(vectorToBitmap(R.drawable.ic_person, clr)).position(new LatLng(Double.parseDouble(schedule_latitude), Double.parseDouble(schedule_longitude))).title("location: "+login));
+        mMap.addMarker(new MarkerOptions().icon(vectorToBitmap(R.drawable.ic_person, clr)).position(new LatLng(Double.parseDouble(schedule_latitude), Double.parseDouble(schedule_longitude))).title("Tu jest dziecko: "+login));
 
 
 
