@@ -20,13 +20,16 @@ import android.os.IBinder;
 import android.os.Looper;
 import android.os.StrictMode;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.example.bezpiecznedziecko.R;
-import com.example.bezpiecznedziecko.parent.main.parentLocationUtils;
+import com.example.bezpiecznedziecko.parent.children.Children;
+import com.example.bezpiecznedziecko.parent.maps.parentMap;
+import com.example.bezpiecznedziecko.retrofit.RestClient;
 import com.example.bezpiecznedziecko.welcome;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
@@ -35,16 +38,27 @@ import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.List;
+
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
+import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * A bound and started service that is promoted to a foreground service when location updates have
@@ -61,6 +75,9 @@ import java.net.URL;
  * notification associated with that service is removed.
  */
 public class parentLocationService extends Service {
+
+    Retrofit retrofit;
+    List<Children.Child> childrenList;
 
     private static final String PACKAGE_NAME =
             "com.google.android.gms.location.sample.locationupdatesforegroundservice";
@@ -162,6 +179,8 @@ public class parentLocationService extends Service {
             // Set the Notification Channel for the Notification Manager.
             mNotificationManager.createNotificationChannel(mChannel);
         }
+
+
     }
 
     @Override
@@ -242,6 +261,22 @@ public class parentLocationService extends Service {
             parentLocationUtils.setRequestingLocationUpdates(this, false);
             Log.e(TAG, "Lost location permission. Could not request updates. " + unlikely);
         }
+
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
+
+        Gson gson = new GsonBuilder()
+                .setLenient()
+                .create();
+
+        retrofit = new Retrofit.Builder()
+                .baseUrl(getString(R.string.base_url))
+                .client(client)
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .build();
+
     }
 
     /**
@@ -333,11 +368,7 @@ public class parentLocationService extends Service {
 
         mLocation = location;
 
-        try {
-            sendLocation(child_login, String.valueOf(location.getLongitude()), String.valueOf(location.getLatitude()), "0","0");
-        } catch (IOException | JSONException e) {
-            e.printStackTrace();
-        }
+        callEndpoints();
 
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putFloat(getString(R.string.shared_preferences_longitude), (float) location.getLongitude());
@@ -354,40 +385,6 @@ public class parentLocationService extends Service {
             mNotificationManager.notify(NOTIFICATION_ID, getNotification());
         }
     }
-
-    private void sendLocation(String child, String longitude, String latitude, String status, String alarm) throws IOException, JSONException {
-
-        /*StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
-
-        URL url = new URL(getString(R.string.base_url)+"locations");
-        HttpURLConnection con = (HttpURLConnection) url.openConnection();
-        con.setRequestMethod("POST");
-        con.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-
-        con.setDoOutput(true);
-        DataOutputStream out = new DataOutputStream(con.getOutputStream());
-        out.writeBytes("token="+getString(R.string.location_token)+"&child="+child+"&longitude="+longitude+"&latitude="+latitude+"&status="+status+"&alarm="+alarm+"&location=null");
-        out.flush();
-        out.close();
-
-        int res_status = con.getResponseCode();
-        BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-        String inputLine;
-        StringBuilder content = new StringBuilder();
-        while((inputLine = in.readLine()) != null) {
-            content.append(inputLine);
-        }
-        in.close();
-        con.disconnect();
-
-        JSONObject jsonObj = new JSONObject(content.toString());
-        String response = (String) jsonObj.get("code");
-        System.out.println(response);*/
-
-    }
-
-
 
 
     /**
@@ -429,5 +426,85 @@ public class parentLocationService extends Service {
         }
         return false;
     }
+
+    @SuppressLint("CheckResult")
+    private void callEndpoints() {
+
+        SharedPreferences sharedPref = this.getSharedPreferences(getString(R.string.shared_preferences), Context.MODE_PRIVATE);
+        String login = sharedPref.getString(getString(R.string.shared_preferences_login), "login");
+
+        RestClient retrofitService = retrofit.create(RestClient.class);
+        Observable<Children> childrenObservable = retrofitService.getChildrenProfiles(login);
+        childrenObservable.subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread()).map(result -> result.data).subscribe(this::handleResults, this::handleError);
+    }
+
+    private void handleResults(List<Children.Child> children) throws IOException, JSONException {
+        if (children != null && children.size() != 0) {
+            childrenList = children;
+            System.out.println(childrenList);
+            for(int i=0;i<children.size();i++){
+                loadCurrentLocation(childrenList.get(i).login);
+            }
+
+        } else {
+            Toast.makeText(this, "NO RESULTS FOUND",
+                    Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void handleError(Throwable t) {
+        Toast.makeText(this, "ERROR IN FETCHING API RESPONSE. Try again",
+                Toast.LENGTH_LONG).show();
+    }
+
+    private void loadCurrentLocation(String login) throws IOException, JSONException {
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+        String x = getString(R.string.base_url) + "locations?token=" + getString(R.string.schedule_token) + "&child=" + login;
+        URL url = new URL(x);
+        HttpURLConnection con = (HttpURLConnection) url.openConnection();
+        con.setRequestMethod("GET");
+        int status = con.getResponseCode();
+        BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+        String inputLine;
+        StringBuilder content = new StringBuilder();
+        while ((inputLine = in.readLine()) != null) {
+            content.append(inputLine);
+        }
+        in.close();
+        con.disconnect();
+        String schedule_longitude = (String) new JSONObject(content.toString().replace('[', ' ').replace(']', ' ')).get("longitude");
+        String schedule_latitude = (String) new JSONObject(content.toString().replace('[', ' ').replace(']', ' ')).get("latitude");
+        String schedule_location = (String) new JSONObject(content.toString().replace('[', ' ').replace(']', ' ')).get("location");
+
+        if(schedule_location.equals("1")){
+            Log.i(TAG, login+" poza obszarem");
+            //mNotificationManager.notify(NOTIFICATION_ID, getNotification());
+        }else if(schedule_location.equals("0")) {
+            Log.i(TAG, login + " w obszarze");
+        }else{
+            Log.i(TAG, login + " nie ma harmonogramu");
+        }
+
+    }
+
+    private Notification child_alarm(String login){
+
+        PendingIntent map = PendingIntent.getActivity(this, 0,
+                new Intent(this, parentMap.class), 0);
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
+                .addAction(R.drawable.ic_launch, "Mapa",
+                        map)
+                //.setContentText(text)
+                .setContentText("DZIECKO POZA OBSZREM ("+login+")")
+                .setContentTitle("BEZPIECZNE DZIECKO")
+                .setOngoing(true)
+                .setPriority(Notification.PRIORITY_HIGH)
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setWhen(System.currentTimeMillis());
+        return builder.build();
+    }
+
 }
 

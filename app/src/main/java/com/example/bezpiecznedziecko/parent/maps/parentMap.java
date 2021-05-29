@@ -109,6 +109,7 @@ public class parentMap extends FragmentActivity implements OnMapReadyCallback {
         float longitude = sharedPref.getFloat(getString(R.string.shared_preferences_longitude), (float) 0.0);
         float latitude = sharedPref.getFloat(getString(R.string.shared_preferences_latitude), (float) 0.0);
         LatLng latlng = new LatLng(latitude, longitude);
+        mMap.addMarker(new MarkerOptions().position(latlng).title("Ja"));
 
         callEndpoints();
 
