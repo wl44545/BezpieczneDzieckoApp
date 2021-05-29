@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -35,7 +37,7 @@ public class parentScheduleAddMap extends FragmentActivity implements OnMapReady
 
     private GoogleMap mMap;
     EditText edt_radius;
-    Button btn_save, btn_radius;
+    Button btn_save, btn_radius_increase,btn_radius_decrease;
     String map_latitude, map_longitude, map_radius, child;
     float latitude, longitude;
 
@@ -57,11 +59,22 @@ public class parentScheduleAddMap extends FragmentActivity implements OnMapReady
         map_longitude = String.valueOf(longitude);
 
         edt_radius = (EditText)findViewById(R.id.edt_radius);
-        btn_radius = (Button)findViewById(R.id.btn_radius);
-        btn_radius.setOnClickListener(new View.OnClickListener(){
+        edt_radius.addTextChangedListener(new TextWatcher() {
+            int old_radius;
             @Override
-            public void onClick(View view)
-            {
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                old_radius = Integer.parseInt(edt_radius.getText().toString());
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(Integer.parseInt(edt_radius.getText().toString())<50){
+                    edt_radius.setText(Integer.toString(old_radius));
+                }
                 mMap.clear();
                 map_radius = edt_radius.getText().toString();
                 LatLng latlng = new LatLng(Double.parseDouble(map_latitude), Double.parseDouble(map_longitude));
@@ -80,6 +93,26 @@ public class parentScheduleAddMap extends FragmentActivity implements OnMapReady
                 mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
             }
         });
+
+
+        btn_radius_decrease = (Button)findViewById(R.id.btn_radius_decrease);
+        btn_radius_decrease.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view)
+            {
+                edt_radius.setText(Integer.toString(Integer.parseInt(edt_radius.getText().toString())-50));
+            }
+        });
+
+        btn_radius_increase = (Button)findViewById(R.id.btn_radius_increase);
+        btn_radius_increase.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view)
+            {
+                edt_radius.setText(Integer.toString(Integer.parseInt(edt_radius.getText().toString())+50));
+            }
+        });
+
 
         btn_save = (Button)findViewById(R.id.btn_save);
         btn_save.setOnClickListener(new View.OnClickListener(){
