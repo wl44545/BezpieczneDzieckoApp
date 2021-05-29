@@ -65,27 +65,6 @@
         android:layout_gravity="center"
         android:text="@string/parent_main_btn_logout" />
 
-
-
-
-    <Button
-        android:id="@+id/request_location_updates_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/request_location_updates"/>
-
-    <Button
-        android:id="@+id/remove_location_updates_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/remove_location_updates"/>
-
-    <Button
-        android:id="@+id/btn_tmp"
-        android:layout_width="75dp"
-        android:layout_height="50dp"
-        android:text="tmp" />
-
 </LinearLayout>
 
 

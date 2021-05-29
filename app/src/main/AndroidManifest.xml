@@ -69,6 +69,11 @@
             android:enabled="true"
             android:exported="true"
             android:foregroundServiceType="location" />
+        <service
+            android:name=".parent.main.parentLocationService"
+            android:enabled="true"
+            android:exported="true"
+            android:foregroundServiceType="location" />
     </application>
 
 </manifest>
