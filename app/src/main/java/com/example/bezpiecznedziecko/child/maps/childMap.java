@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.StrictMode;
 import android.view.View;
 import android.widget.Button;
@@ -53,11 +54,12 @@ public class childMap extends FragmentActivity implements OnMapReadyCallback {
         schedule_radius = "0.0";
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         mMap.clear();
+
+        refresh(15000);
 
         SharedPreferences sharedPref = this.getSharedPreferences(getString(R.string.shared_preferences), Context.MODE_PRIVATE);
         float longitude = sharedPref.getFloat(getString(R.string.shared_preferences_longitude), (float) 0.0);
@@ -109,6 +111,17 @@ public class childMap extends FragmentActivity implements OnMapReadyCallback {
     public void onBackPressed() {
         Intent intent = new Intent(this, childMain.class);
         startActivity(intent);
+    }
+
+    private void refresh (int milliseconds) {
+        final Handler handler = new Handler();
+        final Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                onMapReady(mMap);
+            }
+        };
+        handler.postDelayed(runnable, milliseconds);
     }
 
 }

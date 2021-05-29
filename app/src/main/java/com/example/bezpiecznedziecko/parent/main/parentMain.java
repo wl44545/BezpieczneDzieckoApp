@@ -157,8 +157,7 @@ public class parentMain extends AppCompatActivity implements
             @Override
             public void onClick(View view)
             {
-                Intent intent = new Intent(parentMain.this, parentDataAnalysing.class);
-                startActivity(intent);
+
             }
         });
 

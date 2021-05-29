@@ -143,6 +143,9 @@ public class childMain extends AppCompatActivity implements
             }
         }
 
+        bindService(new Intent(this, childLocationService.class), mServiceConnection,
+                Context.BIND_AUTO_CREATE);
+        mService.requestLocationUpdates();
 
     }
 
@@ -151,6 +154,7 @@ public class childMain extends AppCompatActivity implements
         super.onStart();
         PreferenceManager.getDefaultSharedPreferences(this)
                 .registerOnSharedPreferenceChangeListener(this);
+
 
 
 
