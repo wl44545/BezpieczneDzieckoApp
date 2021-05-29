@@ -317,18 +317,14 @@ public class parentLocationService extends Service {
         PendingIntent activityPendingIntent = PendingIntent.getActivity(this, 0,
                 new Intent(this, parentMain.class), 0);
 
-        PendingIntent alarm = PendingIntent.getActivity(this, 0,
-                new Intent(this, welcome.class), 0);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
                 .addAction(R.drawable.ic_launch, "Powrót",
                         activityPendingIntent)
-                .addAction(R.drawable.ic_launch, "Alarm",
-                        alarm)
                 /*.addAction(R.drawable.ic_cancel, getString(R.string.remove_location_updates),
                         servicePendingIntent)*/
                 //.setContentText(text)
-                .setContentText("Aplikacja ciągle dba o Twoje bezpieczeństwo!")
+                .setContentText("Aplikacja ciągle dba o bezpieczeństwo Twoich dzieci!")
                 //.setContentTitle(childLocationUtils.getLocationTitle(this))
                 .setContentTitle("BEZPIECZNE DZIECKO")
                 .setOngoing(true)
