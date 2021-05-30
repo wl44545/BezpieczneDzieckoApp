@@ -4,6 +4,10 @@ import android.annotation.SuppressLint;
 import android.app.Service;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.MediaPlayer;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.IBinder;
 import android.app.ActivityManager;
 import android.app.Notification;
@@ -26,6 +30,8 @@ import android.os.StrictMode;
 import android.util.Log;
 
 import com.example.bezpiecznedziecko.R;
+import com.example.bezpiecznedziecko.child.maps.childMap;
+import com.example.bezpiecznedziecko.parent.maps.parentMap;
 import com.example.bezpiecznedziecko.welcome;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
@@ -40,6 +46,7 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -334,6 +341,7 @@ public class childLocationService extends Service {
 
         try {
             sendLocation(child_login, String.valueOf(location.getLongitude()), String.valueOf(location.getLatitude()), "0","0");
+            loadCurrentLocation(child_login);
         } catch (IOException | JSONException e) {
             e.printStackTrace();
         }
@@ -428,5 +436,74 @@ public class childLocationService extends Service {
         }
         return false;
     }
+
+
+
+    private void loadCurrentLocation(String login) throws IOException, JSONException {
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+        String x = getString(R.string.base_url) + "locations?token=" + getString(R.string.schedule_token) + "&child=" + login;
+        URL url = new URL(x);
+        HttpURLConnection con = (HttpURLConnection) url.openConnection();
+        con.setRequestMethod("GET");
+        int status = con.getResponseCode();
+        BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+        String inputLine;
+        StringBuilder content = new StringBuilder();
+        while ((inputLine = in.readLine()) != null) {
+            content.append(inputLine);
+        }
+        in.close();
+        con.disconnect();
+        String schedule_longitude = (String) new JSONObject(content.toString().replace('[', ' ').replace(']', ' ')).get("longitude");
+        String schedule_latitude = (String) new JSONObject(content.toString().replace('[', ' ').replace(']', ' ')).get("latitude");
+        String schedule_location = (String) new JSONObject(content.toString().replace('[', ' ').replace(']', ' ')).get("location");
+
+        if(schedule_location.equals("1")){
+            Log.i(TAG, login+" poza obszarem");
+            mNotificationManager.notify(NOTIFICATION_ID+10, child_alarm(login));
+            Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+            Uri soundUri = Uri.parse(
+                    "android.resource://" +
+                            getApplicationContext().getPackageName() +
+                            "/" +
+                            R.raw.alarm);
+            Ringtone r = RingtoneManager.getRingtone(getApplicationContext(), soundUri);
+            r.play();
+
+        }else if(schedule_location.equals("0")) {
+            Log.i(TAG, login + " w obszarze");
+        }else{
+            Log.i(TAG, login + " nie ma harmonogramu");
+        }
+
+    }
+
+    private Notification child_alarm(String login){
+
+        PendingIntent map = PendingIntent.getActivity(this, 0,
+                new Intent(this, childMap.class), 0);
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
+                .addAction(R.drawable.ic_launch, "Mapa",
+                        map)
+                //.setContentText(text)
+                .setContentText("Jesteś poza dozwolonym obszarem ("+login+")")
+                .setContentTitle("BEZPIECZNE DZIECKO")
+                .setOngoing(true)
+                .setPriority(Notification.PRIORITY_HIGH)
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setWhen(System.currentTimeMillis());
+
+        // Set the Channel ID for Android O.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            builder.setChannelId(CHANNEL_ID); // Channel ID
+        }
+
+        return builder.build();
+    }
+
+
+
 }
 

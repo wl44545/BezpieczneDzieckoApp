@@ -74,6 +74,7 @@ public class parentMap extends FragmentActivity implements OnMapReadyCallback {
         login = sharedPref.getString(getString(R.string.shared_preferences_login), getString(R.string.shared_preferences_login));
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
+        assert mapFragment != null;
         mapFragment.getMapAsync(this);
 
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
@@ -115,7 +116,7 @@ public class parentMap extends FragmentActivity implements OnMapReadyCallback {
 
         callEndpoints();
 
-        if(first_map==true){
+        if(first_map){
             CameraPosition cameraPosition = new CameraPosition.Builder()
                     .target(latlng)      // Sets the center of the map to Mountain View
                     .zoom(15)                   // Sets the zoom

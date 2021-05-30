@@ -47,6 +47,7 @@ public class childMap extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
     String schedule_longitude, schedule_latitude, schedule_radius, login;
+    boolean first_map;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +62,8 @@ public class childMap extends FragmentActivity implements OnMapReadyCallback {
         schedule_longitude = "0.0";
         schedule_latitude = "0.0";
         schedule_radius = "0.0";
+
+        first_map = true;
     }
 
     @Override
@@ -88,13 +91,16 @@ public class childMap extends FragmentActivity implements OnMapReadyCallback {
                 .fillColor(Color.argb(32,255,0,0)));
         mMap.addMarker(new MarkerOptions().icon(vectorToBitmap(R.drawable.ic_schedule, Color.RED)).position(new LatLng(Double.parseDouble(schedule_latitude), Double.parseDouble(schedule_longitude))).title("Nie wychodź poza ten obszar"));
 
-        CameraPosition cameraPosition = new CameraPosition.Builder()
-                .target(latlng)      // Sets the center of the map to Mountain View
-                .zoom(15)                   // Sets the zoom
-                .bearing(0)                // Sets the orientation of the camera to east
-                .tilt(0)                   // Sets the tilt of the camera to 30 degrees
-                .build();                   // Creates a CameraPosition from the builder
-        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+        if(first_map){
+            CameraPosition cameraPosition = new CameraPosition.Builder()
+                    .target(latlng)      // Sets the center of the map to Mountain View
+                    .zoom(15)                   // Sets the zoom
+                    .bearing(0)                // Sets the orientation of the camera to east
+                    .tilt(0)                   // Sets the tilt of the camera to 30 degrees
+                    .build();                   // Creates a CameraPosition from the builder
+            mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+        }
+        first_map = false;
     }
 
     private void loadCurrentSchedule(String login) throws IOException, JSONException {
